@@ -9,6 +9,7 @@ public class BuildMenu : MonoBehaviour
     public SelectionCheck Selection;
     public Build builder;
     public AllyMoving Moving;
+    private bool doStruct = false;
     //переменные зданий
     public GameObject structR;
     public GameObject flyStructR;
@@ -18,13 +19,17 @@ public class BuildMenu : MonoBehaviour
             buildMenuIsOpen = true;
         if (!Selection.isSelected) //заккрываем меню строительства
             buildMenuIsOpen = false;
-        if(buildMenuIsOpen) //если меню открыто
+        if (buildMenuIsOpen) //если меню открыто
         {
-            if(Input.GetKey("r")) //если нажимаем r, создаЄтс€ шаблон здани€
+            if (Input.GetKey("r")) //если нажимаем r, создаЄтс€ шаблон здани€
             {
                 builder.SelectBuildPosition(flyStructR);
                 builder.structBe = true;
             }
+            doStruct = true;
+        }
+        if (doStruct)
+        {
             if(!Input.GetKey("r") && builder.structBe)
             {
                 if (builder.flyStruct.tag == "IsFreePosition") //если место свободно, дрон идЄт к месту
@@ -42,9 +47,12 @@ public class BuildMenu : MonoBehaviour
                     builder.BuildStruct(structR);
                     builder.structBe = false;
                     Moving.isMoving = false;
+                    doStruct = false;
                 }
-                if(Input.GetMouseButtonDown(1) || Input.GetKey("s")) //если мы передумали строить и остановились
+                if((Input.GetMouseButtonDown(1) || Input.GetKey("s")) && Selection.isSelected) //если мы передумали строить и остановились
                 {                                                    //или отправили дрона в другое место, то всЄ перестаЄт работать
+                    Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Moving.finalPos.z = 0;
                     builder.flyStruct.tag = "IsNotFreePosition";
                     builder.BuildStruct(structR);
                     builder.structBe = false;
