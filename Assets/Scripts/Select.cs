@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//скрипт для работы сетки выделения
 public class Select : MonoBehaviour
 {
     public bool k = false; //не помню зачем но без этого у меня не работало

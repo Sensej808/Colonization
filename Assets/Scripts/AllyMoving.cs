@@ -7,9 +7,9 @@ using UnityEngine.UIElements;
 //скрипт передвижения союзных юнитов
 public class AllyMoving : MonoBehaviour
 {
-    private Vector3 finalPos; //точка, куда идёт юнит
+    public Vector3 finalPos; //точка, куда идёт юнит
     private float speed = 5f; //скорость юнита
-    private bool isMoving = false; //значение true, если выбрана позиция или юнит туда идёт, false, если остановился или дошёл
+    public bool isMoving = false; //значение true, если выбрана позиция или юнит туда идёт, false, если остановился или дошёл
     public SelectionCheck Selection; //нужен для обращения к переменной IsSelected класса SelectionCheck 
     void Update()
     {
