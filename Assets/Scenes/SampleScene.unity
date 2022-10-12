@@ -560,9 +560,11 @@ MonoBehaviour:
   buildMenuIsOpen: 0
   Selection: {fileID: 1484203931}
   builder: {fileID: 1484203935}
+  Moving: {fileID: 1484203932}
   structR: {fileID: 3549216140316880063, guid: e39ad8babd98a0543ab10c2ba8f81b72, type: 3}
   flyStructR: {fileID: 4172448438090794993, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
-  Moving: {fileID: 1484203932}
+  structQ: {fileID: 3453018199020005240, guid: d208e51d0dca0a4499fd808e9b1ad088, type: 3}
+  flyStructQ: {fileID: 5617017339815270521, guid: 8e586789f2a93824881b85be62fb143b, type: 3}
 --- !u!114 &1484203935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildPos: {x: 0, y: 0, z: 0}
+  structBe: 0
   flyStruct: {fileID: 0}
 --- !u!1 &1601340586
 GameObject:
