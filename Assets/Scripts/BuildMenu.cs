@@ -41,6 +41,7 @@ public class BuildMenu : MonoBehaviour
                 {
                     builder.BuildStruct(structR);
                     builder.structBe = false;
+                    Moving.isMoving = false;
                 }
                 if(Input.GetMouseButtonDown(1) || Input.GetKey("s")) //если мы передумали строить и остановились
                 {                                                    //или отправили дрона в другое место, то всё перестаёт работать
