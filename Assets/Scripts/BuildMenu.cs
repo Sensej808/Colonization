@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 //скрипт меню дрона
 public class BuildMenu : MonoBehaviour
 {
@@ -26,15 +25,12 @@ public class BuildMenu : MonoBehaviour
             buildMenuIsOpen = false;
         ChoooseStruct();
     }
-    void CreateStruct(string buttonName, GameObject flyStruct, GameObject Struct)
+    void CreateStruct(string buttonName, GameObject flyStruct, GameObject Struct)//функция которая полностью отвечает за строительство
     {
         if (buildMenuIsOpen) //если меню открыто
         {
             if (Input.GetKey(buttonName)) //если нажимаем, создаётся шаблон здания
-            {
                 builder.SelectBuildPosition(flyStruct);
-                builder.structBe = true;
-            }
             doStruct = true;
         }
         if (doStruct)
@@ -47,14 +43,10 @@ public class BuildMenu : MonoBehaviour
                     Moving.isMoving = true;
                 }
                 else //иначе билдер перестаёт работать
-                {
                     builder.BuildStruct(Struct);
-                    builder.structBe = false;
-                }
                 if (transform.position == builder.buildPos) //если позиция дрона равна позиции шаблона здания, то оно строится
                 {
                     builder.BuildStruct(Struct);
-                    builder.structBe = false;
                     Moving.isMoving = false;
                     doStruct = false;
                 }
@@ -64,21 +56,27 @@ public class BuildMenu : MonoBehaviour
                     Moving.finalPos.z = 0;
                     builder.flyStruct.tag = "IsNotFreePosition";
                     builder.BuildStruct(Struct);
-                    builder.structBe = false;
                 }
             }
+            //если мы пока идёт рабочий захотели сделать здание в другом месте, то он останавливается
+            if (Input.GetKey(buttonName) && Selection.isSelected)
+                Moving.isMoving = false;
         }
     }
-    void ChoooseStruct()
+    void ChoooseStruct()//функция выбора ЧТО строить
     {
         if (Input.anyKeyDown)
         {
             foreach (KeyCode keyCode in keyCodes)
             {
-                if (Input.GetKey(keyCode) && keyCode.ToString() != "Mouse1" && keyCode.ToString() != "Mouse0"
+                if (Selection.isSelected && 
+                    Input.GetKey(keyCode) && keyCode.ToString() != "Mouse1" && keyCode.ToString() != "Mouse0"
                     && keyCode.ToString() != "B")
                 {
-                    buildButton = keyCode.ToString();
+                        builder.structBe = false;
+                        Destroy(builder.flyStruct);
+                        Moving.isMoving = false;
+                        buildButton = keyCode.ToString();
                 }
             }
         }
