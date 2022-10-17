@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 //скрипт меню дрона
 public class BuildMenu : MonoBehaviour
@@ -17,6 +19,16 @@ public class BuildMenu : MonoBehaviour
     public GameObject flyStructR;
     public GameObject structQ;
     public GameObject flyStructQ;
+    void Start()
+    {
+        structR = Resources.Load<GameObject>("Prefabs/StructR");
+        flyStructR = Resources.Load<GameObject>("Prefabs/FlyStructR");
+        structQ = Resources.Load<GameObject>("Prefabs/StructQ");
+        flyStructQ = Resources.Load<GameObject>("Prefabs/FlyStructQ");
+        Selection = gameObject.GetComponent<SelectionCheck>();
+        builder = gameObject.GetComponent<Build>();
+        Moving = gameObject.GetComponent<AllyMoving>();
+    }
     void Update()
     {
         if (Input.GetKey("b") && Selection.isSelected) //открываем меню строительства
