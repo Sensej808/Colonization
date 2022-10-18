@@ -10,14 +10,14 @@ public class AllyMoving : MonoBehaviour
     public Vector3 finalPos; //точка, куда идёт юнит
     private float speed = 5f; //скорость юнита
     public bool isMoving = false; //значение true, если выбрана позиция или юнит туда идёт, false, если остановился или дошёл
-    public SelectionCheck Selection; //нужен для обращения к переменной IsSelected класса SelectionCheck 
+    public BaseUnitClass unit;
     void Start()
     {
-        Selection = gameObject.GetComponent<SelectionCheck>();
+        unit = gameObject.GetComponent<BaseUnitClass>();
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && Selection.isSelected)
+        if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected)
             SetPosition();
         if (isMoving)
             Move();

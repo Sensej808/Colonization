@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EngineerClass : BaseUnitClass
 {
-    public Build Create;
+    public Build Builder;
     public BuildMenu Menu;
     public new void Start()
     {
         base.Start();
-        Create = gameObject.AddComponent<Build>();
+        Builder = gameObject.AddComponent<Build>();
         Menu = gameObject.AddComponent<BuildMenu>();
     }
 }
