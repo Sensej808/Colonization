@@ -13,4 +13,12 @@ public class BaseUnitClass : MonoBehaviour
         Selection = gameObject.AddComponent<SelectionCheck>();
         Health = gameObject.AddComponent<HealthScript>();
     }
+    public virtual void Attack()
+    {
+
+    }
+    public void TargetSelection()
+    {
+
+    }
 }
