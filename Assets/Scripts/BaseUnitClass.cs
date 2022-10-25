@@ -60,12 +60,14 @@ public class BaseUnitClass : MonoBehaviour
             target = NearestTarget();
         return target;
     }
-    public void Update()
+    public virtual void Update()
     {
+        /*
         if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && Selection.isSelected)
         {
             GameObject target = TargetUnit();
             print($"{target.transform.position.x} {target.transform.position.y} {target.transform.position.z}");
         }
+        */
     }
 }
