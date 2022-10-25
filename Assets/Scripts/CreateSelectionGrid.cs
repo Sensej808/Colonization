@@ -18,7 +18,7 @@ public class CreateSelectionGrid : MonoBehaviour
     private GameObject realSelectionGrid; //сетка выделения на экране
     void Update()
     {
-        if (Input.GetMouseButton(0)) //сетка создаётся при нажатии ЛКМ
+        if (Input.GetMouseButton(0) && !Input.GetKey("a")) //сетка создаётся при нажатии ЛКМ
         {
             if (!gridIsBe)
             {
