@@ -1465,6 +1465,12 @@ MonoBehaviour:
   Moving: {fileID: 0}
   Selection: {fileID: 0}
   Health: {fileID: 0}
+  attack_radius: 10
+  tUnit: {fileID: 0}
+  bullet: {fileID: 0}
+  realTarget: {fileID: 0}
+  isAttack: 0
+  goAttack: 0
 --- !u!61 &1442082383
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1976,6 +1982,12 @@ MonoBehaviour:
   Moving: {fileID: 0}
   Selection: {fileID: 0}
   Health: {fileID: 0}
+  attack_radius: 0
+  tUnit: {fileID: 0}
+  bullet: {fileID: 0}
+  realTarget: {fileID: 0}
+  isAttack: 0
+  goAttack: 0
   Builder: {fileID: 0}
   Menu: {fileID: 0}
 --- !u!61 &2003067075

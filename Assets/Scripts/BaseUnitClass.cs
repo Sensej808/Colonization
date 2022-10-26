@@ -11,6 +11,13 @@ public class BaseUnitClass : MonoBehaviour
     public AllyMoving Moving;
     public SelectionCheck Selection;
     public HealthScript Health;
+
+    public float attack_radius;
+    public GameObject tUnit;
+    public GameObject bullet;
+    public GameObject realTarget;
+    public bool isAttack;
+    public bool goAttack = false;
     public virtual void Start()
     {
         Moving = gameObject.AddComponent<AllyMoving>();
@@ -58,6 +65,8 @@ public class BaseUnitClass : MonoBehaviour
         GameObject target = FocusTarget();
         if (target == null)
             target = NearestTarget();
+        if ((transform.position - target.transform.position).magnitude >= attack_radius && bullet == null)
+            target = null;
         return target;
     }
     public virtual void Update()
