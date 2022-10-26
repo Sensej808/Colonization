@@ -10,20 +10,26 @@ public class BaseUnitClass : MonoBehaviour
 {
     public AllyMoving Moving;
     public SelectionCheck Selection;
-    public HealthScript Health;
-
+    public Health Health;
+    public TargetUnitForAttack TakeTargetUnit;
+    
+    /*
     public float attack_radius;
     public GameObject tUnit;
     public GameObject bullet;
     public GameObject realTarget;
-    public bool isAttack;
     public bool goAttack = false;
+    public GameObject nextTarget;
+    public GameObject targetFocusUnit;
+    */
     public virtual void Start()
     {
         Moving = gameObject.AddComponent<AllyMoving>();
         Selection = gameObject.AddComponent<SelectionCheck>();
-        Health = gameObject.AddComponent<HealthScript>();
+        Health = gameObject.AddComponent<Health>();
+        TakeTargetUnit = gameObject.AddComponent<TargetUnitForAttack>();
     }
+    /*
     public virtual void Attack()
     {
 
@@ -58,6 +64,7 @@ public class BaseUnitClass : MonoBehaviour
             if (hitColider.gameObject.tag == "Enemy")
                 result = hitColider.gameObject;
         }
+        targetFocusUnit = result;
         return result;
     }
     public GameObject TargetUnit()
@@ -71,12 +78,6 @@ public class BaseUnitClass : MonoBehaviour
     }
     public virtual void Update()
     {
-        /*
-        if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && Selection.isSelected)
-        {
-            GameObject target = TargetUnit();
-            print($"{target.transform.position.x} {target.transform.position.y} {target.transform.position.z}");
-        }
-        */
     }
+    */
 }

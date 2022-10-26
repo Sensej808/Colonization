@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class CyborgClass : BaseUnitClass
 {
+    public CyborgAttack Attack;
+    public new void Start()
+    {
+        base.Start();
+        Attack = gameObject.AddComponent<CyborgAttack>();
+    }
+    /*
     public new void Start()
     {
         base.Start();
@@ -27,7 +34,7 @@ public class CyborgClass : BaseUnitClass
         if (bullet.transform.position == realTarget.transform.position)
         {
             Destroy(bullet);
-            isAttack = false;
+            realTarget = nextTarget;
         }
     }
     public new void Attack()
@@ -41,23 +48,31 @@ public class CyborgClass : BaseUnitClass
     public new void Update()
     {
             tUnit = TargetUnit();
+            if (targetFocusUnit != null && (targetFocusUnit.transform.position - transform.position).magnitude <= attack_radius)
+            {
+                tUnit = targetFocusUnit;
+                print("пососи");
+            }
             if (Input.GetMouseButton(0) && Input.GetKey("a") && Selection.isSelected)
             {
-                realTarget = null;
+                nextTarget = tUnit; 
                 goAttack = true;
                 Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Moving.finalPos.z = 0;
                 if (bullet == null)
                     Moving.isMoving = true;
-                isAttack = true;
             }
             if (Input.GetMouseButton(1) && Selection.isSelected)
             {
-                goAttack = false;
+                goAttack = false; 
+                tUnit = null;
+                nextTarget = null;
+
             }
             if (tUnit != null && Moving.isMoving == false);
             {
                 Attack();
             }
     }
+    */
 }
