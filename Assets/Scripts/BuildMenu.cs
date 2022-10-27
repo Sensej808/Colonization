@@ -79,7 +79,7 @@ public class BuildMenu : MonoBehaviour
             {
                 if (unit.Selection.isSelected && 
                     Input.GetKey(keyCode) && keyCode.ToString() != "Mouse1" && keyCode.ToString() != "Mouse0"
-                    && keyCode.ToString() != "B")
+                    && keyCode.ToString() != "B" && keyCode.ToString() != "A") 
                 {
                         unit.Builder.structBe = false;
                         Destroy(unit.Builder.flyStruct);

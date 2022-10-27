@@ -11,5 +11,8 @@ public class EngineerClass : BaseUnitClass
         base.Start();
         Builder = gameObject.AddComponent<Build>();
         Menu = gameObject.AddComponent<BuildMenu>();
+        TakeTargetUnit.attackRadius = 1f;
+        TakeTargetUnit.cooldown = 100f;
+        TakeTargetUnit.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
     }
 }

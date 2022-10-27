@@ -11,6 +11,7 @@ public class TargetUnitForAttack : MonoBehaviour
     public GameObject realTargetUnit;
     public float cooldown;
     public float realCooldown;
+    public GameObject bulletPattern;
     public GameObject SetNearestTarget()
     {
         float min_dist = float.MaxValue;

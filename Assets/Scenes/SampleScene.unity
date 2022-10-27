@@ -1442,7 +1442,7 @@ GameObject:
   - component: {fileID: 1442082385}
   - component: {fileID: 1442082384}
   - component: {fileID: 1442082383}
-  - component: {fileID: 1442082382}
+  - component: {fileID: 1442082387}
   m_Layer: 0
   m_Name: Cyborg
   m_TagString: Allied
@@ -1450,27 +1450,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1442082382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442082381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fcf30a89c810f44382d2a7acdfc0bd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Moving: {fileID: 0}
-  Selection: {fileID: 0}
-  Health: {fileID: 0}
-  attack_radius: 10
-  tUnit: {fileID: 0}
-  bullet: {fileID: 0}
-  realTarget: {fileID: 0}
-  isAttack: 0
-  goAttack: 0
 --- !u!61 &1442082383
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1561,6 +1540,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1442082387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442082381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fcf30a89c810f44382d2a7acdfc0bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Moving: {fileID: 0}
+  Selection: {fileID: 0}
+  Health: {fileID: 0}
+  TakeTargetUnit: {fileID: 0}
+  Attack: {fileID: 0}
 --- !u!1 &1484203927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,12 +1978,8 @@ MonoBehaviour:
   Moving: {fileID: 0}
   Selection: {fileID: 0}
   Health: {fileID: 0}
-  attack_radius: 0
-  tUnit: {fileID: 0}
-  bullet: {fileID: 0}
-  realTarget: {fileID: 0}
-  isAttack: 0
-  goAttack: 0
+  TakeTargetUnit: {fileID: 0}
+  Attack: {fileID: 0}
   Builder: {fileID: 0}
   Menu: {fileID: 0}
 --- !u!61 &2003067075

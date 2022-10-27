@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class CyborgAttack : MonoBehaviour
+public class BaseAttack : MonoBehaviour
 {
-    public CyborgClass unit;
+    public BaseUnitClass unit;
     void Start()
     {
-        unit = gameObject.GetComponent<CyborgClass>();
-        unit.TakeTargetUnit.attackRadius = 5f;
+        unit = gameObject.GetComponent<BaseUnitClass>();
         unit.TakeTargetUnit.goAttack = false;
-        unit.TakeTargetUnit.cooldown = 100f;
         unit.TakeTargetUnit.realCooldown = 0f;
+        //unit.TakeTargetUnit.attackRadius = 5f;
+        //unit.TakeTargetUnit.cooldown = 100f;
     }
     public void CreateBullet()
     {
         if (unit.TakeTargetUnit.realCooldown <= 0f)
         {
-            unit.TakeTargetUnit.bullet = Instantiate(Resources.Load<GameObject>("Prefabs/Circle"), transform.position, transform.rotation);
+            unit.TakeTargetUnit.bullet = Instantiate(unit.TakeTargetUnit.bulletPattern, transform.position, transform.rotation);
             unit.TakeTargetUnit.realCooldown = unit.TakeTargetUnit.cooldown;
         }
     }
