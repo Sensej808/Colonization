@@ -16,8 +16,11 @@ public class CyborgAttack : MonoBehaviour
     }
     public void CreateBullet()
     {
-        unit.TakeTargetUnit.bullet = Instantiate(Resources.Load<GameObject>("Prefabs/Circle"), transform.position, transform.rotation);
-        unit.Moving.isMoving = false;
+        if (unit.TakeTargetUnit.realCooldown <= 0f)
+        {
+            unit.TakeTargetUnit.bullet = Instantiate(Resources.Load<GameObject>("Prefabs/Circle"), transform.position, transform.rotation);
+            unit.TakeTargetUnit.realCooldown = unit.TakeTargetUnit.cooldown;
+        }
     }
     public void MoveBullet()
     {
@@ -32,10 +35,10 @@ public class CyborgAttack : MonoBehaviour
     }
     public void Attack()
     {
-        if (unit.TakeTargetUnit.goAttack && unit.TakeTargetUnit.bullet == null &&(transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude <= unit.TakeTargetUnit.attackRadius && unit.TakeTargetUnit.realCooldown <= 0f)
+        if (unit.TakeTargetUnit.goAttack && unit.TakeTargetUnit.bullet == null &&(transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude <= unit.TakeTargetUnit.attackRadius)
         {
             CreateBullet();
-            unit.TakeTargetUnit.realCooldown = unit.TakeTargetUnit.cooldown;
+            unit.Moving.isMoving = false;
         }
         if (unit.TakeTargetUnit.bullet != null)
             MoveBullet();
@@ -52,6 +55,8 @@ public class CyborgAttack : MonoBehaviour
             if (unit.TakeTargetUnit.bullet == null)
                 unit.Moving.isMoving = true;
             unit.TakeTargetUnit.TargetUnit = unit.TakeTargetUnit.SetTargetUnit();
+            if ((transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude >= unit.TakeTargetUnit.attackRadius)
+                unit.Moving.isMoving = true;
             unit.TakeTargetUnit.goAttack = true;
         }
         if ((Input.GetKeyDown("s") || Input.GetMouseButtonDown(1)) && unit.Selection.isSelected)
@@ -61,6 +66,8 @@ public class CyborgAttack : MonoBehaviour
             unit.Moving.isMoving = true;
             unit.TakeTargetUnit.goAttack = false;
         }
+        if (unit.TakeTargetUnit.goAttack && (transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude < unit.TakeTargetUnit.attackRadius)
+            unit.Moving.isMoving = false;
         Attack();
     }
 }
