@@ -7,8 +7,10 @@ public class TargetUnitForAttack : MonoBehaviour
     public float attackRadius;
     public GameObject TargetUnit;
     public GameObject bullet;
-    public bool isAttack;
+    public bool goAttack;
     public GameObject realTargetUnit;
+    public float cooldown;
+    public float realCooldown;
     public GameObject SetNearestTarget()
     {
         float min_dist = float.MaxValue;
