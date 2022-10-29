@@ -9,8 +9,8 @@ public class CyborgClass : BaseUnitClass
     public new void Start()
     {
         base.Start();
-        TakeTargetUnit.attackRadius = 5f;
-        TakeTargetUnit.cooldown = 100f;
-        TakeTargetUnit.bulletPattern = Resources.Load<GameObject>("Prefabs/WhiteCircle");
+        Attack.attackRadius = 5f;
+        Attack.cooldown = 100f;
+        Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/WhiteCircle");
     }
 }

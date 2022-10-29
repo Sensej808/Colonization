@@ -11,14 +11,12 @@ public class BaseUnitClass : MonoBehaviour
     public AllyMoving Moving;
     public SelectionCheck Selection;
     public Health Health;
-    public TargetUnitForAttack TakeTargetUnit;
     public BaseAttack Attack;
     public virtual void Start()
     {
         Moving = gameObject.AddComponent<AllyMoving>();
         Selection = gameObject.AddComponent<SelectionCheck>();
         Health = gameObject.AddComponent<Health>();
-        TakeTargetUnit = gameObject.AddComponent<TargetUnitForAttack>();
         Attack = gameObject.AddComponent<BaseAttack>();
     }
 }

@@ -6,67 +6,112 @@ using UnityEngine;
 public class BaseAttack : MonoBehaviour
 {
     public BaseUnitClass unit;
+    public float attackRadius;
+    public GameObject TargetUnit;
+    public GameObject bullet;
+    public bool goAttack;
+    public GameObject realTargetUnit;
+    public float cooldown;
+    public float realCooldown;
+    public GameObject bulletPattern;
     void Start()
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
-        unit.TakeTargetUnit.goAttack = false;
-        unit.TakeTargetUnit.realCooldown = 0f;
-        //unit.TakeTargetUnit.attackRadius = 5f;
-        //unit.TakeTargetUnit.cooldown = 100f;
+        goAttack = false;
+        realCooldown = 0f;
+    }
+    public GameObject SetNearestTarget()
+    {
+        float min_dist = float.MaxValue;
+        GameObject nearest_unit = null;
+        GameObject[] arrEnemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject unit in arrEnemyUnits)
+        {
+            if (unit != null)
+            {
+                float real_dist = (gameObject.transform.position - unit.transform.position).magnitude;
+                if (real_dist < min_dist)
+                {
+                    min_dist = real_dist;
+                    nearest_unit = unit;
+                }
+            }
+        }
+        return nearest_unit;
+    }
+    public GameObject SetFocusTarget()
+    {
+        GameObject result = null;
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        Collider2D hitColider = Physics2D.OverlapCircle(pos, 0.1f);
+        if (hitColider != null)
+        {
+            if (hitColider.gameObject.tag == "Enemy")
+                result = hitColider.gameObject;
+        }
+        return result;
+    }
+    public GameObject SetTargetUnit()
+    {
+        GameObject target = SetFocusTarget();
+        if (target == null)
+            target = SetNearestTarget();
+        return target;
     }
     public void CreateBullet()
     {
-        if (unit.TakeTargetUnit.realCooldown <= 0f)
+        if (realCooldown <= 0f)
         {
-            unit.TakeTargetUnit.bullet = Instantiate(unit.TakeTargetUnit.bulletPattern, transform.position, transform.rotation);
-            unit.TakeTargetUnit.realCooldown = unit.TakeTargetUnit.cooldown;
+            bullet = Instantiate(bulletPattern, transform.position, transform.rotation);
+            realCooldown = cooldown;
         }
     }
     public void MoveBullet()
     {
-        if (unit.TakeTargetUnit.realTargetUnit == null)
-            unit.TakeTargetUnit.realTargetUnit = unit.TakeTargetUnit.TargetUnit;
-        unit.TakeTargetUnit.bullet.transform.position = Vector3.MoveTowards(unit.TakeTargetUnit.bullet.transform.position, unit.TakeTargetUnit.realTargetUnit.transform.position, 3f * Time.deltaTime);
-        if (unit.TakeTargetUnit.bullet.transform.position == unit.TakeTargetUnit.realTargetUnit.transform.position)
+        if (realTargetUnit == null)
+            realTargetUnit = TargetUnit;
+        bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, realTargetUnit.transform.position, 3f * Time.deltaTime);
+        if (bullet.transform.position == realTargetUnit.transform.position)
         {
-            Destroy(unit.TakeTargetUnit.bullet);
-            unit.TakeTargetUnit.realTargetUnit = null;
+            Destroy(bullet);
+            realTargetUnit = null;
         }
     }
     public void Attack()
     {
-        if (unit.TakeTargetUnit.goAttack && unit.TakeTargetUnit.bullet == null &&(transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude <= unit.TakeTargetUnit.attackRadius)
+        if (goAttack && bullet == null &&(transform.position - TargetUnit.transform.position).magnitude <= attackRadius)
         {
             CreateBullet();
             unit.Moving.isMoving = false;
         }
-        if (unit.TakeTargetUnit.bullet != null)
+        if (bullet != null)
             MoveBullet();
 
     }
     void Update()
     {
-        if (unit.TakeTargetUnit.realCooldown >= 0)
-            unit.TakeTargetUnit.realCooldown -= 0.1f;
+        if (realCooldown >= 0)
+            realCooldown -= 0.1f;
         if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected)
         {
             unit.Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             unit.Moving.finalPos.z = 0;
-            if (unit.TakeTargetUnit.bullet == null)
+            if (bullet == null)
                 unit.Moving.isMoving = true;
-            unit.TakeTargetUnit.TargetUnit = unit.TakeTargetUnit.SetTargetUnit();
-            if ((transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude >= unit.TakeTargetUnit.attackRadius)
+            TargetUnit = SetTargetUnit();
+            if ((transform.position - TargetUnit.transform.position).magnitude >= attackRadius)
                 unit.Moving.isMoving = true;
-            unit.TakeTargetUnit.goAttack = true;
+            goAttack = true;
         }
         if ((Input.GetKeyDown("s") || Input.GetMouseButtonDown(1)) && unit.Selection.isSelected)
         {
             unit.Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             unit.Moving.finalPos.z = 0;
             unit.Moving.isMoving = true;
-            unit.TakeTargetUnit.goAttack = false;
+            goAttack = false;
         }
-        if (unit.TakeTargetUnit.goAttack && (transform.position - unit.TakeTargetUnit.TargetUnit.transform.position).magnitude < unit.TakeTargetUnit.attackRadius)
+        if (goAttack && (transform.position - TargetUnit.transform.position).magnitude < attackRadius)
             unit.Moving.isMoving = false;
         Attack();
     }
