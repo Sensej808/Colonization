@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2453549139028262560}
   - component: {fileID: 2013924800794006236}
   - component: {fileID: -5761619826677960184}
+  - component: {fileID: 3921698681521252706}
   m_Layer: 0
   m_Name: WhiteCircle
   m_TagString: Untagged
@@ -123,3 +124,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &3921698681521252706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350986315805967805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b4cc61fbeac5643b0d69d93ba0559a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetUnit: {fileID: 0}
+  speed: 0

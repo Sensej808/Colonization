@@ -1555,7 +1555,6 @@ MonoBehaviour:
   Moving: {fileID: 0}
   Selection: {fileID: 0}
   Health: {fileID: 0}
-  TakeTargetUnit: {fileID: 0}
   Attack: {fileID: 0}
 --- !u!1 &1484203927
 GameObject:
@@ -1978,7 +1977,6 @@ MonoBehaviour:
   Moving: {fileID: 0}
   Selection: {fileID: 0}
   Health: {fileID: 0}
-  TakeTargetUnit: {fileID: 0}
   Attack: {fileID: 0}
   Builder: {fileID: 0}
   Menu: {fileID: 0}

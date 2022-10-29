@@ -10,7 +10,6 @@ public class BaseAttack : MonoBehaviour
     public GameObject TargetUnit;
     public GameObject bullet;
     public bool goAttack;
-    public GameObject realTargetUnit;
     public float cooldown;
     public float realCooldown;
     public GameObject bulletPattern;
@@ -61,33 +60,20 @@ public class BaseAttack : MonoBehaviour
     }
     public void CreateBullet()
     {
-        if (realCooldown <= 0f)
+        if (TargetUnit != null)
         {
-            bullet = Instantiate(bulletPattern, transform.position, transform.rotation);
-            realCooldown = cooldown;
+            if (goAttack && (transform.position - TargetUnit.transform.position).magnitude <= attackRadius)
+            {
+                if (realCooldown <= 0f)
+                {
+                    bullet = Instantiate(bulletPattern, transform.position, transform.rotation);
+                    realCooldown = cooldown;
+                    BaseBulletClass bbc = bullet.GetComponent<BaseBulletClass>();
+                    bbc.targetUnit = TargetUnit;
+                }
+                unit.Moving.isMoving = false;
+            }
         }
-    }
-    public void MoveBullet()
-    {
-        if (realTargetUnit == null)
-            realTargetUnit = TargetUnit;
-        bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, realTargetUnit.transform.position, 3f * Time.deltaTime);
-        if (bullet.transform.position == realTargetUnit.transform.position)
-        {
-            Destroy(bullet);
-            realTargetUnit = null;
-        }
-    }
-    public void Attack()
-    {
-        if (goAttack && bullet == null &&(transform.position - TargetUnit.transform.position).magnitude <= attackRadius)
-        {
-            CreateBullet();
-            unit.Moving.isMoving = false;
-        }
-        if (bullet != null)
-            MoveBullet();
-
     }
     void Update()
     {
@@ -100,8 +86,11 @@ public class BaseAttack : MonoBehaviour
             if (bullet == null)
                 unit.Moving.isMoving = true;
             TargetUnit = SetTargetUnit();
-            if ((transform.position - TargetUnit.transform.position).magnitude >= attackRadius)
-                unit.Moving.isMoving = true;
+            if (TargetUnit != null)
+            {
+                if ((transform.position - TargetUnit.transform.position).magnitude >= attackRadius)
+                    unit.Moving.isMoving = true;
+            }
             goAttack = true;
         }
         if ((Input.GetKeyDown("s") || Input.GetMouseButtonDown(1)) && unit.Selection.isSelected)
@@ -111,8 +100,13 @@ public class BaseAttack : MonoBehaviour
             unit.Moving.isMoving = true;
             goAttack = false;
         }
-        if (goAttack && (transform.position - TargetUnit.transform.position).magnitude < attackRadius)
-            unit.Moving.isMoving = false;
-        Attack();
+        if (TargetUnit != null)
+        {
+            if (goAttack && (transform.position - TargetUnit.transform.position).magnitude < attackRadius)
+                unit.Moving.isMoving = false;
+        }
+        if (goAttack && transform.position == unit.Moving.finalPos)
+            goAttack = false;
+        CreateBullet();
     }
 }
