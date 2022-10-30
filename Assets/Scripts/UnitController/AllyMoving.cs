@@ -24,7 +24,7 @@ public class AllyMoving : MonoBehaviour
         if (Input.GetKey("s")) //если нажимаем на s, юнит останавливается
             isMoving = false;
     }
-    private void SetPosition() //устанавливает значение finalPos, меняет IsMoving на true
+    private void SetPosition()//устанавливает значение finalPos = 0, меняет IsMoving на true
     {
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         finalPos.z = 0;

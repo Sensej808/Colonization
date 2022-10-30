@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//TODO: Написать скрипт спауна юнитов(будет компонентом здания, скорее всего, значит должен реагировать на команды здания)
 
-//TODO: Написать общий скрипт здоровья: Юнитов, зданий и объектов окружения c методами:
-//GetDamage(double damage)
-//GetHealth(double health)
-
-//Общий класс здоровья
-public class Health : MonoBehaviour
+//Скрипт создания юнитов от зданий
+public class DoUnits : MonoBehaviour
 {
-    double HP;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +17,4 @@ public class Health : MonoBehaviour
     {
         
     }
-
-    
 }

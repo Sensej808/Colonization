@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-//скрипт меню дрона
+
+//TODO: ќформить меню строительства как оверлей канваса
+
+//ћеню строител€
 public class BuildMenu : MonoBehaviour
 {
     public bool buildMenuIsOpen = false; //true - если меню строительства открыто

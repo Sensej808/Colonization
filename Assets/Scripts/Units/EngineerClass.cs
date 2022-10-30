@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Класс строителей
 public class EngineerClass : BaseUnitClass
 {
     public Build Builder;
@@ -11,7 +12,7 @@ public class EngineerClass : BaseUnitClass
         base.Start();
         Builder = gameObject.AddComponent<Build>();
         Menu = gameObject.AddComponent<BuildMenu>();
-        Attack.attackRadius = 1f;
+        Attack.attackRange = 1f;
         Attack.cooldown = 100f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
     }

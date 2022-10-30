@@ -6,6 +6,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
+//Базовый класс-интерфейс юнитов
 public class BaseUnitClass : MonoBehaviour
 {
     public AllyMoving Moving;

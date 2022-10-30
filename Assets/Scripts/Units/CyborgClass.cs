@@ -4,12 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.CanvasScaler;
 
+//Класс обычного солдата
 public class CyborgClass : BaseUnitClass
 {
     public new void Start()
     {
         base.Start();
-        Attack.attackRadius = 5f;
+        Attack.attackRange = 5f;
         Attack.cooldown = 100f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/WhiteCircle");
     }

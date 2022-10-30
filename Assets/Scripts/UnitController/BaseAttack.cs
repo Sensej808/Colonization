@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
+//Базовый класс атаки юнитов
 public class BaseAttack : MonoBehaviour
 {
     public BaseUnitClass unit;
-    public float attackRadius;
-    public GameObject TargetUnit;
+    public float attackRange;
+    public GameObject target;
     public GameObject bullet;
     public bool goAttack;
     public float cooldown;
@@ -60,16 +62,16 @@ public class BaseAttack : MonoBehaviour
     }
     public void CreateBullet()
     {
-        if (TargetUnit != null)
+        if (target != null)
         {
-            if (goAttack && (transform.position - TargetUnit.transform.position).magnitude <= attackRadius)
+            if (goAttack && (transform.position - target.transform.position).magnitude <= attackRange)
             {
                 if (realCooldown <= 0f)
                 {
                     bullet = Instantiate(bulletPattern, transform.position, transform.rotation);
                     realCooldown = cooldown;
                     BaseBulletClass bbc = bullet.GetComponent<BaseBulletClass>();
-                    bbc.targetUnit = TargetUnit;
+                    bbc.target = target;
                 }
                 unit.Moving.isMoving = false;
             }
@@ -85,10 +87,10 @@ public class BaseAttack : MonoBehaviour
             unit.Moving.finalPos.z = 0;
             if (bullet == null)
                 unit.Moving.isMoving = true;
-            TargetUnit = SetTargetUnit();
-            if (TargetUnit != null)
+            target = SetTargetUnit();
+            if (target != null)
             {
-                if ((transform.position - TargetUnit.transform.position).magnitude >= attackRadius)
+                if ((transform.position - target.transform.position).magnitude >= attackRange)
                     unit.Moving.isMoving = true;
             }
             goAttack = true;
@@ -100,9 +102,9 @@ public class BaseAttack : MonoBehaviour
             unit.Moving.isMoving = true;
             goAttack = false;
         }
-        if (TargetUnit != null)
+        if (target != null)
         {
-            if (goAttack && (transform.position - TargetUnit.transform.position).magnitude < attackRadius)
+            if (goAttack && (transform.position - target.transform.position).magnitude < attackRange)
                 unit.Moving.isMoving = false;
         }
         if (goAttack && transform.position == unit.Moving.finalPos)
