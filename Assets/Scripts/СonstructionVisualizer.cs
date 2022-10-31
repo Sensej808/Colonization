@@ -7,6 +7,14 @@ public class СonstructionVisualizer : MonoBehaviour
     public Vector3 buildPos;
     public bool structBe = false;
     public GameObject flyStruct;
+    List<GameObject> engineers;
+    public GameObject myStruct;
+
+    public bool selectStructQ;
+    public bool doStructQ;
+
+    public bool selectStructR;
+    public bool doStructR;
     public void SelectBuildPosition(GameObject flyBuildStruct) //с помощью него выбираем место строительства
     {
         buildPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -24,12 +32,58 @@ public class СonstructionVisualizer : MonoBehaviour
                 flyStruct.transform.position = new Vector3(buildPos.x, buildPos.y, buildPos.z);
         }
     }
-    void Update()
+
+    public void FinalFunc(ref bool doStruct, ref bool selectStruct)
     {
-        if(Input.GetKey("b"))
+        if (selectStruct)
         {
             GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Allied");
-            List<GameObject> engineers = new List<GameObject>();
+            engineers = new List<GameObject>();
+            foreach (GameObject go in gameObjects)
+            {
+                if (go.GetComponent<Build>())
+                {
+                    if (go.GetComponent<SelectionCheck>().isSelected && go.GetComponent<Build>().buildMenuOpen)
+                        engineers.Add(go);
+                }
+            }
+            if (engineers.Count > 0)
+                SelectBuildPosition(myStruct);
+        }
+        if (doStruct)
+        {
+            Destroy(flyStruct);
+            structBe = false;
+            selectStruct = false;
+            doStruct = false;
+        }
+    }
+    public void Choose()
+    {
+        FinalFunc(ref doStructR, ref selectStructR);
+        FinalFunc(ref doStructQ, ref selectStructQ);
+    }
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.R))
+            selectStructR = true;
+        if (selectStructR)
+            myStruct = Resources.Load<GameObject>("Prefabs/FlyStructR");
+        if (Input.GetKeyUp(KeyCode.R))
+            doStructR = true;
+
+        if (Input.GetKey(KeyCode.Q))
+            selectStructQ = true;
+        if (selectStructQ)
+            myStruct = Resources.Load<GameObject>("Prefabs/FlyStructQ");
+        if (Input.GetKeyUp(KeyCode.Q))
+            doStructQ = true;
+        Choose();
+        /*
+        if(Input.GetKey("r"))
+        {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Allied");
+            engineers = new List<GameObject>();
             foreach (GameObject go in gameObjects)
             {
                 if(go.GetComponent<Build>())
@@ -41,10 +95,11 @@ public class СonstructionVisualizer : MonoBehaviour
             if(engineers.Count > 0)
                 SelectBuildPosition(Resources.Load<GameObject>("Prefabs/FlyStructR"));
         }
-        if(Input.GetKeyUp("b"))
+        if(Input.GetKeyUp("r"))
         {
             Destroy(flyStruct);
             structBe=false;
         }
+        */
     }
 }

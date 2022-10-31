@@ -11,6 +11,9 @@ public class Build : MonoBehaviour
     public Vector3 pos;
     public GameObject myStruct;
     public bool buildMenuOpen;
+
+    public bool doStructR;
+    public bool doStructQ;
     public void BuildStruct(GameObject building)
     {
         pos.x = Mathf.RoundToInt(pos.x);
@@ -45,6 +48,26 @@ public class Build : MonoBehaviour
         }
         return (listTerritory.Count == 0);
     }
+    public void FinalFunc(ref bool doStruct)
+    {
+        if (unit.Selection.isSelected && doStruct)
+        {
+            doStruct = false;
+            pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            pos.z = 0;
+            bool free = isFreePosition(myStruct);
+            if (free)
+            {
+                GotoBuildPos();
+                goBuild = true;
+            }
+        }
+    }
+    public void Choose()
+    {
+        FinalFunc(ref doStructR);
+        FinalFunc(ref doStructQ);
+    }
     public void Start()
     {
         unit = gameObject.GetComponent<EngineerClass>();
@@ -58,20 +81,18 @@ public class Build : MonoBehaviour
             buildMenuOpen = false;
         if (buildMenuOpen)
         {
-            if (unit.Selection.isSelected && Input.GetKeyUp("b"))
-            {
-                pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pos.z = 0;
-                bool free = isFreePosition(myStruct);
-                if (free)
-                {
-                    GotoBuildPos();
-                    goBuild = true;
-                }
-            }
-            if (transform.position == pos && goBuild)
-                BuildStruct(myStruct);
+            if (Input.GetKeyUp(KeyCode.R))
+                doStructR = true;
+            if (doStructR)
+                myStruct = Resources.Load<GameObject>("Prefabs/StructR");
+            if (Input.GetKeyUp(KeyCode.Q))
+                doStructQ = true;
+            if (doStructQ)
+                myStruct = Resources.Load<GameObject>("Prefabs/StructQ");
+            Choose();
         }
+        if (transform.position == pos && goBuild)
+            BuildStruct(myStruct);
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -82,33 +103,4 @@ public class Build : MonoBehaviour
             goBuild = false;
         }
     }
-    /*
-    public Vector3 buildPos; //место строительства
-    public bool structBe = false; //создан ли шаблон здания
-    public GameObject flyStruct; //шаблон здания
-    public void SelectBuildPosition(GameObject flyBuildStruct) //с помощью него выбираем место строительства
-    {
-        buildPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        buildPos.x = Mathf.RoundToInt(buildPos.x); //округляем до целых, чтобы здания нельзя было строить где попало
-        buildPos.y = Mathf.RoundToInt(buildPos.y); //округляем до целых, чтобы здания нельзя было строить где попало
-        buildPos.z = 0;
-        if (!structBe) //если шаблона здания нет, то создаём его
-        {
-            flyStruct = Instantiate(flyBuildStruct, buildPos, flyBuildStruct.transform.rotation);
-            structBe = true;
-        }
-        else //если он создан, то передвигаем его
-        {
-            if (flyStruct != null)
-                flyStruct.transform.position = new Vector3(buildPos.x, buildPos.y, buildPos.z);
-        }
-    }
-    public void BuildStruct(GameObject BuildStruct) //с помощью уже строим здание
-    {
-        if (flyStruct.tag == "IsFreePosition" && flyStruct != null) //если место свободно, то строим здание
-            Instantiate(BuildStruct, buildPos, flyStruct.transform.rotation);
-            Destroy(flyStruct); //удаляем шаблон
-            structBe = false;
-    }
-    */
 }
