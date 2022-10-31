@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class IntersectionWithStruct : MonoBehaviour
 {
     private int i = 0;//нужно для корректного взаимодействия шаблона здания с уже построенными
     public void OnTriggerExit2D(Collider2D collision)
     {
-        //нужно для корректного взаимодействия шаблона здания с уже построенными
-        DoUnits struction = collision.GetComponent<DoUnits>();
-        if (struction)
+        if (collision.gameObject.name == "MyTerritory")
         {
             i--;
         }
@@ -20,10 +20,9 @@ public class IntersectionWithStruct : MonoBehaviour
             gameObject.transform.Find("Body").gameObject.GetComponent<Renderer>().material.color = Color.white;
         }
     }
-    public void OnTriggerEnter2D(Collider2D hitInfo)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        DoUnits struction = hitInfo.GetComponent<DoUnits>();
-        if (struction)
+        if (collision.gameObject.name == "MyTerritory")
         {
             i++;
             gameObject.tag = "IsNotFreePosition";//тэг говорит о том что место занятно

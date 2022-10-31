@@ -24,13 +24,13 @@ public class AllyMoving : MonoBehaviour
         if (Input.GetKey("s")) //если нажимаем на s, юнит останавливается
             isMoving = false;
     }
-    private void SetPosition()//устанавливает значение finalPos = 0, меняет IsMoving на true
+    public void SetPosition()//устанавливает значение finalPos = 0, меняет IsMoving на true
     {
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         finalPos.z = 0;
         isMoving = true;
     }
-    private void Move() //передвигает юнита к finalPos
+    public void Move() //передвигает юнита к finalPos
     {
         transform.position = Vector3.MoveTowards(transform.position, finalPos, speed * Time.deltaTime);
         if (transform.position == finalPos)

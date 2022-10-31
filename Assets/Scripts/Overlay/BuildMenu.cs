@@ -10,6 +10,7 @@ using UnityEngine;
 //Меню строителя
 public class BuildMenu : MonoBehaviour
 {
+    /*
     public bool buildMenuIsOpen = false; //true - если меню строительства открыто
     private bool doStruct = false;//идёт строительство
     private string buildButton; //имя кнопки которая отвечает за строительство, нажатое последним
@@ -96,4 +97,5 @@ public class BuildMenu : MonoBehaviour
         if (buildButton == "R")
         CreateStruct("r", flyStructR, structR);
     }
+    */
 }
