@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class СonstructionVisualizer : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class СonstructionVisualizer : MonoBehaviour
     public GameObject flyStruct;
     List<GameObject> engineers;
     public GameObject myStruct;
+    public bool ClickInUIBuildMenu;
+    public int k;
 
     public bool selectStructQ;
     public bool doStructQ;
@@ -43,7 +46,7 @@ public class СonstructionVisualizer : MonoBehaviour
             {
                 if (go.GetComponent<Build>())
                 {
-                    if (go.GetComponent<SelectionCheck>().isSelected && go.GetComponent<Build>().buildMenuOpen)
+                    if (go.GetComponent<SelectionCheck>().isSelected)
                         engineers.Add(go);
                 }
             }
@@ -53,8 +56,9 @@ public class СonstructionVisualizer : MonoBehaviour
         if (doStruct)
         {
             Destroy(flyStruct);
-            structBe = false;
-            selectStruct = false;
+            //structBe = false;
+            k = 100;
+            //selectStruct = false;
             doStruct = false;
         }
     }
@@ -62,6 +66,29 @@ public class СonstructionVisualizer : MonoBehaviour
     {
         FinalFunc(ref doStructR, ref selectStructR);
         FinalFunc(ref doStructQ, ref selectStructQ);
+    }
+    public void ClickMouseButton()
+    {
+        if (ClickInUIBuildMenu && Input.GetMouseButtonDown(0))
+        {
+            ClickInUIBuildMenu = false;
+            if (selectStructR)
+                doStructR = true;
+            if (selectStructQ)
+                doStructQ = true;
+        }
+    }
+    public void ButtonRClickDown()
+    {
+        selectStructR = true;
+        ClickInUIBuildMenu = true;
+
+    }
+    public void ButtonQClickDown()
+    {
+        selectStructQ = true;
+        ClickInUIBuildMenu = true;
+
     }
     void Update()
     {
@@ -78,28 +105,17 @@ public class СonstructionVisualizer : MonoBehaviour
             myStruct = Resources.Load<GameObject>("Prefabs/FlyStructQ");
         if (Input.GetKeyUp(KeyCode.Q))
             doStructQ = true;
+        ClickMouseButton();
         Choose();
-        /*
-        if(Input.GetKey("r"))
+        if (k != 0)
         {
-            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Allied");
-            engineers = new List<GameObject>();
-            foreach (GameObject go in gameObjects)
+            k -= 1;
+            if (k == 0)
             {
-                if(go.GetComponent<Build>())
-                {
-                    if(go.GetComponent<SelectionCheck>().isSelected && go.GetComponent<Build>().buildMenuOpen)
-                        engineers.Add(go);
-                }
+                structBe = false;
+                selectStructQ = false;
+                selectStructR = false;
             }
-            if(engineers.Count > 0)
-                SelectBuildPosition(Resources.Load<GameObject>("Prefabs/FlyStructR"));
         }
-        if(Input.GetKeyUp("r"))
-        {
-            Destroy(flyStruct);
-            structBe=false;
-        }
-        */
     }
 }

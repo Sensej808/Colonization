@@ -10,7 +10,6 @@ public class Build : MonoBehaviour
     public bool goBuild;
     public Vector3 pos;
     public GameObject myStruct;
-    public bool buildMenuOpen;
 
     public bool doStructR;
     public bool doStructQ;
@@ -75,11 +74,7 @@ public class Build : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown("b") && unit.Selection.isSelected)
-            buildMenuOpen = true;
-        if (!unit.Selection.isSelected)
-            buildMenuOpen = false;
-        if (buildMenuOpen)
+        if (unit.Selection.isSelected)
         {
             if (Input.GetKeyUp(KeyCode.R))
                 doStructR = true;

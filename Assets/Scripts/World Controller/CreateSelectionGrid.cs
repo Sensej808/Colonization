@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 //создает сетку выделения юнитов
 public class CreateSelectionGrid : MonoBehaviour
@@ -16,9 +18,10 @@ public class CreateSelectionGrid : MonoBehaviour
     private float width;  //ширина сетки выделения
     private bool gridIsBe = false; //false - если сетки сейчас нет, true - если сетка создана
     private GameObject realSelectionGrid; //сетка выделения на экране
+    public СonstructionVisualizer visualizer;
     void Update()
     {
-        if (Input.GetMouseButton(0) && !Input.GetKey("a")) //сетка создаётся при нажатии ЛКМ
+        if (Input.GetMouseButton(0) && !Input.GetKey("a") && !EventSystem.current.IsPointerOverGameObject() && !visualizer.structBe) //сетка создаётся при нажатии ЛКМ
         {
             if (!gridIsBe)
             {

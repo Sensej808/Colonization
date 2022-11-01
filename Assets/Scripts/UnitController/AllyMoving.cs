@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 //скрипт передвижения союзных юнитов
@@ -17,7 +18,7 @@ public class AllyMoving : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected)
+        if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
             SetPosition();
         if (isMoving)
             Move();

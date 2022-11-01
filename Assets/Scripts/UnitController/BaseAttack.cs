@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 //Базовый класс атаки юнитов
@@ -81,7 +82,7 @@ public class BaseAttack : MonoBehaviour
     {
         if (realCooldown >= 0)
             realCooldown -= 0.1f;
-        if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected)
+        if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
         {
             unit.Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             unit.Moving.finalPos.z = 0;
@@ -95,7 +96,7 @@ public class BaseAttack : MonoBehaviour
             }
             goAttack = true;
         }
-        if ((Input.GetKeyDown("s") || Input.GetMouseButtonDown(1)) && unit.Selection.isSelected)
+        if ((Input.GetKeyDown("s") || Input.GetMouseButtonDown(1)) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
         {
             unit.Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             unit.Moving.finalPos.z = 0;

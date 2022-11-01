@@ -10,4 +10,5 @@ using UnityEngine;
 //Меню строителя
 public class BuildMenu : MonoBehaviour
 {
+
 }
