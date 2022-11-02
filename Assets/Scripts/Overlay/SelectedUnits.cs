@@ -6,9 +6,6 @@ public class SelectedUnits : MonoBehaviour
 {
     public List<GameObject> OpenMenuEngineers;
     public ÑonstructionVisualizer visualizer;
-    void Start()
-    {   
-    }
     public void GetOpenMenuEngineers()
     {
         OpenMenuEngineers.Clear();
@@ -36,7 +33,6 @@ public class SelectedUnits : MonoBehaviour
             }
         }
     }
-    // Update is called once per frame
     void Update()
     {
         if (visualizer.structBe && Input.GetMouseButtonDown(0))

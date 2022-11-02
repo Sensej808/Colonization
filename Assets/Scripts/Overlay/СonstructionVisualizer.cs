@@ -12,6 +12,7 @@ public class СonstructionVisualizer : MonoBehaviour
     public GameObject myStruct;
     public bool ClickInUIBuildMenu;
     public int k;
+    public bool banBuild;
 
     public bool selectStructQ;
     public bool doStructQ;
@@ -34,6 +35,8 @@ public class СonstructionVisualizer : MonoBehaviour
             if (flyStruct != null)
                 flyStruct.transform.position = new Vector3(buildPos.x, buildPos.y, buildPos.z);
         }
+        if (Input.GetKeyDown(KeyCode.Escape) && !ClickInUIBuildMenu && k == 0 && structBe)
+            banBuild = true;
     }
 
     public void FinalFunc(ref bool doStruct, ref bool selectStruct)
@@ -53,12 +56,18 @@ public class СonstructionVisualizer : MonoBehaviour
             if (engineers.Count > 0)
                 SelectBuildPosition(myStruct);
         }
+        if (Input.GetKeyDown(KeyCode.Escape) && structBe)
+        {
+            Destroy(flyStruct);
+            doStruct = false;
+            structBe = false;
+            selectStruct = false;
+            ClickInUIBuildMenu = false;
+        }
         if (doStruct)
         {
             Destroy(flyStruct);
-            //structBe = false;
             k = 100;
-            //selectStruct = false;
             doStruct = false;
         }
     }
@@ -82,7 +91,6 @@ public class СonstructionVisualizer : MonoBehaviour
     {
         selectStructR = true;
         ClickInUIBuildMenu = true;
-
     }
     public void ButtonQClickDown()
     {
@@ -92,20 +100,23 @@ public class СonstructionVisualizer : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R) && !banBuild)
             selectStructR = true;
         if (selectStructR)
             myStruct = Resources.Load<GameObject>("Prefabs/FlyStructR");
         if (Input.GetKeyUp(KeyCode.R))
             doStructR = true;
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && !banBuild)
             selectStructQ = true;
         if (selectStructQ)
             myStruct = Resources.Load<GameObject>("Prefabs/FlyStructQ");
         if (Input.GetKeyUp(KeyCode.Q))
             doStructQ = true;
+
         ClickMouseButton();
+        if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.R))
+            banBuild = false;
         Choose();
         if (k != 0)
         {

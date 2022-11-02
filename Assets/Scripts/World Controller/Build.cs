@@ -10,6 +10,7 @@ public class Build : MonoBehaviour
     public bool goBuild;
     public Vector3 pos;
     public GameObject myStruct;
+    public bool banBuild;
 
     public bool doStructR;
     public bool doStructQ;
@@ -76,14 +77,26 @@ public class Build : MonoBehaviour
     {
         if (unit.Selection.isSelected)
         {
-            if (Input.GetKeyUp(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.Escape) && (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.Q)))
+            {
+                banBuild = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                goBuild = false;
+                unit.Moving.isMoving = false;
+            }
+            if (Input.GetKeyUp(KeyCode.R) && !banBuild)
                 doStructR = true;
             if (doStructR)
                 myStruct = Resources.Load<GameObject>("Prefabs/StructR");
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Q) && !banBuild)
                 doStructQ = true;
             if (doStructQ)
                 myStruct = Resources.Load<GameObject>("Prefabs/StructQ");
+
+            if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.R))
+                banBuild = false;
             Choose();
         }
         if (transform.position == pos && goBuild)
