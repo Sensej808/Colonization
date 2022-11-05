@@ -9,18 +9,28 @@ using UnityEngine;
 //Общий класс здоровья
 public class Health : MonoBehaviour
 {
-    double HP;
-    // Start is called before the first frame update
+    public double CurrentHealth;
+    public double Health = 100;
+
     void Start()
     {
-        
+        CurrentHealth = Health;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetDamage(double damage)
     {
-        
+        if (CurrentHealth - damage > 0) 
+            CurrentHealth -= damage;
+        else 
+            CurrentHealth = 0;
+              
     }
 
-    
+    public void GetHealth(double health)
+    {
+        if (CurrentHealth + health < Health) 
+            CurrentHealth += health;
+        else 
+            CurrentHealth = Health;
+    }
 }
