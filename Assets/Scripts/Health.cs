@@ -10,11 +10,11 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public double CurrentHealth;
-    public double Health = 100;
+    public double myHealth = 100;
 
     void Start()
     {
-        CurrentHealth = Health;
+        CurrentHealth = myHealth;
     }
 
     public void GetDamage(double damage)
@@ -28,9 +28,9 @@ public class Health : MonoBehaviour
 
     public void GetHealth(double health)
     {
-        if (CurrentHealth + health < Health) 
+        if (CurrentHealth + health < myHealth) 
             CurrentHealth += health;
         else 
-            CurrentHealth = Health;
+            CurrentHealth = myHealth;
     }
 }

@@ -6,15 +6,37 @@ using UnityEngine;
 //Скрипт создания юнитов от зданий
 public class DoUnits : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public double realTimeSpawning;
+    public GameObject myUnit;
+    public BaseStructClass myStruct;
+    public void Start()
     {
-        
+        myStruct = gameObject.GetComponent<BaseStructClass>();
     }
-
-    // Update is called once per frame
+    public void SetUnit(GameObject unit, double timeSpawning)
+    {
+        realTimeSpawning = timeSpawning;
+        myUnit = unit;
+    }
+    public void SpawnUnit()
+    {
+        if (myUnit != null && realTimeSpawning >= 0)
+        {
+            realTimeSpawning -= 0.1f;
+            if (realTimeSpawning <= 0)
+                Instantiate(myUnit, gameObject.transform.Find("SpawnUnits").position, transform.rotation);
+        }
+        if (realTimeSpawning <= 0)
+            myUnit = null;
+    }
     void Update()
     {
-        
+        if (myStruct.Selection.isSelected && Input.GetKeyDown("q"))
+            SetUnit(Resources.Load<GameObject>("Prefabs/Engineer"), 40);
+        if (myStruct.Selection.isSelected && Input.GetKeyDown("c"))
+            SetUnit(Resources.Load<GameObject>("Prefabs/Cyborg"), 40);
+        if (myStruct.Selection.isSelected && Input.GetKeyDown(KeyCode.Escape))
+            myUnit = null;
+            SpawnUnit();
     }
 }
