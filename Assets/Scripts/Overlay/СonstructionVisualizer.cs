@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class СonstructionVisualizer : MonoBehaviour
 {
+    /*
     public Vector3 buildPos;
     public bool structBe = false;
     public GameObject flyStruct;
@@ -129,4 +130,5 @@ public class СonstructionVisualizer : MonoBehaviour
             }
         }
     }
+    */
 }
