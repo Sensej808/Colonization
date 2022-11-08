@@ -30,4 +30,8 @@ public class IntersectionWithStruct : MonoBehaviour
             gameObject.transform.Find("Body").gameObject.GetComponent<Renderer>().material.color = new Vector4(251 / 255.0f, 15 / 255.0f, 15 / 255.0f, 1);
         }
     }
+    public void Update()
+    {
+        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
+    }
 }

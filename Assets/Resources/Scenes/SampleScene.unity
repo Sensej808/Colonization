@@ -164,26 +164,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 72763247}
-  - component: {fileID: 72763246}
+  - component: {fileID: 72763248}
   m_Layer: 0
-  m_Name: "\u0421onstructionVisualizer"
+  m_Name: AbilityVisualizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &72763246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72763245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2c182214e0b3c34b8ed9f8a96ac3424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_IsActive: 1
 --- !u!4 &72763247
 Transform:
   m_ObjectHideFlags: 0
@@ -199,6 +187,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &72763248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72763245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c182214e0b3c34b8ed9f8a96ac3424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1654255576}
+  abilityPos: {x: 0, y: 0, z: 0}
+  flyAbility: {fileID: 0}
+  myFlyAbility: {fileID: 0}
 --- !u!1 &84893704
 GameObject:
   m_ObjectHideFlags: 0

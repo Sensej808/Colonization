@@ -116,11 +116,13 @@ public class CommandController : MonoBehaviour
             {
                 SetStructR();
                 k = 100;
+                AllButtonFalse();
             }
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["Q"])
             {
                 SetStructQ();
                 k = 100;
+                AllButtonFalse();
             }
         }
         //если жмёт ESC или S(Ну типо stop), то отменяются все команды у веделенных юнитов
@@ -142,7 +144,9 @@ public class CommandController : MonoBehaviour
         {
             k--;
             if (k == 0)
+            {
                 clickInterface = false;
+            }
         }
     }
 }
