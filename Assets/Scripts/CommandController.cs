@@ -50,22 +50,13 @@ public class CommandController : MonoBehaviour
     //тут мы создаем все нужные функции, которые говорят, какая кнопка щас нажата
     //(актуально для любых кастов, не только для строительства)
 
-    //нажимаем кнопку R в интерфейсе, говорим, что нажата кнопка интерфейса
-    public void ClickR()
+    //нажимаем кнопку  в интерфейсе, говорим, что нажата кнопка интерфейса
+    public void Click(string key)
     {
         AllButtonFalse();
         clickInterface = true;
-        KeyOnMenu["R"] = true;
+        KeyOnMenu[key] = true;
     }
-    //нажимаем кнопку Q в интерфейсе, говорим, что нажата кнопка интерфейса
-    public void ClickQ()
-    {
-        AllButtonFalse();
-        clickInterface = true;
-        KeyOnMenu["Q"] = true;
-    }
-    //тут будут скрипты, отвечающие за выбор здания для строительства
-
     //основой скрипт, устанавливает позицию и здание, ближайшему рабочему, остальные продолжают заниматься своими делами
     public void SetStruct(string nameStruct)
     {
@@ -77,9 +68,6 @@ public class CommandController : MonoBehaviour
         if (builder != null)
             builder.GetComponent<Build>().SetStructPos(Resources.Load<GameObject>(nameStruct), myPos);
     }
-    //нужны чисто для кнопки в интерфейсе, потому что она не принимает функции с параметрами :(
-    public void SetStructR() { SetStruct("Prefabs/StructR"); }
-    public void SetStructQ() { SetStruct("Prefabs/StructQ"); }
     //останавливает строительство ВСЕХ выделенных рабочих
     public void StopBuild()
     {
@@ -104,9 +92,9 @@ public class CommandController : MonoBehaviour
         {
             //если отпустили кнопку, пошли строить здание
             if (Input.GetKeyUp(KeyCode.Q))
-                SetStructQ();
+                SetStruct("Prefabs/StructQ");
             if (Input.GetKeyUp(KeyCode.R))
-                SetStructR();
+                SetStruct("Prefabs/StructR");
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши
         if (clickInterface)
@@ -114,13 +102,13 @@ public class CommandController : MonoBehaviour
             //если нажали ПКМ, то пошли строить соответственнное здание
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["R"])
             {
-                SetStructR();
+                SetStruct("Prefabs/StructR");
                 k = 100;
                 AllButtonFalse();
             }
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["Q"])
             {
-                SetStructQ();
+                SetStruct("Prefabs/StructQ");
                 k = 100;
                 AllButtonFalse();
             }

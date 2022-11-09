@@ -51,7 +51,7 @@ public class AbilityVisualizer : MonoBehaviour
         if (group.Count > 0)
             myFlyAbility = ability;
     }
-    //есть ли выделенные инженеры ?
+    //заносит в group выделенных строителей
     public void AddEngineerInGroup()
     {
         controller.GetSelectedUnits();
