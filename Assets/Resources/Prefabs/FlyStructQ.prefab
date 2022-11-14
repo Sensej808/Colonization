@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8364350255850790792
+--- !u!1001 &2228898214144131758
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4172448438090794993, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
       propertyPath: m_Name
-      value: FlyStruct2
+      value: FlyStructQ
       objectReference: {fileID: 0}
     - target: {fileID: 5363142418195651015, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
       propertyPath: m_RootOrder
@@ -29,11 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5363142418195651015, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.109542
+      value: -14.007902
       objectReference: {fileID: 0}
     - target: {fileID: 5363142418195651015, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7523328
+      value: 1.6820195
       objectReference: {fileID: 0}
     - target: {fileID: 5363142418195651015, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
       propertyPath: m_LocalPosition.z
