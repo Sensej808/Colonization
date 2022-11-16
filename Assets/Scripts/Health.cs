@@ -12,9 +12,12 @@ public class Health : MonoBehaviour
     public double CurrentHealth;
     public double HP = 100;
 
+    UIHealthBar myHealthBar;
+
     void Start()
     {
         CurrentHealth = HP;
+        myHealthBar = GetComponent<UIHealthBar>();
     }
 
     public void GetDamage(double damage)
@@ -23,7 +26,8 @@ public class Health : MonoBehaviour
             CurrentHealth -= damage;
         else 
             CurrentHealth = 0;
-              
+
+        myHealthBar.SetValue((float)(CurrentHealth / HP));
     }
 
     public void GetHealth(double health)
@@ -32,5 +36,7 @@ public class Health : MonoBehaviour
             CurrentHealth += health;
         else 
             CurrentHealth = HP;
+
+        myHealthBar.SetValue((float)(CurrentHealth / HP));
     }
 }
