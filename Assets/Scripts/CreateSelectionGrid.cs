@@ -19,7 +19,7 @@ public class CreateSelectionGrid : MonoBehaviour
     public CommandController command;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !command.clickInterface && !EventSystem.current.IsPointerOverGameObject())//при щелчке начинаем выделение
+        if (!Input.GetKey(KeyCode.A) &&Input.GetMouseButtonDown(0) && !command.clickInterface && !EventSystem.current.IsPointerOverGameObject())//при щелчке начинаем выделение
         {
             pos1 = Input.mousePosition;
             //Debug.Log("START");
