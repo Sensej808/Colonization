@@ -9,6 +9,7 @@ public class Build : MonoBehaviour
     public EngineerClass unit;
     public GameObject building; //ѕеременна€ здани€
     public Vector3 pos; //координаты строительства
+    public GameObject buildingUnderConstruction;
     //¬озвращает, свободно ли место строительства
     public bool isFreePosition()
     {
@@ -25,17 +26,18 @@ public class Build : MonoBehaviour
         return (listTerritory.Count == 0);
     }
     //строит здание
-    public void BuildStruct()
+    public void SetFrame()
     {
         pos.x = Mathf.RoundToInt(pos.x);
         pos.y = Mathf.RoundToInt(pos.y);
-        Instantiate(building, pos, building.transform.rotation);
+        buildingUnderConstruction = Instantiate(building, pos, building.transform.rotation);
     }
     //идЄт строить здание
     public void GoBuild()
     {
         unit.Moving.finalPos = pos;
         unit.Moving.isMoving = true;
+        unit.state = StateUnit.GoUseAbility;
     }
     //объедин€ет предыдущие функции
     //если здание выбрано, то есть не пустое
@@ -49,13 +51,31 @@ public class Build : MonoBehaviour
             if (isFreePosition())
                 GoBuild();
             else
+            {
+                unit.state = StateUnit.Normal;
                 building = null;
+                unit.Moving.isMoving = false;
+            }
             if (transform.position == pos && isFreePosition())
             {
-                BuildStruct();
+                SetFrame();
                 building = null;
+                unit.state = StateUnit.BuildStruct;
             }
         }
+    }
+    public void BuildStruct()
+    {
+        if (unit.state == StateUnit.BuildStruct)
+        {
+            if (buildingUnderConstruction.GetComponent<Frame>().constructionTime <= 0)
+            {
+                Instantiate(buildingUnderConstruction.GetComponent<Frame>().futureBuilding, buildingUnderConstruction.transform.position, buildingUnderConstruction.transform.rotation);
+                Destroy(buildingUnderConstruction);
+                unit.state = StateUnit.Normal;
+            }
+        }
+
     }
     //устанавливаем значение зданию, которое будем строить, и координаты, где будем строить
     public void SetStructPos(GameObject myBuilding, Vector3 myPos)
@@ -66,8 +86,12 @@ public class Build : MonoBehaviour
     //прекращаем строительство
     public void StopBuild()
     {
-        unit.Moving.isMoving = false;
-        building = null;
+        if (unit.state != StateUnit.BuildStruct)
+        {
+            unit.Moving.isMoving = false;
+            building = null;
+            unit.state = StateUnit.Normal;
+        }
     }
     public void Start()
     {
@@ -77,6 +101,7 @@ public class Build : MonoBehaviour
     {
         //мы всегда идЄм строить, но всЄ работает только если building не пустой, иначе всЄ сразу обрываетс€
         GoAndBuild();
+        BuildStruct();
     }
     //это нужно дл€ того, чтобы если мы пошли строить а там было свободно, а пришли и зан€то, строителть не билс€
     //головой о здание, а сразу сделал пустым building и стал адыхать

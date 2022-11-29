@@ -27,7 +27,7 @@ public class CommandController : MonoBehaviour
         GameObject nearest = null;
         foreach (GameObject go in group)
         {
-            if ((go.transform.position - pos).magnitude < min)
+            if ((go.transform.position - pos).magnitude < min && go.GetComponent<BaseUnitClass>().state == StateUnit.Normal)
             {
                 min = (go.transform.position - pos).magnitude;
                 nearest = go;
@@ -92,9 +92,9 @@ public class CommandController : MonoBehaviour
         {
             //если отпустили кнопку, пошли строить здание
             if (Input.GetKeyUp(KeyCode.Q))
-                SetStruct("Prefabs/StructQ");
+                SetStruct("Prefabs/FrameQ");
             if (Input.GetKeyUp(KeyCode.R))
-                SetStruct("Prefabs/StructR");
+                SetStruct("Prefabs/FrameR");
         }
         //если нажата кнопка в интрерфейсе, то выполн€ем команды по клику мыши
         if (clickInterface)
@@ -102,13 +102,13 @@ public class CommandController : MonoBehaviour
             //если нажали ѕ ћ, то пошли строить соответственнное здание
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["R"])
             {
-                SetStruct("Prefabs/StructR");
+                SetStruct("Prefabs/FrameR");
                 k = 100;
                 AllButtonFalse();
             }
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["Q"])
             {
-                SetStruct("Prefabs/StructQ");
+                SetStruct("Prefabs/FrameQ");
                 k = 100;
                 AllButtonFalse();
             }
@@ -120,7 +120,7 @@ public class CommandController : MonoBehaviour
             StopBuild();
         }
         //объ€сн€ю
-        //каждый божий раз, когда мы жмЄм лкм на карту, мы создаем сетку выбора
+        //каждый раз, когда мы жмЄм лкм на карту, мы создаем сетку выбора
         //и вот мы выбрали 5 рабочих, хотим им раздать наши важнейшие поручение, через кнопки интерфейса(осуждаю, всЄ надо делать через клаву)
         //одного посылаем строить, и так как это происходит по Ћ ћ, то также создаЄтс€ сетка выделени€
         //и так как в ней скорее всего не будет ваших 5 рабочих, то они станут невыделенными

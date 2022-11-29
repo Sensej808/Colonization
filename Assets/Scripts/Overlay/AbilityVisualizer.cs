@@ -11,7 +11,7 @@ public class AbilityVisualizer : MonoBehaviour
     public Vector3 abilityPos;
     public GameObject flyAbility; //летающая способность
     public GameObject myFlyAbility; //шаблон летающей способности
-    List<GameObject> group;
+    public List<GameObject> group;
     //создание летающей способности
     public void CreateFlyAbility()
     {
@@ -55,7 +55,6 @@ public class AbilityVisualizer : MonoBehaviour
     public void AddEngineerInGroup()
     {
         controller.GetSelectedUnits();
-        group.Clear();
         group = controller.selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
     }
     public void Start()

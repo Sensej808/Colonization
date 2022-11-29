@@ -7,17 +7,20 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 //Базовый класс-интерфейс юнитов
+public enum StateUnit { Normal, BuildStruct, GoUseAbility }
 public class BaseUnitClass : MonoBehaviour
 {
     public AllyMoving Moving;
     public SelectionCheck Selection;
     public Health Health;
     public BaseAttack Attack;
+    public StateUnit state;
     public virtual void Start()
     {
         Moving = gameObject.AddComponent<AllyMoving>();
         Selection = gameObject.AddComponent<SelectionCheck>();
         Health = gameObject.AddComponent<Health>();
         Attack = gameObject.AddComponent<BaseAttack>();
+        state = StateUnit.Normal;
     }
 }
