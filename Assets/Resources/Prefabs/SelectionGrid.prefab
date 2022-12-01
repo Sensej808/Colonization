@@ -146,6 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501111267a387b74d91ac38c2e6ef2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  k: 0
-  Storage: {fileID: 0}
-  storage: {fileID: 0}
+  IsDone: 0
+  storage: {fileID: 11400000, guid: 1b604d1744b525c49a40909b3483ff79, type: 2}
