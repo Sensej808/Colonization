@@ -14,7 +14,6 @@ public class OpenBuildMenu : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             int i = 0;
-            controller.GetSelectedUnits();
             foreach(GameObject go in controller.selectedUnits)
             {
                 if (go.GetComponent<Build>())

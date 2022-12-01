@@ -1,24 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-//Хранилище игрока, где записываются внутриигровые данные
-public class InGameStorage : MonoBehaviour
+[CreateAssetMenu(menuName = "GameStorage", order = -100)]
+public class InGameStorage : ScriptableObject
 {
-    public int[] resourses; //Количество ресурсов для строительства
-    public List<GameObject> Units; //Все юниты
-    public List<GameObject> SelectedUnits; // Выделенные юниты
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    public Materials materials;
+    //[SerializeField]
+    public List<GameObject> PlayerUnits;
+    //[SerializeField]
+    public List<GameObject> SelectedUnits;
+    public class Materials
     {
-        Debug.Log("Init");
-        Units = new List<GameObject>();
-        SelectedUnits = new List<GameObject>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int Metal = 0;
+        int Log = 0;
     }
 }
+
+

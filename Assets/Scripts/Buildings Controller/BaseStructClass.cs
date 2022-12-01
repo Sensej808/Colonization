@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SelectionCheck))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(DoUnits))]
 public class BaseStructClass : MonoBehaviour
 {
     public SelectionCheck Selection;
@@ -9,9 +12,9 @@ public class BaseStructClass : MonoBehaviour
     public DoUnits Create;
     void Start()
     {
-        Selection = gameObject.AddComponent<SelectionCheck>();
-        Health = gameObject.AddComponent<Health>();
-        Create = gameObject.AddComponent<DoUnits>();
+        Selection = gameObject.GetComponent<SelectionCheck>();
+        Health = gameObject.GetComponent<Health>();
+        Create = gameObject.GetComponent<DoUnits>();
     }
 
     // Update is called once per frame
