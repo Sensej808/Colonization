@@ -18,10 +18,13 @@ public class OpenMenu : MonoBehaviour
             int k = 0;
             foreach(GameObject go in controller.selectedUnits)
             {
-                if (go.GetComponent<Build>())
-                    i++;
-                if (go.GetComponent<DoUnits>())
-                    k++;
+                if (go != null)
+                {
+                    if (go.GetComponent<Build>())
+                        i++;
+                    if (go.GetComponent<DoUnits>())
+                        k++;
+                }
             }
             if (i == 0)
                 gameObject.transform.Find("BuildMenu").gameObject.SetActive(false);

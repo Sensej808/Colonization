@@ -16,8 +16,11 @@ public class CommandController : MonoBehaviour
     {
         foreach (var unit in selectedUnits)
         {
-            unit.GetComponent<SelectionCheck>().isSelected = false;
-            unit.GetComponent<SelectionCheck>().Demonstrate();
+            if (unit != null)
+            {
+                unit.GetComponent<SelectionCheck>().isSelected = false;
+                unit.GetComponent<SelectionCheck>().Demonstrate();
+            }
         }
         selectedUnits = null;
         selectedUnits = SelectedUnits;
