@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ff4978a587027945b922667b00d222f, type: 3}
-  m_Name: New In Game Storage
+  m_Name: 123
   m_EditorClassIdentifier: 
-  PlayerUnits: []
-  SelectedUnits: []
+  datas:
+  - tag: 
+    data:
+      value: 0
+      str: 

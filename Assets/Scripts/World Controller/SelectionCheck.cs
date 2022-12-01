@@ -6,14 +6,4 @@ using UnityEngine;
 public class SelectionCheck : MonoBehaviour
 {
     public bool isSelected = false;
-    private Rect rect;
-    Sprite selectBox;
-
-
-    //Отрисовка выделения объекта
-    public void Demonstrate()
-    {
-        Debug.Log(isSelected);
-        transform.GetChild(0).gameObject.SetActive(isSelected);
-    }
 }

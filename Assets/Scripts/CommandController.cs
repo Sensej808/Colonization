@@ -10,24 +10,17 @@ public class CommandController : MonoBehaviour
     public bool clickInterface; //переменная отвечающая, какие щас будут выполняться команды: от клавиатуры, или интерфейса
     public Dictionary<string, bool> KeyOnMenu; //массив кнопок интерфейса, говорящий, который ставит value true, если кнопка нажата
     public int k;
-
     //получаем лист выделенных юнитов
-    public void UpdateSelection(List<GameObject> SelectedUnits)
+    public void GetSelectedUnits()
     {
-        foreach (var unit in selectedUnits)
+        selectedUnits.Clear();
+        GameObject[] arrSelectedUnits = GameObject.FindGameObjectsWithTag("Allied");
+        foreach (GameObject go in arrSelectedUnits)
         {
-            unit.GetComponent<SelectionCheck>().isSelected = false;
-            unit.GetComponent<SelectionCheck>().Demonstrate();
-        }
-        selectedUnits = null;
-        selectedUnits = SelectedUnits;
-        foreach (var unit in SelectedUnits)
-        {
-            unit.GetComponent<SelectionCheck>().isSelected = true;
-            unit.GetComponent<SelectionCheck>().Demonstrate();
+            if (go.GetComponent<SelectionCheck>().isSelected)
+                selectedUnits.Add(go);
         }
     }
-    
     //получаем ближайшего юнита из ГРУППЫ(не из всех выделенных), по отношению к какой-то координате
     public GameObject Nearest(Vector3 pos, List<GameObject> group)
     {
@@ -70,6 +63,7 @@ public class CommandController : MonoBehaviour
     {
         Vector3 myPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         myPos.z = 0;
+        GetSelectedUnits();
         List<GameObject> group = selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
         GameObject builder = Nearest(myPos, group);
         if (builder != null)
@@ -78,6 +72,7 @@ public class CommandController : MonoBehaviour
     //останавливает строительство ВСЕХ выделенных рабочих
     public void StopBuild()
     {
+            GetSelectedUnits();
             List<GameObject> group = selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
             foreach (GameObject go in group)
             {
