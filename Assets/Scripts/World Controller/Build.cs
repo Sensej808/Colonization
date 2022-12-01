@@ -73,9 +73,9 @@ public class Build : MonoBehaviour
                 Instantiate(buildingUnderConstruction.GetComponent<Frame>().futureBuilding, buildingUnderConstruction.transform.position, buildingUnderConstruction.transform.rotation);
                 Destroy(buildingUnderConstruction);
                 unit.state = StateUnit.Normal;
-                StopBuild();
             }
         }
+
     }
     //устанавливаем значение зданию, которое будем строить, и координаты, где будем строить
     public void SetStructPos(GameObject myBuilding, Vector3 myPos)
@@ -86,11 +86,12 @@ public class Build : MonoBehaviour
     //прекращаем строительство
     public void StopBuild()
     {
-        unit.Moving.isMoving = false;
-        building = null;
-        unit.state = StateUnit.Normal; 
-        if (buildingUnderConstruction != null)
-            Destroy(buildingUnderConstruction);
+        if (unit.state != StateUnit.BuildStruct)
+        {
+            unit.Moving.isMoving = false;
+            building = null;
+            unit.state = StateUnit.Normal;
+        }
     }
     public void Start()
     {
@@ -107,10 +108,9 @@ public class Build : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Transform territory = collision.gameObject.transform.Find("MyTerritory");
-        if (territory != null && collision.OverlapPoint(pos) && buildingUnderConstruction != null)
+        if (territory != null && collision.OverlapPoint(pos))
         {
-            if(territory != buildingUnderConstruction.transform.Find("MyTerritory"))
-                StopBuild();
+            StopBuild();
         }
     }
 }

@@ -124,10 +124,8 @@ MonoBehaviour:
   Moving: {fileID: 0}
   Selection: {fileID: 0}
   Health: {fileID: 0}
-  Attack: {fileID: 0}
-  state: 0
-  ProductionTime: 50
   Builder: {fileID: 0}
+  Menu: {fileID: 0}
 --- !u!1 &6215668904426117970
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,6 @@ public class BaseUnitClass : MonoBehaviour
     public Health Health;
     public BaseAttack Attack;
     public StateUnit state;
-    public float ProductionTime;
     public virtual void Start()
     {
         Moving = gameObject.AddComponent<AllyMoving>();
