@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrameR
       objectReference: {fileID: 0}
+    - target: {fileID: 1793472331147743952, guid: 1579a65075e3a1743b4a0d23ef558a36, type: 3}
+      propertyPath: m_TagString
+      value: Allied
+      objectReference: {fileID: 0}
     - target: {fileID: 1793472331147743956, guid: 1579a65075e3a1743b4a0d23ef558a36, type: 3}
       propertyPath: m_RootOrder
       value: 0

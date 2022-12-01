@@ -126,6 +126,8 @@ MonoBehaviour:
   Selection: {fileID: 0}
   Health: {fileID: 0}
   Attack: {fileID: 0}
+  state: 0
+  ProductionTime: 100
 --- !u!1 &18228176747925198
 GameObject:
   m_ObjectHideFlags: 0

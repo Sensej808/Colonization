@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 
@@ -78,6 +79,17 @@ public class CommandController : MonoBehaviour
                 go.GetComponent<Build>().StopBuild();
             }
     }
+    //функции для зданий
+    public void AddUnit(string NameUnit)
+    {
+        GetSelectedUnits();
+        List<GameObject> group = selectedUnits.FindAll(x => x.GetComponent<DoUnits>() != null);
+        GameObject myStruct = null;
+        if (group.Count != 0)
+            myStruct = group.OrderBy(x => x.GetComponent<DoUnits>().queueUnits.Count).First();
+        if (myStruct != null)
+            myStruct.GetComponent<DoUnits>().AddUnit(Resources.Load<GameObject>(NameUnit));
+    }
     public void Start()
     {
         KeyOnMenu = new Dictionary<string, bool>();
@@ -95,6 +107,10 @@ public class CommandController : MonoBehaviour
                 SetStruct("Prefabs/FrameQ");
             if (Input.GetKeyUp(KeyCode.R))
                 SetStruct("Prefabs/FrameR");
+            if (Input.GetKeyDown(KeyCode.W))
+                AddUnit("Prefabs/Cyborg");
+            if (Input.GetKeyDown(KeyCode.F))
+                AddUnit("Prefabs/Engineer");
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши
         if (clickInterface)

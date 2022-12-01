@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StructQ
       objectReference: {fileID: 0}
+    - target: {fileID: 715531406791195076, guid: e39ad8babd98a0543ab10c2ba8f81b72, type: 3}
+      propertyPath: m_TagString
+      value: Allied
+      objectReference: {fileID: 0}
     - target: {fileID: 6879138793327466993, guid: e39ad8babd98a0543ab10c2ba8f81b72, type: 3}
       propertyPath: m_Name
       value: StructQ

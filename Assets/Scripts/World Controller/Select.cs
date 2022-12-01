@@ -40,9 +40,10 @@ public class Select : MonoBehaviour
     }
     private void DeleteSelected() //отчищает список выделенных юнитов в Хранилище
     {
-        while(storage.SelectedUnits.Count != 0)
+        while (storage.SelectedUnits.Count != 0)
         {
-            storage.SelectedUnits.First().GetComponent<SelectionCheck>().isSelected = false;
+            if (storage.SelectedUnits.First() != null)
+                storage.SelectedUnits.First().GetComponent<SelectionCheck>().isSelected = false;
             storage.SelectedUnits.RemoveAt(0);
         }
     }
