@@ -1002,7 +1002,6 @@ GameObject:
   - component: {fileID: 748843186}
   - component: {fileID: 748843185}
   - component: {fileID: 748843189}
-  - component: {fileID: 748843190}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1106,19 +1105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1654255576}
---- !u!114 &748843190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748843184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2a727177acb934b85671bb6a1467b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1654255576}
+  grid: {fileID: 1601340587}
 --- !u!1 &774425087
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabSelectionGrid: {fileID: 2419905967464490516, guid: 866d7be7195a4f44b914ad48e2fc12e6, type: 3}
+  SelectionGrid: {fileID: 0}
   command: {fileID: 1654255576}
 --- !u!4 &1601340588
 Transform:

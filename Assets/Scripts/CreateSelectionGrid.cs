@@ -15,7 +15,7 @@ public class CreateSelectionGrid : MonoBehaviour
     private Vector3 rpos2;//позиция мыши НА КАРТЕ, во время расстягивания сетки выделения
     private Vector3 posc; //центр сетки выделения
     private bool selecting = false; //false - если сетки сейчас нет, true - если сетка создана
-    private GameObject SelectionGrid; //сетка выделения на экране
+    public GameObject SelectionGrid; //сетка выделения на экране
     public CommandController command;
     void Update()
     {
