@@ -8,6 +8,11 @@ using static UnityEngine.GraphicsBuffer;
 
 //Базовый класс-интерфейс юнитов
 public enum StateUnit { Normal, BuildStruct, GoUseAbility }
+
+[RequireComponent(typeof(AllyMoving))]
+[RequireComponent(typeof(SelectionCheck))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(BaseAttack))]
 public class BaseUnitClass : MonoBehaviour
 {
     [HideInInspector]
@@ -21,18 +26,11 @@ public class BaseUnitClass : MonoBehaviour
     public float ProductionTime;
     public virtual void Start()
     {
-        Moving = gameObject.AddComponent<AllyMoving>();
-        Selection = gameObject.AddComponent<SelectionCheck>();
-        Health = gameObject.AddComponent<Health>();
-        Attack = gameObject.AddComponent<BaseAttack>();
+        Moving = gameObject.GetComponent<AllyMoving>();
+        Selection = gameObject.GetComponent<SelectionCheck>();
+        Health = gameObject.GetComponent<Health>();
+        Attack = gameObject.GetComponent<BaseAttack>();
         state = StateUnit.Normal;
-        /*
-<<<<<<< HEAD
-        state = StateUnit.Normal;
-=======
-        gameObject.GetComponent<BaseAttack>();
->>>>>>> 35b82799be7df5c57d45881bc123d1572a74d261
-        */
 
     }
 }
