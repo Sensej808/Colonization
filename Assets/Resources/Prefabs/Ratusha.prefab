@@ -99,8 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f3fe5c59ef6fa4993ee5b8b673e6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainRenderer: {fileID: 8450841522975973597}
+  renderer: {fileID: 0}
   Size: {x: 1, y: 1}
+  boxCollider: {fileID: 0}
+  Can_builded: 0
 --- !u!114 &3077396863553839558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca51deed05182f64aabe36c366745589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  realTimeSpawning: 0
+  myUnit: {fileID: 0}
+  myStruct: {fileID: 0}
 --- !u!61 &166061443047346439
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,6 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3268920347062537173}
   - component: {fileID: 1405204415896309211}
+  - component: {fileID: 41646701653792576}
   m_Layer: 0
   m_Name: Ratusha
   m_TagString: Untagged
@@ -224,3 +230,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &41646701653792576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7801634334510916556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f3fe5c59ef6fa4993ee5b8b673e6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 0}
+  Size: {x: 1, y: 1}
+  boxCollider: {fileID: 0}
+  Can_builded: 0

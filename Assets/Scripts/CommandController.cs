@@ -9,17 +9,24 @@ public class CommandController : MonoBehaviour
     public bool clickInterface; //переменная отвечающая, какие щас будут выполняться команды: от клавиатуры, или интерфейса
     public Dictionary<string, bool> KeyOnMenu; //массив кнопок интерфейса, говорящий, который ставит value true, если кнопка нажата
     public int k;
+
     //получаем лист выделенных юнитов
-    public void GetSelectedUnits()
+    public void UpdateSelection(List<GameObject> SelectedUnits)
     {
-        selectedUnits.Clear();
-        GameObject[] arrSelectedUnits = GameObject.FindGameObjectsWithTag("Allied");
-        foreach (GameObject go in arrSelectedUnits)
+        foreach (var unit in selectedUnits)
         {
-            if (go.GetComponent<SelectionCheck>().isSelected)
-                selectedUnits.Add(go);
+            unit.GetComponent<SelectionCheck>().isSelected = false;
+            unit.GetComponent<SelectionCheck>().Demonstrate();
+        }
+        selectedUnits = null;
+        selectedUnits = SelectedUnits;
+        foreach (var unit in SelectedUnits)
+        {
+            unit.GetComponent<SelectionCheck>().isSelected = true;
+            unit.GetComponent<SelectionCheck>().Demonstrate();
         }
     }
+    
     //получаем ближайшего юнита из ГРУППЫ(не из всех выделенных), по отношению к какой-то координате
     public GameObject Nearest(Vector3 pos, List<GameObject> group)
     {
@@ -27,7 +34,7 @@ public class CommandController : MonoBehaviour
         GameObject nearest = null;
         foreach (GameObject go in group)
         {
-            if ((go.transform.position - pos).magnitude < min)
+            if ((go.transform.position - pos).magnitude < min && go.GetComponent<BaseUnitClass>().state == StateUnit.Normal)
             {
                 min = (go.transform.position - pos).magnitude;
                 nearest = go;
@@ -62,7 +69,6 @@ public class CommandController : MonoBehaviour
     {
         Vector3 myPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         myPos.z = 0;
-        GetSelectedUnits();
         List<GameObject> group = selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
         GameObject builder = Nearest(myPos, group);
         if (builder != null)
@@ -71,7 +77,6 @@ public class CommandController : MonoBehaviour
     //останавливает строительство ВСЕХ выделенных рабочих
     public void StopBuild()
     {
-            GetSelectedUnits();
             List<GameObject> group = selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
             foreach (GameObject go in group)
             {
@@ -92,9 +97,9 @@ public class CommandController : MonoBehaviour
         {
             //если отпустили кнопку, пошли строить здание
             if (Input.GetKeyUp(KeyCode.Q))
-                SetStruct("Prefabs/StructQ");
+                SetStruct("Prefabs/FrameQ");
             if (Input.GetKeyUp(KeyCode.R))
-                SetStruct("Prefabs/StructR");
+                SetStruct("Prefabs/FrameR");
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши
         if (clickInterface)
@@ -102,13 +107,13 @@ public class CommandController : MonoBehaviour
             //если нажали ПКМ, то пошли строить соответственнное здание
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["R"])
             {
-                SetStruct("Prefabs/StructR");
+                SetStruct("Prefabs/FrameR");
                 k = 100;
                 AllButtonFalse();
             }
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["Q"])
             {
-                SetStruct("Prefabs/StructQ");
+                SetStruct("Prefabs/FrameQ");
                 k = 100;
                 AllButtonFalse();
             }
@@ -120,7 +125,7 @@ public class CommandController : MonoBehaviour
             StopBuild();
         }
         //объясняю
-        //каждый божий раз, когда мы жмём лкм на карту, мы создаем сетку выбора
+        //каждый раз, когда мы жмём лкм на карту, мы создаем сетку выбора
         //и вот мы выбрали 5 рабочих, хотим им раздать наши важнейшие поручение, через кнопки интерфейса(осуждаю, всё надо делать через клаву)
         //одного посылаем строить, и так как это происходит по ЛКМ, то также создаётся сетка выделения
         //и так как в ней скорее всего не будет ваших 5 рабочих, то они станут невыделенными

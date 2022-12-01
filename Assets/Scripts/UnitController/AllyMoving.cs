@@ -18,10 +18,13 @@ public class AllyMoving : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
-            SetPosition();
-        if (isMoving)
-            Move();
+        if (unit.state != StateUnit.BuildStruct)
+        {
+            if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
+                SetPosition();
+            if (isMoving)
+                Move();
+        }
         if (Input.GetKey("s")) //если нажимаем на s, юнит останавливается
             isMoving = false;
     }
