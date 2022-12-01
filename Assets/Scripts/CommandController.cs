@@ -100,6 +100,8 @@ public class CommandController : MonoBehaviour
         k = 100;
         KeyOnMenu.Add("Q", false); //добавляем кнопку Q в интерфейс
         KeyOnMenu.Add("R", false); //добавляем кнопку R в интерфейс
+        KeyOnMenu.Add("unitW", false);
+        KeyOnMenu.Add("unitF", false);
     }
     void Update()
     {
@@ -129,6 +131,18 @@ public class CommandController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && KeyOnMenu["Q"])
             {
                 SetStruct("Prefabs/FrameQ");
+                k = 100;
+                AllButtonFalse();
+            }
+            if (KeyOnMenu["unitW"])
+            {
+                AddUnit("Prefabs/Cyborg");
+                k = 100;
+                AllButtonFalse();
+            }
+            if (KeyOnMenu["unitF"])
+            {
+                AddUnit("Prefabs/Engineer");
                 k = 100;
                 AllButtonFalse();
             }
