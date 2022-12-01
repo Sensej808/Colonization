@@ -54,7 +54,7 @@ public class AbilityVisualizer : MonoBehaviour
     //заносит в group выделенных строителей
     public void AddEngineerInGroup()
     {
-        group = controller.selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
+        group = controller.selectedUnits.FindAll(x => x != null ? x.GetComponent<Build>() != null : x == null);
     }
     public void Start()
     {
