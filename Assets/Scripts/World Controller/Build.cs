@@ -73,6 +73,7 @@ public class Build : MonoBehaviour
                 Instantiate(buildingUnderConstruction.GetComponent<Frame>().futureBuilding, buildingUnderConstruction.transform.position, buildingUnderConstruction.transform.rotation);
                 Destroy(buildingUnderConstruction);
                 unit.state = StateUnit.Normal;
+                StopBuild();
             }
         }
 
@@ -86,12 +87,11 @@ public class Build : MonoBehaviour
     //прекращаем строительство
     public void StopBuild()
     {
-        if (unit.state != StateUnit.BuildStruct)
-        {
-            unit.Moving.isMoving = false;
-            building = null;
-            unit.state = StateUnit.Normal;
-        }
+        unit.Moving.isMoving = false;
+        building = null;
+        unit.state = StateUnit.Normal;
+        if (buildingUnderConstruction != null)
+            Destroy(buildingUnderConstruction);
     }
     public void Start()
     {
@@ -108,9 +108,10 @@ public class Build : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Transform territory = collision.gameObject.transform.Find("MyTerritory");
-        if (territory != null && collision.OverlapPoint(pos))
+        if (territory != null && collision.OverlapPoint(pos) && buildingUnderConstruction != null)
         {
-            StopBuild();
+            if (territory != buildingUnderConstruction.transform.Find("MyTerritory"))
+                StopBuild();
         }
     }
 }
