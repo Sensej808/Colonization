@@ -30,7 +30,6 @@ public class CommandController : MonoBehaviour
             unit.GetComponent<SelectionCheck>().Demonstrate();
         }
     }
-    
     //получаем ближайшего юнита из ГРУППЫ(не из всех выделенных), по отношению к какой-то координате
     public GameObject Nearest(Vector3 pos, List<GameObject> group)
     {
@@ -38,14 +37,14 @@ public class CommandController : MonoBehaviour
         GameObject nearest = null;
         foreach (GameObject go in group)
         {
-            if (go != null)
-            {
+            //if (go != null)
+            //{
                 if ((go.transform.position - pos).magnitude < min && go.GetComponent<BaseUnitClass>().state == StateUnit.Normal)
                 {
                     min = (go.transform.position - pos).magnitude;
                     nearest = go;
                 }
-            }
+            //}
         }
         return nearest;
     }
@@ -76,7 +75,8 @@ public class CommandController : MonoBehaviour
     {
         Vector3 myPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         myPos.z = 0;
-        List<GameObject> group = selectedUnits.FindAll(x => x != null ? x.GetComponent<Build>() != null : x == null);
+        //List<GameObject> group = Storage.selectedUnits.FindAll(x => x != null ? x.GetComponent<Build>() != null : x == null);
+        List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
         GameObject builder = Nearest(myPos, group);
         if (builder != null)
             builder.GetComponent<Build>().SetStructPos(Resources.Load<GameObject>(nameStruct), myPos);
@@ -84,17 +84,19 @@ public class CommandController : MonoBehaviour
     //останавливает строительство ВСЕХ выделенных рабочих
     public void StopBuild()
     {
-            List<GameObject> group = selectedUnits.FindAll(x => x != null ? x.GetComponent<Build>() != null : x == null);
-            foreach (GameObject go in group)
+        //List<GameObject> group = Storage.selectedUnits.FindAll(x => x != null ? x.GetComponent<Build>() != null : x == null);
+        List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
+        foreach (GameObject go in group)
             {
-                if (go != null)
+                //if (go != null)
                     go.GetComponent<Build>().StopBuild();
             }
     }
     public void AddUnit(string NameUnit)
     {
         //GetSelectedUnits();
-        List<GameObject> group = selectedUnits.FindAll(x => x != null ? x.GetComponent<DoUnits>() != null : x == null);
+        //List<GameObject> group = Storage.selectedUnits.FindAll(x => x != null ? x.GetComponent<DoUnits>() != null : x == null);
+        List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<DoUnits>() != null);
         GameObject myStruct = null;
         if (group.Count != 0)
             myStruct = group.OrderBy(x => x.GetComponent<DoUnits>().queueUnits.Count).First();
