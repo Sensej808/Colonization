@@ -12,16 +12,18 @@ public class Storage : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+            selectedUnits = new List<GameObject> ();
             return;
         }
         Destroy(this.gameObject);
     }
-    public void GetSelectedUnits()
+    public static void GetSelectedUnits()
     {
         List<SelectionCheck> ArrSelectComponent = new List<SelectionCheck>(GameObject.FindObjectsOfType<SelectionCheck>());
         ArrSelectComponent = ArrSelectComponent.FindAll(x => x.isSelected);
         //selectedUnits.Clear();
         selectedUnits = ArrSelectComponent.ConvertAll(x => x.gameObject);
+        //print(selectedUnits.Count);
     }
     public void Update()
     {
