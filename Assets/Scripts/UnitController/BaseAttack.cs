@@ -12,15 +12,18 @@ public class BaseAttack : MonoBehaviour
     public float attackRange;
     public GameObject target;
     public GameObject bullet;
-    public bool goAttack;
     public float cooldown;
     public float realCooldown;
     public GameObject bulletPattern;
+    public float GetTargetRange;
+    public bool isFocusAttack;
     void Start()
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
-        goAttack = false;
         realCooldown = 0f;
+        GetTargetRange = 10f;
+        isFocusAttack = false;
+
     }
     public GameObject SetNearestTarget()
     {
@@ -65,7 +68,7 @@ public class BaseAttack : MonoBehaviour
     {
         if (target != null)
         {
-            if (goAttack && (transform.position - target.transform.position).magnitude <= attackRange)
+            if ((transform.position - target.transform.position).magnitude <= attackRange)
             {
                 if (realCooldown <= 0f)
                 {
@@ -78,8 +81,48 @@ public class BaseAttack : MonoBehaviour
             }
         }
     }
+    public GameObject ConstantSearchEnemy()
+    {
+        GameObject target = SetNearestTarget();
+        if (target != null)
+        {
+            if ((target.transform.position - gameObject.transform.position).magnitude <= GetTargetRange)
+                return target;
+            else
+                return null;
+        }
+        return null;
+    }
+    public void GoAttackAndAttack()
+    {
+        if ((gameObject.transform.position - target.transform.position).magnitude >= attackRange)
+        {
+            //unit.Moving.isMoving = true;
+            //unit.Moving.finalPos = target.transform.position;
+        }
+        else
+            CreateBullet();
+    }
     void Update()
     {
+        if (realCooldown >= 0)
+            realCooldown -= 0.1f;
+        if (unit.state != StateUnit.BuildStruct)
+        {
+            if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
+            {
+                target = SetFocusTarget();
+                if (target != null)
+                    isFocusAttack = true;
+            }
+            if (!isFocusAttack)
+                target = ConstantSearchEnemy();
+            if (target != null)
+                GoAttackAndAttack();
+            if (target == null || target.activeSelf == false)
+                isFocusAttack = false;
+        }
+        /*
         if (unit.state != StateUnit.BuildStruct)
         {
             if (realCooldown >= 0)
@@ -114,5 +157,6 @@ public class BaseAttack : MonoBehaviour
                 goAttack = false;
             CreateBullet();
         }
+        */
     }
 }

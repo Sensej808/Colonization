@@ -630,7 +630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &519781204
 Rigidbody2D:
   serializedVersion: 4
@@ -1104,7 +1104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11922be6e3804a408c2bcc05bba116c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1654255576}
   grid: {fileID: 1601340587}
 --- !u!1 &774425087
 GameObject:
@@ -2246,7 +2245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf52b3f46fcb154eb1a0faef4daf4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedUnits: []
   clickInterface: 0
   k: 0
 --- !u!1 &1714054320

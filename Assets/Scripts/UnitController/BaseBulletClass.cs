@@ -12,16 +12,22 @@ public class BaseBulletClass : MonoBehaviour
     }
     public virtual void Update()
     {
-        MoveBullet();
         DestroyBullet();
+        MoveBullet();
     }
     public void MoveBullet()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        if(target != null)
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
     public void DestroyBullet()
     {
-        if (transform.position == target.transform.position || target == null)
+        if (target != null)
+        {
+            if (transform.position == target.transform.position)
+                Destroy(gameObject);
+        }
+        if (target == null)
             Destroy(gameObject);
     }
 }
