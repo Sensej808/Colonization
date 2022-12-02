@@ -9,7 +9,9 @@ using UnityEngine.UIElements;
 public class AllyMoving : MonoBehaviour
 {
     public Vector3 finalPos; //точка, куда идёт юнит
-    private float speed = 5f; //скорость юнита
+    public Vector3 CurPos; // Точка, к которой сейчас идет юнит
+    public List<Vector3> path; //Путь, пл которому идёт юнит
+    public float speed = 5f; //скорость юнита
     public bool isMoving = false; //значение true, если выбрана позиция или юнит туда идёт, false, если остановился или дошёл
     public BaseUnitClass unit;
     void Start()
@@ -21,7 +23,10 @@ public class AllyMoving : MonoBehaviour
         if (unit.state != StateUnit.BuildStruct)
         {
             if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
+            {
                 SetPosition();
+
+            }
             if (isMoving)
                 Move();
         }
@@ -30,14 +35,23 @@ public class AllyMoving : MonoBehaviour
     }
     public void SetPosition()//устанавливает значение finalPos = 0, меняет IsMoving на true
     {
+
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        PathFinding.Instance.grid.GetXY(finalPos, out int x, out int y);
+        finalPos.x = x;
+        finalPos.y = y;
+        path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, finalPos);
         finalPos.z = 0;
         isMoving = true;
     }
     public void Move() //передвигает юнита к finalPos
     {
-        transform.position = Vector3.MoveTowards(transform.position, finalPos, speed * Time.deltaTime);
-        if (transform.position == finalPos)
+        Debug.Log("!HERE: " + finalPos.x + " " + finalPos.y);
+        Debug.Log("HERE: " + path[0].x + " " + path[0].y);
+        transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
+        if (transform.position == path[0])
+            path.Remove(path[0]);
+        if (path.Count == 0)
             isMoving = false;
     }
 }

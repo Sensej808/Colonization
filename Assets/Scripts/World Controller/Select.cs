@@ -62,5 +62,6 @@ public class Select : MonoBehaviour
     private void OnDestroy()
     {
         controller.UpdateSelection(SelectedUnits);
+        UnitsAndStructsContainer.UpdateSelectedUnits(SelectedUnits);
     }
 }
