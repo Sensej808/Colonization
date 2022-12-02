@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class OpenMenu : MonoBehaviour
 {
-    public CommandController controller;
     public CreateSelectionGrid grid;
     public void Update()
     {
@@ -16,15 +15,13 @@ public class OpenMenu : MonoBehaviour
         {
             int i = 0;
             int k = 0;
-            foreach(GameObject go in controller.selectedUnits)
+            Storage.GetSelectedUnits();
+            foreach(GameObject go in Storage.selectedUnits)
             {
-                if (go != null)
-                {
                     if (go.GetComponent<Build>())
                         i++;
                     if (go.GetComponent<DoUnits>())
                         k++;
-                }
             }
             if (i == 0)
                 gameObject.transform.Find("BuildMenu").gameObject.SetActive(false);

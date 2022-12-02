@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class CommandController : MonoBehaviour
 {
-    public List<GameObject> selectedUnits; //лист, содержащий выделенных юнитов
+    //public List<GameObject> selectedUnits; //лист, содержащий выделенных юнитов
     public bool clickInterface; //переменная отвечающая, какие щас будут выполняться команды: от клавиатуры, или интерфейса
     public Dictionary<string, bool> KeyOnMenu; //массив кнопок интерфейса, говорящий, который ставит value true, если кнопка нажата
     public int k;
 
     //получаем лист выделенных юнитов
+    /*
     public void UpdateSelection(List<GameObject> SelectedUnits)
     {
         foreach (var unit in selectedUnits)
@@ -30,6 +31,7 @@ public class CommandController : MonoBehaviour
             unit.GetComponent<SelectionCheck>().Demonstrate();
         }
     }
+    */
     //получаем ближайшего юнита из ГРУППЫ(не из всех выделенных), по отношению к какой-то координате
     public GameObject Nearest(Vector3 pos, List<GameObject> group)
     {
