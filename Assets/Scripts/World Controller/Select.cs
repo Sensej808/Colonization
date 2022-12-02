@@ -62,6 +62,8 @@ public class Select : MonoBehaviour
     private void OnDestroy()
     {
         //controller.UpdateSelection(SelectedUnits);
+        if (SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() != null) && SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() == null))
+            SelectedUnits.RemoveAll(x => x.GetComponent<BaseStructClass>() != null);
         foreach(SelectionCheck sc in GameObject.FindObjectsOfType<SelectionCheck>())
             sc.isSelected = false;
         foreach (GameObject go in SelectedUnits)

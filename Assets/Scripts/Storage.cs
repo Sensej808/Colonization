@@ -23,6 +23,7 @@ public class Storage : MonoBehaviour
         ArrSelectComponent = ArrSelectComponent.FindAll(x => x.isSelected);
         //selectedUnits.Clear();
         selectedUnits = ArrSelectComponent.ConvertAll(x => x.gameObject);
+        //print(selectedUnits.Count);
     }
     public void Update()
     {
