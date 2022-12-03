@@ -27,7 +27,7 @@ public class BaseStructClass : MonoBehaviour
             for (int j = 0; j < SizeY; j++)
             {
 
-                Debug.Log($"pf = null: {PathFinding.Instance == null} \n grid = null: {PathFinding.Instance.grid == null} \n GetValue = null: {PathFinding.Instance.grid.GetValue(new Vector3(x + i, y + j, 0)) == null}");
+                //Debug.Log($"pf = null: {PathFinding.Instance == null} \n grid = null: {PathFinding.Instance.grid == null} \n GetValue = null: {PathFinding.Instance.grid.GetValue(new Vector3(x + i, y + j, 0)) == null}");
                 PathFinding.Instance.grid.GetValue(x + i, y + j).SetWalkable(false);
             }
         }

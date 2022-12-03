@@ -45,8 +45,8 @@ public class PathFinding
         PathNode startNode = start;
         PathNode finalNode = fin;
 
-        Debug.Log($"startNode = {start.x}  {start.y}");
-        Debug.Log($"finNode = {fin.x}  {fin.y}");
+        //Debug.Log($"startNode = {start.x}  {start.y}");
+        //Debug.Log($"finNode = {fin.x}  {fin.y}");
 
         OpenNodes = new List<PathNode> { startNode};
         ClosedNodes = new List<PathNode>();
@@ -58,7 +58,7 @@ public class PathFinding
                 PathNode pathNode = grid.GetValue(new Vector3(i, j, 0));
                 pathNode.gCost = int.MaxValue;
                 pathNode.CalcFcost();
-                Debug.Log(pathNode.fCost);
+                //Debug.Log(pathNode.fCost);
                 pathNode.grid.ChangeText(pathNode.x, pathNode.y, "INF");
                 pathNode.WhereCameFrom = null;
 
@@ -81,7 +81,7 @@ public class PathFinding
 
             foreach (var neigh in OpenNeighbours(cur))
             {
-                Debug.Log(OpenNeighbours(cur).Count);
+                //Debug.Log(OpenNeighbours(cur).Count);
                 if (ClosedNodes.Contains(neigh))
                     continue;
                 if (!neigh.is_walkable)
@@ -165,9 +165,9 @@ public class PathFinding
     {
         int xDist = Mathf.Abs(start.x - fin.x);
         int yDist = Mathf.Abs(start.y - fin.y);
-        Debug.Log($"start = {start.x}  {start.y}");
-        Debug.Log($"fin = {fin.x}  {fin.y}");
-        Debug.Log($"dist = {Diagonal_cost * Mathf.Min(xDist, yDist) + Stright_cost * Mathf.Abs(xDist - yDist)}");
+        //Debug.Log($"start = {start.x}  {start.y}");
+        //Debug.Log($"fin = {fin.x}  {fin.y}");
+        //Debug.Log($"dist = {Diagonal_cost * Mathf.Min(xDist, yDist) + Stright_cost * Mathf.Abs(xDist - yDist)}");
         return Diagonal_cost * Mathf.Min(xDist, yDist) + Stright_cost * Mathf.Abs(xDist - yDist);
     }
 
