@@ -12,15 +12,20 @@ public class BaseAttack : MonoBehaviour
     public float attackRange;
     public GameObject target;
     public GameObject bullet;
-    public bool goAttack;
     public float cooldown;
     public float realCooldown;
     public GameObject bulletPattern;
+    public float GetTargetRange;
+    public bool isFocusAttack;
+    public Vector3 finalAttackPos;
     void Start()
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
-        goAttack = false;
         realCooldown = 0f;
+        GetTargetRange = 7.5f;
+        isFocusAttack = false;
+        finalAttackPos = gameObject.transform.position;
+
     }
     public GameObject SetNearestTarget()
     {
@@ -65,7 +70,7 @@ public class BaseAttack : MonoBehaviour
     {
         if (target != null)
         {
-            if (goAttack && (transform.position - target.transform.position).magnitude <= attackRange)
+            if ((transform.position - target.transform.position).magnitude <= attackRange)
             {
                 if (realCooldown <= 0f)
                 {
@@ -78,41 +83,64 @@ public class BaseAttack : MonoBehaviour
             }
         }
     }
+    public GameObject ConstantSearchEnemy()
+    {
+        GameObject target = SetNearestTarget();
+        if (target != null)
+        {
+            if ((target.transform.position - gameObject.transform.position).magnitude <= GetTargetRange)
+            {
+                unit.state = StateUnit.Aggressive;
+                return target;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public void GoAttackAndAttack()
+    {
+        if ((gameObject.transform.position - target.transform.position).magnitude >= attackRange)
+        {
+            unit.Moving.isMoving = true;
+            unit.Moving.finalPos = target.transform.position;
+        }
+        else
+            CreateBullet();
+    }
     void Update()
     {
+        if (realCooldown >= 0)
+            realCooldown -= 0.1f;
         if (unit.state != StateUnit.BuildStruct)
         {
-            if (realCooldown >= 0)
-                realCooldown -= 0.1f;
             if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
             {
-                unit.Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                unit.Moving.finalPos.z = 0;
-                if (bullet == null)
-                    unit.Moving.isMoving = true;
-                target = SetTargetUnit();
+                target = SetFocusTarget();
                 if (target != null)
-                {
-                    if ((transform.position - target.transform.position).magnitude >= attackRange)
-                        unit.Moving.isMoving = true;
-                }
-                goAttack = true;
+                    isFocusAttack = true;
+                unit.state = StateUnit.Aggressive;
+                finalAttackPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                finalAttackPos.z = 0;
             }
-            if ((Input.GetKeyDown("s") || Input.GetMouseButtonDown(1)) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
+            if (finalAttackPos != gameObject.transform.position && unit.state == StateUnit.Aggressive)
             {
-                unit.Moving.finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                unit.Moving.finalPos.z = 0;
                 unit.Moving.isMoving = true;
-                goAttack = false;
+                unit.Moving.finalPos = finalAttackPos;
             }
-            if (target != null)
+            if (!isFocusAttack && ((!unit.Moving.isMoving && unit.state == StateUnit.Normal) || (unit.state == StateUnit.Aggressive)))
+                target = ConstantSearchEnemy();
+            if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected)
             {
-                if (goAttack && (transform.position - target.transform.position).magnitude < attackRange)
-                    unit.Moving.isMoving = false;
+                unit.state = StateUnit.Normal;
+                target = null;
+                finalAttackPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                finalAttackPos.z = 0;
             }
-            if (goAttack && transform.position == unit.Moving.finalPos)
-                goAttack = false;
-            CreateBullet();
+            if (target != null && unit.state == StateUnit.Aggressive)
+                GoAttackAndAttack();
+            if (target == null || target.activeSelf == false)
+                isFocusAttack = false;
         }
     }
 }

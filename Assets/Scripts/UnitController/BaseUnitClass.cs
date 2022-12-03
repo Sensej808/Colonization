@@ -7,7 +7,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 //Базовый класс-интерфейс юнитов
-public enum StateUnit { Normal, BuildStruct, GoUseAbility }
+public enum StateUnit { Normal, BuildStruct, GoUseAbility, Aggressive }
 
 [RequireComponent(typeof(AllyMoving))]
 [RequireComponent(typeof(SelectionCheck))]

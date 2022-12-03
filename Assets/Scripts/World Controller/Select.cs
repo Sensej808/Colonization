@@ -10,12 +10,12 @@ public class Select : MonoBehaviour
     //При завершении выделения Сетка выделения удаляется и вызывает OnTriggerExit2D для всех объектов.
     //Чтобы все выделенные объекты остались, добавлена IsDone, которая равна true при удалении
     public bool IsDone = false; 
-    public CommandController controller; //Все выделенные юниты добавляются в selected units
+    //public CommandController controller; //Все выделенные юниты добавляются в selected units
     public List<GameObject> SelectedUnits;
     private void Start()
     {
         DeleteSelected();
-        controller = GameObject.Find("UnitCommandController").GetComponent<CommandController>();
+        //controller = GameObject.Find("UnitCommandController").GetComponent<CommandController>();
     }
     private void OnTriggerEnter2D(Collider2D hitInfo) //если сетка доходит до юнита, выделяет его
     {
@@ -61,6 +61,12 @@ public class Select : MonoBehaviour
     }
     private void OnDestroy()
     {
+        Collider2D[] gos = Physics2D.OverlapBoxAll(transform.position, new Vector3(0.001f, 0.001f, 0.001f), 0);
+        foreach (Collider2D go in gos)
+        {
+            if (go.gameObject.GetComponent<SelectionCheck>() != null)
+                SelectedUnits.Add(go.gameObject);
+        }
         //controller.UpdateSelection(SelectedUnits);
         if (SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() != null) && SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() == null))
             SelectedUnits.RemoveAll(x => x.GetComponent<BaseStructClass>() != null);
