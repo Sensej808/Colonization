@@ -13,14 +13,15 @@ public class Map
     public float DOWN_BORDER;
     public float LEFT_BORDER;
     public float RIGHT_BORDER;
-        private bool debug = true;
+        public bool debug { get; private set; }
 
-    public Vector3 start { get; private set; }
+public Vector3 start { get; private set; }
     public TextMesh[,] CellValue;
     private PathNode[,] map;
 
     public Map(int W, int H, float cellSize, Vector3 startPos)
     {
+        debug = false;
         RIGHT_BORDER = startPos.x + W;
         LEFT_BORDER = startPos.x;
         UP_BORDER = startPos.y + H;

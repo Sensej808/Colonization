@@ -39,7 +39,7 @@ public class PathNode
 
     public void SetWalkable(bool value)
     {
-        if (value)
+        if (value && grid.debug)
             grid.ChangeColor(x, y, Color.green);
         else
             grid.ChangeColor(x, y, Color.red);
