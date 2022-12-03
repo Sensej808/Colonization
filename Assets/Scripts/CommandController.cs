@@ -75,19 +75,13 @@ public class CommandController : MonoBehaviour
     //основой скрипт, устанавливает позицию и здание, ближайшему рабочему, остальные продолжают заниматься своими делами
     public void SetStruct(string nameStruct)
     {
-        Debug.Log("Frame Placed");
         Vector3 myPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         myPos.z = 0;
         //List<GameObject> group = Storage.selectedUnits.FindAll(x => x != null ? x.GetComponent<Build>() != null : x == null);
         List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<Build>() != null);
         GameObject builder = Nearest(myPos, group);
         if (builder != null)
-        {
-            Debug.Log("Going to build");
             builder.GetComponent<Build>().SetStructPos(Resources.Load<GameObject>(nameStruct), myPos);
-            builder.GetComponent<Build>().GoAndBuild();
-        }
-        
     }
     //останавливает строительство ВСЕХ выделенных рабочих
     public void StopBuild()

@@ -28,7 +28,6 @@ public class Build : MonoBehaviour
     //строит здание
     public void SetFrame()
     {
-        Debug.Log("Create a frame");
         pos.x = Mathf.RoundToInt(pos.x);
         pos.y = Mathf.RoundToInt(pos.y);
         buildingUnderConstruction = Instantiate(building, pos, building.transform.rotation);
@@ -37,7 +36,6 @@ public class Build : MonoBehaviour
     public void GoBuild()
     {
         unit.Moving.MoveTo(pos);
-        unit.Moving.onMovingEnd += GoAndBuild; //Подписываемся на событие:Когда юнит дойдет, начнется строительство
         unit.state = StateUnit.GoUseAbility;
     }
     //объединяет предыдущие функции
@@ -50,31 +48,19 @@ public class Build : MonoBehaviour
         if (building != null)
         {
             if (isFreePosition())
-            {
-                Debug.Log(transform.position - new Vector3(0.5F, 0.5F, 0));
-                if (transform.position - new Vector3(0.5F, 0.5F, 0) == pos)
-                {
-                    unit.Moving.onMovingEnd -= GoAndBuild;
-                    Debug.Log("Builder arrived");
-                    SetFrame();
-                    building = null;
-                    unit.state = StateUnit.BuildStruct;
-                    BuildStruct();
-                }
-                else
-                {
-                Debug.Log("Go to cons pos");
                 GoBuild();
-                }
-            }
-
             else
             {
                 unit.state = StateUnit.Normal;
                 building = null;
                 unit.Moving.isMoving = false;
             }
-            
+            if (transform.position == pos && isFreePosition())
+            {
+                SetFrame();
+                building = null;
+                unit.state = StateUnit.BuildStruct;
+            }
         }
     }
     public void BuildStruct()
@@ -83,7 +69,6 @@ public class Build : MonoBehaviour
         {
             if (buildingUnderConstruction.GetComponent<Frame>().constructionTime <= 0)
             {
-                Debug.Log("building struct...");
                 Instantiate(buildingUnderConstruction.GetComponent<Frame>().futureBuilding, buildingUnderConstruction.transform.position, buildingUnderConstruction.transform.rotation);
                 Destroy(buildingUnderConstruction);
                 unit.state = StateUnit.Normal;
@@ -113,9 +98,9 @@ public class Build : MonoBehaviour
     }
     public void Update()
     {
-        //мы всегда идём строить, но всё работает только если building не пустой, иначе всё сразу обрывается(Плохая идея)
-        //GoAndBuild();
-        //BuildStruct();
+        //мы всегда идём строить, но всё работает только если building не пустой, иначе всё сразу обрывается
+        GoAndBuild();
+        BuildStruct();
     }
     //это нужно для того, чтобы если мы пошли строить а там было свободно, а пришли и занято, строителть не бился
     //головой о здание, а сразу сделал пустым building и стал адыхать
