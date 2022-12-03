@@ -15,7 +15,7 @@ public class InGameStorage : ScriptableObject
     public class Materials
     {
         int Metal = 0;
-        int Log = 0;
+        int Cristalls = 0;
     }
 }
 
