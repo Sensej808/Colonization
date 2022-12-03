@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 
 //Базовый класс атаки юнитов
@@ -18,6 +20,7 @@ public class BaseAttack : MonoBehaviour
     public float GetTargetRange;
     public bool isFocusAttack;
     public Vector3 finalAttackPos;
+    public int k;
     void Start()
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
@@ -25,6 +28,7 @@ public class BaseAttack : MonoBehaviour
         GetTargetRange = 7.5f;
         isFocusAttack = false;
         finalAttackPos = gameObject.transform.position;
+        k = 50;
 
     }
     public GameObject SetNearestTarget()
@@ -102,8 +106,8 @@ public class BaseAttack : MonoBehaviour
     {
         if ((gameObject.transform.position - target.transform.position).magnitude >= attackRange)
         {
-            unit.Moving.isMoving = true;
-            unit.Moving.finalPos = target.transform.position;
+            if (!unit.Moving.isMoving)
+                unit.Moving.MoveTo(target.transform.position);
         }
         else
             CreateBullet();
@@ -123,13 +127,18 @@ public class BaseAttack : MonoBehaviour
                 finalAttackPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 finalAttackPos.z = 0;
             }
-            if (finalAttackPos != gameObject.transform.position && unit.state == StateUnit.Aggressive)
+            if (finalAttackPos != gameObject.transform.position && unit.state == StateUnit.Aggressive && target == null && !unit.Moving.isMoving)
+                unit.Moving.MoveTo(finalAttackPos);
+            if ((!unit.gameObject.GetComponent<Build>() && !isFocusAttack && ((!unit.Moving.isMoving && unit.state == StateUnit.Normal) || (unit.state == StateUnit.Aggressive)) || (gameObject.GetComponent<Build>() && unit.state == StateUnit.Aggressive)))
             {
-                unit.Moving.isMoving = true;
-                unit.Moving.finalPos = finalAttackPos;
+                if (target != ConstantSearchEnemy() && k <= 0)
+                {
+                    target = ConstantSearchEnemy();
+                    unit.Moving.isMoving = false;
+                    print("ошибка");
+                    k = 50;
+                }
             }
-            if (!isFocusAttack && ((!unit.Moving.isMoving && unit.state == StateUnit.Normal) || (unit.state == StateUnit.Aggressive)))
-                target = ConstantSearchEnemy();
             if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected)
             {
                 unit.state = StateUnit.Normal;
@@ -141,6 +150,10 @@ public class BaseAttack : MonoBehaviour
                 GoAttackAndAttack();
             if (target == null || target.activeSelf == false)
                 isFocusAttack = false;
+            if (target == null && (transform.position - finalAttackPos).magnitude <= 1f)
+                unit.state = StateUnit.Normal;
         }
+        if (k >= 0)
+           k--;
     }
 }
