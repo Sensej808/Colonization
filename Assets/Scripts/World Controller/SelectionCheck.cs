@@ -13,7 +13,7 @@ public class SelectionCheck : MonoBehaviour
     //Отрисовка выделения объекта
     public void Demonstrate()
     {
-        Debug.Log(isSelected);
+        //Debug.Log(isSelected);
         transform.GetChild(0).gameObject.SetActive(isSelected);
     }
 }

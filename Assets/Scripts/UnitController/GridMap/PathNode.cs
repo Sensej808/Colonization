@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PathNode
 {
-    private Map<PathNode> grid;
+    public Map grid;
     public int x;
     public int y;
 
@@ -24,11 +24,27 @@ public class PathNode
     }
 
     public PathNode WhereCameFrom;
-    public PathNode(Map<PathNode> map, int x, int y)
+    public PathNode(Map map, int x, int y)
     {
+
         grid = map;
         this.x = x;
         this.y = y;
-        is_walkable = true;
+
+        //Debug.Log(map != null);
+        //grid.ChangeColor();
+        //map.CellValue[x, y].color = Color.blue;
+        SetWalkable(true);
+    }
+
+    public void SetWalkable(bool value)
+    {
+        if (value)
+            grid.ChangeColor(x, y, Color.green);
+        else
+            grid.ChangeColor(x, y, Color.red);
+        is_walkable = value;
+              
+        
     }
 }

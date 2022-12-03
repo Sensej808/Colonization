@@ -35,8 +35,7 @@ public class Build : MonoBehaviour
     //идёт строить здание
     public void GoBuild()
     {
-        unit.Moving.finalPos = pos;
-        unit.Moving.isMoving = true;
+        unit.Moving.MoveTo(pos);
         unit.state = StateUnit.GoUseAbility;
     }
     //объединяет предыдущие функции
