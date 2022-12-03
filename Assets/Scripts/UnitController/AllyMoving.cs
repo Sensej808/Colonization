@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -14,8 +15,10 @@ public class AllyMoving : MonoBehaviour
     public float speed = 5f; //скорость юнита
     public bool isMoving = false; //значение true, если выбрана позиция или юнит туда идёт, false, если остановился или дошёл
     public BaseUnitClass unit;
+    public  Action onMovingEnd; //Событие окончания пути
     void Start()
     {
+        
         unit = gameObject.GetComponent<BaseUnitClass>();
     }
     void Update()
@@ -31,7 +34,7 @@ public class AllyMoving : MonoBehaviour
                 Move();
         }
         if (Input.GetKey("s")) //если нажимаем на s, юнит останавливается
-            isMoving = false;
+            StopMoving();
     }
     public void SetPosition()//устанавливает значение finalPos = 0, меняет IsMoving на true
     {
@@ -47,18 +50,31 @@ public class AllyMoving : MonoBehaviour
     }
     public void Move() //передвигает юнита к finalPos
     {
-        //Debug.Log("!HERE: " + finalPos.x + " " + finalPos.y);
-        //Debug.Log("HERE: " + path[0].x + " " + path[0].y);
+        if (path == null || path.Count == 0)
+        {
+            StopMoving();
+            return;
+        }
         transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
         if (transform.position == path[0])
             path.Remove(path[0]);
-        if (path.Count == 0)
-            isMoving = false;
+        
     }
 
+    //Отправить юнита в точку Pos
     public void MoveTo(Vector3 position)
     {
         path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
         isMoving = true;
+    }
+
+    //Закончить идти
+    public void StopMoving()
+    {
+        //MoveTo(GetComponent<Transform>().position);
+        isMoving = false;
+        path = null;
+        if(onMovingEnd != null)
+            onMovingEnd.Invoke();
     }
 }
