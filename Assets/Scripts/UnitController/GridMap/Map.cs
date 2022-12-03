@@ -13,7 +13,7 @@ public class Map
     public float DOWN_BORDER;
     public float LEFT_BORDER;
     public float RIGHT_BORDER;
-        private bool debug = false;
+        private bool debug = true;
 
     public Vector3 start { get; private set; }
     public TextMesh[,] CellValue;

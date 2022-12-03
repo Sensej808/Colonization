@@ -6,10 +6,10 @@ public class Grid1 : MonoBehaviour
 {
     PathFinding pf;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Debug.Log("PF created");
-        pf = new PathFinding(30,20);
+        pf = PathFinding.Init(30,20);
         //pf.grid.ChangeColor();
     }
 
@@ -19,7 +19,7 @@ public class Grid1 : MonoBehaviour
         {
             var x = pf.grid.GetValue(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-            //Debug.Log($"clicked on:{x.x} {x.y}");
+            Debug.Log($"clicked on:{x.x} {x.y}");
         }
     }
 }

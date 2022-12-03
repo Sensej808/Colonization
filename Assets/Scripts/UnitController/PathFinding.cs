@@ -16,11 +16,19 @@ public class PathFinding
     private List<PathNode> ClosedNodes;
     private List<PathNode> pathNodes;
 
-    public PathFinding(int W, int H)
+    public static PathFinding Init(int W, int H)
     {
-        
-        Instance = this;
-        grid = new Map(W, H, 1, new Vector3(-15,-15,0));
+        if (Instance == null)
+        {
+            Instance = new PathFinding(W, H);
+        }
+            return Instance;
+
+    }
+
+    private PathFinding(int W, int H)
+    {
+            grid = new Map(W, H, 1, new Vector3(-15, -15, 0));
     }
     public List<Vector3> FindPath(Vector3 start, Vector3 fin)
     {
