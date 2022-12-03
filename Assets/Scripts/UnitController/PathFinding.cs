@@ -28,7 +28,7 @@ public class PathFinding
 
     private PathFinding(int W, int H)
     {
-            grid = new Map(W, H, 1, new Vector3(-15, -15, 0));
+            grid = new Map(W, H, 1, new Vector3(-250, -250, 0));
     }
     public List<Vector3> FindPath(Vector3 start, Vector3 fin)
     {
