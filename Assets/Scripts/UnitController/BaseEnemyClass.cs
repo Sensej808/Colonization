@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
-//Класс обычного солдата
-public class CyborgClass : BaseUnitClass
+public class BaseEnemyClass : BaseUnitClass
 {
-    public new void Start()
+    new void Start()
     {
         base.Start();
         Attack.attackRange = 5f;
         Attack.cooldown = 20f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
-        ProductionTime = 8f;
+        ProductionTime = 100f;
+    }
+    void Update()
+    {
+        
     }
 }

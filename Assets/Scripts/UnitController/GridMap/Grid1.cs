@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Grid1 : MonoBehaviour
 {
-    PathFinding pf;
+    public PathFinding pf;
     // Start is called before the first frame update
     void Awake()
     {
         //Debug.Log("PF created");
-        pf = PathFinding.Init(30,20);
+        pf = PathFinding.Init(200, 200);
         //pf.grid.ChangeColor();
     }
 

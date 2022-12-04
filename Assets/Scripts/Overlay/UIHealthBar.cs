@@ -5,18 +5,22 @@ using UnityEngine.UI;
 
 public class UIHealthBar : MonoBehaviour
 {
-    public Image img;
-    float originalSize;
-
-    //public UIHealthBar MyHealthBar = new UIHealthBar();
-
+    Health health;
+    public Image image;
+    public GameObject canv;
     void Start()
     {
-        originalSize = img.rectTransform.rect.width;
+        health = canv.transform.parent.gameObject.GetComponent<Health>();
+        image.fillAmount = (float)health.CurrentHealth / (float)health.HP;
+        //print(canv.transform.parent.gameObject.GetComponent<Health>());
     }
-
-    public void SetValue(float value)
+    private void LateUpdate()
     {
-        img.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
+        //print($"{health == null}");
+        if (image != null && health != null)
+        {
+            image.fillAmount = (float)health.CurrentHealth / (float)health.HP;
+            print("ошибка хп");
+        }
     }
 }

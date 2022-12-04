@@ -22,9 +22,12 @@ public class Select : MonoBehaviour
         SelectionCheck allyUnit = hitInfo.GetComponent<SelectionCheck>();
         if (allyUnit)
         {
-            //allyUnit.isSelected = true;
-            SelectedUnits.Add(allyUnit.gameObject);
-            Debug.Log("Selected");
+            if (allyUnit.gameObject.tag == "Allied")
+            {
+                //allyUnit.isSelected = true;
+                SelectedUnits.Add(allyUnit.gameObject);
+                Debug.Log("Selected");
+            }
 
         }
     }
@@ -33,9 +36,12 @@ public class Select : MonoBehaviour
         SelectionCheck allyUnit = collision.GetComponent<SelectionCheck>();
         if (allyUnit && !IsDone)
         {
-            //allyUnit.isSelected = false;
-            SelectedUnits.Remove(allyUnit.gameObject);
-            Debug.Log("DeSelected");
+            if (allyUnit.gameObject.tag == "Allied")
+            {
+                //allyUnit.isSelected = false;
+                SelectedUnits.Remove(allyUnit.gameObject);
+                Debug.Log("DeSelected");
+            }
         }
     }
     private void DeleteSelected() //отчищает список выделенных юнитов в Хранилище
@@ -65,7 +71,10 @@ public class Select : MonoBehaviour
         foreach (Collider2D go in gos)
         {
             if (go.gameObject.GetComponent<SelectionCheck>() != null)
-                SelectedUnits.Add(go.gameObject);
+            {
+                if (go.gameObject.tag == "Allied")
+                    SelectedUnits.Add(go.gameObject);
+            }
         }
         //controller.UpdateSelection(SelectedUnits);
         if (SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() != null) && SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() == null))
