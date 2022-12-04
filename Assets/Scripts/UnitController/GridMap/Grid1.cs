@@ -13,13 +13,4 @@ public class Grid1 : MonoBehaviour
         //pf.grid.ChangeColor();
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var x = pf.grid.GetValue(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-            Debug.Log($"clicked on:{x.x} {x.y}");
-        }
-    }
 }

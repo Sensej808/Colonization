@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 1663647265514457697}
   - component: {fileID: 5198060104999073569}
   - component: {fileID: 4107971769025043652}
+  - component: {fileID: 8467740832285022458}
   m_Layer: 0
   m_Name: Engineer
   m_TagString: Allied
@@ -230,6 +231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalPos: {x: 0, y: 0, z: 0}
+  CurPos: {x: 0, y: 0, z: 0}
+  path: []
+  speed: 5
   isMoving: 0
   unit: {fileID: 0}
 --- !u!114 &1663647265514457697
@@ -275,10 +279,24 @@ MonoBehaviour:
   attackRange: 0
   target: {fileID: 0}
   bullet: {fileID: 0}
-  goAttack: 0
   cooldown: 0
   realCooldown: 0
   bulletPattern: {fileID: 0}
+  GetTargetRange: 0
+  isFocusAttack: 0
+  finalAttackPos: {x: 0, y: 0, z: 0}
+--- !u!114 &8467740832285022458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215668904106289117}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287619cd5283cef45ac260d075dd25aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6215668904426117970
 GameObject:
   m_ObjectHideFlags: 0

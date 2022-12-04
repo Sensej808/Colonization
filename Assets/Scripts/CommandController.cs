@@ -120,6 +120,18 @@ public class CommandController : MonoBehaviour
         KeyOnMenu.Add("unitW", false);
         KeyOnMenu.Add("unitF", false);
     }
+
+    //Отправляем рабочих добывать ресурсы из источника course
+    public void StartMining(GameObject source)
+    {
+        List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null);
+        foreach (var worker in group)
+        {
+            worker.GetComponent<Mining>().source = source.GetComponent<SourseOfRecourses>();
+            worker.GetComponent<Mining>().enabled = true;
+        }
+    }
+
     void Update()
     {
         //если не нажата кнопка в интерфейсе, то выполняем команды от клавиатуры
@@ -134,6 +146,22 @@ public class CommandController : MonoBehaviour
                 AddUnit("Prefabs/Cyborg");
             if (Input.GetKeyDown(KeyCode.F))
                 AddUnit("Prefabs/Engineer");
+
+            //Выпускаем луч из мышки перпендикулярно плоскости игры
+
+            Ray r = new Ray(Input.mousePosition, Input.mousePosition + new Vector3(0, 0, 1));
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (Input.GetMouseButtonDown(1) && hit.collider != null)
+            {
+                var sourse = hit.collider.gameObject;
+                //Если нажали ПКМ и луч попал в источник ресурсов при нажатии, отправляем рабочих добывать
+                if (sourse.GetComponent<SourseOfRecourses>() != null)
+                {
+                //Debug.Log(hit.collider.gameObject.name);    
+                    StartMining(sourse);
+
+                }
+            }
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши
         if (clickInterface)

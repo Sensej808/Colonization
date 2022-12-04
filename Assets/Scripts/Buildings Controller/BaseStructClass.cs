@@ -23,7 +23,7 @@ public class BaseStructClass : MonoBehaviour
         Health = gameObject.GetComponent<Health>();
         Create = gameObject.GetComponent<DoUnits>();
 
-        Debug.Log($"pf = null: {PathFinding.Instance == null}");
+        //Debug.Log($"pf = null: {PathFinding.Instance == null}");
         PathFinding.Instance.grid.GetXY(transform.position - new Vector3(SizeX / 2, SizeY / 2, 0), out int x, out int y);
         for (int i = 0; i < SizeX; i++)
         {

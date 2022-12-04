@@ -16,6 +16,7 @@ public class AllyMoving : MonoBehaviour
     public bool isMoving = false; //значение true, если выбрана позиция или юнит туда идёт, false, если остановился или дошёл
     public BaseUnitClass unit;
     public  Action onMovingEnd; //Событие окончания пути
+    public Action onMovingStart; //Событие окончания пути
     void Start()
     {
         
@@ -46,10 +47,12 @@ public class AllyMoving : MonoBehaviour
         finalPos.z = 0;
         //Debug.Log("!Finpose: " + finalPos.x + " " + finalPos.y);
         path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (onMovingStart != null) onMovingStart.Invoke();
         isMoving = true;
     }
     public void Move() //передвигает юнита к finalPos
     {
+        Debug.Log("Moving");
         if (path == null || path.Count == 0)
         {
             StopMoving();
@@ -66,6 +69,31 @@ public class AllyMoving : MonoBehaviour
     {
         path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
         isMoving = true;
+    }
+
+    //Отправить юнита к объекту
+    public Vector3 MoveTo(GameObject obj)
+    {
+        Vector3 Mypos = GetComponent<Transform>().position;
+        Vector3 ResPos = obj.GetComponent<Transform>().position;
+        Vector3 diff = Mypos - ResPos;
+        Vector3 offset = (obj.GetComponent<BoxCollider2D>().bounds.extents);
+        //TODO: сделать нормальный подход к объектам
+        offset.x = 0;
+        if (diff.x < 0)
+        {
+            offset.x *= -1;
+           
+        }
+        else if (diff.y < 0)
+        {
+            offset.y *= -1;
+        }
+        Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset));
+        path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
+        isMoving = true;
+        return path[path.Count - 1];       
+
     }
 
     //Закончить идти
