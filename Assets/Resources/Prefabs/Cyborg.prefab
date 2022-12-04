@@ -133,7 +133,7 @@ MonoBehaviour:
   Health: {fileID: 0}
   Attack: {fileID: 0}
   state: 0
-  ProductionTime: 100
+  ProductionTime: 15
 --- !u!114 &5315789506990841817
 MonoBehaviour:
   m_ObjectHideFlags: 0
