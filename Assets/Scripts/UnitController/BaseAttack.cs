@@ -35,7 +35,9 @@ public class BaseAttack : MonoBehaviour
     {
         float min_dist = float.MaxValue;
         GameObject nearest_unit = null;
-        GameObject[] arrEnemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
+        //GameObject[] arrEnemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
+        List<GameObject> arrEnemyUnits = new List<GameObject>(GameObject.FindObjectsOfType<GameObject>());
+        arrEnemyUnits = arrEnemyUnits.FindAll(x => x.tag != gameObject.tag && x.GetComponent<Health>());
         foreach (GameObject unit in arrEnemyUnits)
         {
             if (unit != null)

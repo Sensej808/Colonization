@@ -11,8 +11,8 @@ public class EngineerClass : BaseUnitClass
         base.Start();
         Builder = gameObject.AddComponent<Build>();
         Attack.attackRange = 1f;
-        Attack.cooldown = 100f;
-        Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
+        Attack.cooldown = 50f;
+        Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/WhiteCircle");
         ProductionTime = 100f;
     }
 }

@@ -7,6 +7,7 @@ public class BaseBulletClass : MonoBehaviour
 {
     public GameObject target;
     public float speed;
+    public double damage;
     void Start()
     {
     }
@@ -29,5 +30,14 @@ public class BaseBulletClass : MonoBehaviour
         }
         if (target == null)
             Destroy(gameObject);
+    }
+    public void OnDestroy()
+    {
+        if (target != null)
+        {
+            if (transform.position == target.transform.position)
+                Destroy(gameObject);
+            target.GetComponent<Health>().GetDamage(damage);
+        }
     }
 }

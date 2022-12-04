@@ -230,6 +230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalPos: {x: 0, y: 0, z: 0}
+  CurPos: {x: 0, y: 0, z: 0}
+  path: []
+  speed: 5
   isMoving: 0
   unit: {fileID: 0}
 --- !u!114 &1663647265514457697
@@ -258,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
-  HP: 100
+  HP: 50
 --- !u!114 &4107971769025043652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,10 +278,13 @@ MonoBehaviour:
   attackRange: 0
   target: {fileID: 0}
   bullet: {fileID: 0}
-  goAttack: 0
   cooldown: 0
   realCooldown: 0
   bulletPattern: {fileID: 0}
+  GetTargetRange: 0
+  isFocusAttack: 0
+  finalAttackPos: {x: 0, y: 0, z: 0}
+  k: 0
 --- !u!1 &6215668904426117970
 GameObject:
   m_ObjectHideFlags: 0
