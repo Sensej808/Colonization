@@ -32,5 +32,10 @@ public class OpenMenu : MonoBehaviour
             if (k > 0)
                 gameObject.transform.Find("DoUnitMenu").gameObject.SetActive(true);
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameObject.transform.Find("MenuHelp").gameObject.SetActive(!gameObject.transform.Find("MenuHelp").gameObject.activeSelf);
+
+        }
     }
 }
