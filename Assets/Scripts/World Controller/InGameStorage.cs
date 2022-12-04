@@ -16,11 +16,6 @@ public class InGameStorage : ScriptableObject
         public int Metal = 0;
         public int Cristalls = 0;
     }
-
-    private void Awake()
-    {
-        materials.Metal = 0;
-    }
 }
 
 

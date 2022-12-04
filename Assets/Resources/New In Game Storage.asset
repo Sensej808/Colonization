@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Instance: {fileID: 11400000}
   materials:
-    Metal: 0
+    Metal: 10
     Cristalls: 0
