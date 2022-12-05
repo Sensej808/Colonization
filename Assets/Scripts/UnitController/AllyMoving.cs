@@ -41,14 +41,19 @@ public class AllyMoving : MonoBehaviour
     {
 
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        PathFinding.Instance.grid.GetXY(finalPos, out int x, out int y);
-        finalPos.x = x;
-        finalPos.y = y;
         finalPos.z = 0;
-        //Debug.Log("!Finpose: " + finalPos.x + " " + finalPos.y);
-        path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (onMovingStart != null) onMovingStart.Invoke();
-        isMoving = true;
+        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
+        if (null == gos.Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+        {
+            PathFinding.Instance.grid.GetXY(finalPos, out int x, out int y);
+            finalPos.x = x;
+            finalPos.y = y;
+            finalPos.z = 0;
+            //Debug.Log("!Finpose: " + finalPos.x + " " + finalPos.y);
+            path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (onMovingStart != null) onMovingStart.Invoke();
+            isMoving = true;
+        }
     }
     public void Move() //передвигает юнита к finalPos
     {
@@ -67,8 +72,12 @@ public class AllyMoving : MonoBehaviour
     //Отправить юнита в точку Pos
     public void MoveTo(Vector3 position)
     {
-        path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
-        isMoving = true;
+        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(position, 0.01f));
+        if (null == gos.Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+        {
+            path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
+            isMoving = true;
+        }
     }
 
     //Отправить юнита к объекту

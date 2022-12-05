@@ -38,7 +38,7 @@ public class OpenMenu : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            gameObject.transform.Find("MenuHelp").gameObject.SetActive(!gameObject.transform.Find("MenuHelp").gameObject.activeSelf);
+            gameObject.transform.Find("HelpMenu").gameObject.SetActive(!gameObject.transform.Find("HelpMenu").gameObject.activeSelf);
             if (Time.timeScale == 0)
                 Time.timeScale = 1;
             else
