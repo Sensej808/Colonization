@@ -19,6 +19,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.0754717
       objectReference: {fileID: 0}
+    - target: {fileID: 2482114171075639192, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482114171075639192, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4172448438090794993, guid: 249f99637da217a44ab521113ddc68d5, type: 3}
       propertyPath: m_Name
       value: FlyStructQ

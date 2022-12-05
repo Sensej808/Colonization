@@ -6,7 +6,7 @@ public class BulletCircle : BaseBulletClass
 {
     void Start()
     {
-        speed = 3f;
+        speed = 10f;
     }
     new void Update()
     {
