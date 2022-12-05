@@ -34,6 +34,9 @@ public class BaseStructClass : MonoBehaviour
                 PathFinding.Instance.grid.GetValue(x + i, y + j).SetWalkable(false);
             }
         }
+        var HpBar = Instantiate(Resources.Load<GameObject>("Prefabs/BarCanvas"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 1.7f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
+        HpBar.name = "HpBar";
+        HpBar.transform.parent = gameObject.transform;
     }
     
     void OnDestroy()
