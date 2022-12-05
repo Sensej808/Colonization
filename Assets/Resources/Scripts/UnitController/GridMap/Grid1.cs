@@ -9,7 +9,7 @@ public class Grid1 : MonoBehaviour
     void Awake()
     {
         //Debug.Log("PF created");
-        pf = PathFinding.Init(200, 200);
+        pf = PathFinding.Init(120, 120);
         //pf.grid.ChangeColor();
     }
 
