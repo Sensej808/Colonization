@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
             CurrentHealth -= damage;
         else 
             CurrentHealth = 0;
-        //myHealthBar.SetValue((float)(CurrentHealth / HP));
+        myHealthBar.SetValue((float)(CurrentHealth / HP));
     }
 
     public void GetHealth(double health)
@@ -36,7 +36,7 @@ public class Health : MonoBehaviour
         else 
             CurrentHealth = HP;
 
-        //myHealthBar.SetValue((float)(CurrentHealth / HP));
+        myHealthBar.SetValue((float)(CurrentHealth / HP));
     }
     public void Death()
     {

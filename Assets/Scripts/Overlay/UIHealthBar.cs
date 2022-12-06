@@ -8,7 +8,7 @@ public class UIHealthBar : MonoBehaviour
     public Image img;
     float originalSize;
 
-    //public UIHealthBar MyHealthBar = new UIHealthBar();
+    //public UIHealthBar MyHealthBar = new UIHealthBar();   Зачем я это добавил
 
     void Start()
     {
