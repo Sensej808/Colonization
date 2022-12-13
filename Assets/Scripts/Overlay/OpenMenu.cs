@@ -48,5 +48,11 @@ public class OpenMenu : MonoBehaviour
         {
             gameObject.transform.Find("Win").gameObject.SetActive(true);
         }
+
     }
+        public void ExitGame()
+        {
+            Application.Quit();
+
+        }
 }
