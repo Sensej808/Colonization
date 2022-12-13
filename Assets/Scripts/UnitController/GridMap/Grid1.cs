@@ -9,17 +9,8 @@ public class Grid1 : MonoBehaviour
     void Awake()
     {
         //Debug.Log("PF created");
-        pf = PathFinding.Init(200, 200);
+        pf = PathFinding.Init(120, 120);
         //pf.grid.ChangeColor();
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var x = pf.grid.GetValue(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-            Debug.Log($"clicked on:{x.x} {x.y}");
-        }
-    }
 }

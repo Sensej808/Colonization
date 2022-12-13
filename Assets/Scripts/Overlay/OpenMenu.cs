@@ -6,6 +6,10 @@ using UnityEngine;
 public class OpenMenu : MonoBehaviour
 {
     public CreateSelectionGrid grid;
+    public void Start()
+    {
+        Time.timeScale = 0;
+    }
     public void Update()
     {
         //если мы выделяем юнитов, выделение заканчивается отпусканием ЛКМ, и в этот святой момент
@@ -32,5 +36,23 @@ public class OpenMenu : MonoBehaviour
             if (k > 0)
                 gameObject.transform.Find("DoUnitMenu").gameObject.SetActive(true);
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            gameObject.transform.Find("HelpMenu").gameObject.SetActive(!gameObject.transform.Find("HelpMenu").gameObject.activeSelf);
+            if (Time.timeScale == 0)
+                Time.timeScale = 1;
+            else
+                Time.timeScale = 0;
+        }
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            gameObject.transform.Find("Win").gameObject.SetActive(true);
+        }
+
     }
+        public void ExitGame()
+        {
+            Application.Quit();
+
+        }
 }

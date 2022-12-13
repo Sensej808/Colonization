@@ -6,16 +6,15 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "GameStorage", order = -100)]
 public class InGameStorage : ScriptableObject
 {
+    public InGameStorage Instance;
     [SerializeField]
     public Materials materials;
-    //[SerializeField]
-    public List<GameObject> PlayerUnits;
-    //[SerializeField]
-    public List<GameObject> SelectedUnits;
+
+    [System.Serializable]
     public class Materials
     {
-        int Metal = 0;
-        int Cristalls = 0;
+        public int Metal = 0;
+        public int Cristalls = 0;
     }
 }
 
