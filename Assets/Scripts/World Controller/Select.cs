@@ -12,6 +12,8 @@ public class Select : MonoBehaviour
     public bool IsDone = false; 
     //public CommandController controller; //Все выделенные юниты добавляются в selected units
     public List<GameObject> SelectedUnits;
+
+    public AudioClip UnitSelected;
     private void Start()
     {
         DeleteSelected();
@@ -89,5 +91,10 @@ public class Select : MonoBehaviour
             go.GetComponent<SelectionCheck>().isSelected = true;
             go.GetComponent<SelectionCheck>().Demonstrate();
         }
+
+        if (SelectedUnits.Count > 0)
+            Audio.instance.PlaySound(UnitSelected);
     }
+
+    
 }

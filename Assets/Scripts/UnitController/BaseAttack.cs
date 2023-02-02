@@ -21,6 +21,8 @@ public class BaseAttack : MonoBehaviour
     public bool isFocusAttack;
     public Vector3 finalAttackPos;
     public int k;
+    AudioSource audioSource;
+    public AudioClip shoot;
     void Start()
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
@@ -29,7 +31,7 @@ public class BaseAttack : MonoBehaviour
         isFocusAttack = false;
         finalAttackPos = gameObject.transform.position;
         k = 50;
-
+        audioSource = GetComponent<AudioSource>();
     }
     public GameObject SetNearestTarget()
     {
@@ -84,6 +86,8 @@ public class BaseAttack : MonoBehaviour
                     realCooldown = cooldown;
                     BaseBulletClass bbc = bullet.GetComponent<BaseBulletClass>();
                     bbc.target = target;
+                    audioSource.PlayOneShot(shoot);
+                    Debug.Log($"Played sound: {shoot}, {shoot.loadState}");
                 }
                 unit.Moving.isMoving = false;
             }

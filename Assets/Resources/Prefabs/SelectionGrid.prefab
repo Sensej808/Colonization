@@ -147,4 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDone: 0
-  storage: {fileID: 11400000, guid: 1b604d1744b525c49a40909b3483ff79, type: 2}
+  SelectedUnits: []
+  UnitSelected: {fileID: 8300000, guid: 68e3cd9661388a04f92934d72cd45b33, type: 3}

@@ -17,10 +17,12 @@ public class AllyMoving : MonoBehaviour
     public BaseUnitClass unit;
     public  Action onMovingEnd; //Событие окончания пути
     public Action onMovingStart; //Событие окончания пути
+    AudioSource audioSource;
     void Start()
     {
         
         unit = gameObject.GetComponent<BaseUnitClass>();
+        audioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -66,7 +68,8 @@ public class AllyMoving : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
         if (transform.position == path[0])
             path.Remove(path[0]);
-        
+        if (!audioSource.isPlaying)
+            audioSource.Play();
     }
 
     //Отправить юнита в точку Pos

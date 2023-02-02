@@ -12,14 +12,17 @@ public class DoUnits : MonoBehaviour
         public BaseStructClass myStruct;
         public Queue<GameObject> queueUnits;
         public GameObject unit;
+        AudioSource audioSource;
         public void Start()
         {
             myStruct = gameObject.GetComponent<BaseStructClass>();
             queueUnits = new Queue<GameObject>();
+            audioSource = GetComponent<AudioSource>();
         }
         public void AddUnit(GameObject unit)
         {
             queueUnits.Enqueue(unit);
+            audioSource.Play();
         }
         public void CreateUnit()
         {
