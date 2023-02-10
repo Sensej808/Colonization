@@ -25,7 +25,7 @@ public class Audio : MonoBehaviour
     }
     public void PlaySound(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip);
-        Debug.Log($"Sound played: {clip}");
+            audioSource.PlayOneShot(clip);
+            Debug.Log($"Sound played: {clip}");
     }
 }

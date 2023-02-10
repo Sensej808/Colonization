@@ -13,7 +13,7 @@ public class BaseStructClass : MonoBehaviour
 
     public int SizeX = 2;
     public int SizeY = 2;
-    
+    public AudioClip structOrder;
     
     
     void Start()
@@ -37,6 +37,8 @@ public class BaseStructClass : MonoBehaviour
         var HpBar = Instantiate(Resources.Load<GameObject>("Prefabs/BarCanvas"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 1.7f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
         HpBar.name = "HpBar";
         HpBar.transform.parent = gameObject.transform;
+        //GetComponent<AudioSource>().Play();
+        Audio.instance.PlaySound(structOrder);
     }
     
     void OnDestroy()
