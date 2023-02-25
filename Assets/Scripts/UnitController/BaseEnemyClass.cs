@@ -9,7 +9,7 @@ public class BaseEnemyClass : BaseUnitClass
     {
         base.Start();
         Attack.attackRange = 5f;
-        Attack.cooldown = 20f;
+        Attack.cooldown = 0.3f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
         ProductionTime = 100f;
     }

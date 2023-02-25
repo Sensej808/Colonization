@@ -81,7 +81,7 @@ public class Build : MonoBehaviour
     {
         if (unit.state == StateUnit.BuildStruct)
         {
-            if (buildingUnderConstruction.GetComponent<Frame>().constructionTime <= 0)
+            if (buildingUnderConstruction.GetComponent<Frame>().time <= 0)
             {
                 Debug.Log("building struct...");
                 Instantiate(buildingUnderConstruction.GetComponent<Frame>().futureBuilding, buildingUnderConstruction.transform.position, buildingUnderConstruction.transform.rotation);

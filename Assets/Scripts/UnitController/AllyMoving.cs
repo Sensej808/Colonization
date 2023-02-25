@@ -59,7 +59,7 @@ public class AllyMoving : MonoBehaviour
     }
     public void Move() //передвигает юнита к finalPos
     {
-        Debug.Log("Moving");
+        //Debug.Log("Moving");
         if (path == null || path.Count == 0)
         {
             StopMoving();

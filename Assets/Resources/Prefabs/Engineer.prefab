@@ -385,7 +385,7 @@ MonoBehaviour:
   Health: {fileID: 0}
   Attack: {fileID: 0}
   state: 0
-  ProductionTime: 15
+  ProductionTime: 5
   Builder: {fileID: 0}
 --- !u!114 &8481907938815561630
 MonoBehaviour:

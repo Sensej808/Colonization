@@ -23,6 +23,16 @@ public class BaseAttack : MonoBehaviour
     public int k;
     AudioSource audioSource;
     public AudioClip shoot;
+    public bool timerRun;
+    private IEnumerator StartTimer()
+    {
+        while (realCooldown >= -0.1f)
+        {
+            realCooldown -= Time.deltaTime;
+            yield return null;
+        }
+        timerRun = false;
+    }
     void Start()
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
@@ -32,6 +42,8 @@ public class BaseAttack : MonoBehaviour
         finalAttackPos = gameObject.transform.position;
         k = 50;
         audioSource = GetComponent<AudioSource>();
+        StartCoroutine(StartTimer());
+        timerRun = true;
     }
     public GameObject SetNearestTarget()
     {
@@ -78,6 +90,12 @@ public class BaseAttack : MonoBehaviour
     {
         if (target != null)
         {
+            if (!timerRun)
+            {
+                realCooldown = 0;
+                StartCoroutine(StartTimer());
+                timerRun = true;
+            }
             if ((transform.position - target.transform.position).magnitude <= attackRange)
             {
                 if (realCooldown <= 0f)
@@ -87,7 +105,7 @@ public class BaseAttack : MonoBehaviour
                     BaseBulletClass bbc = bullet.GetComponent<BaseBulletClass>();
                     bbc.target = target;
                     audioSource.PlayOneShot(shoot);
-                    Debug.Log($"Played sound: {shoot}, {shoot.loadState}");
+                    //Debug.Log($"Played sound: {shoot}, {shoot.loadState}");
                 }
                 unit.Moving.isMoving = false;
             }
@@ -120,8 +138,6 @@ public class BaseAttack : MonoBehaviour
     }
     void Update()
     {
-        if (realCooldown >= 0)
-            realCooldown -= 0.1f;
         if (unit.state != StateUnit.BuildStruct)
         {
             if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
@@ -141,7 +157,6 @@ public class BaseAttack : MonoBehaviour
                 {
                     target = ConstantSearchEnemy();
                     unit.Moving.isMoving = false;
-                    print("ошибка");
                     k = 50;
                 }
             }

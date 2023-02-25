@@ -210,8 +210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Selection: {fileID: 0}
   Health: {fileID: 0}
-  constructionTime: 30
+  time: 10
   futureBuilding: {fileID: 8442009387088496294, guid: 33f3688d6d46dd542ab9bc5d10c7cd12, type: 3}
+  bar: {fileID: 0}
 --- !u!1 &1793472331298589889
 GameObject:
   m_ObjectHideFlags: 0
