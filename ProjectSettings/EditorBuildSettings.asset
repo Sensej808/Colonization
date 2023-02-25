@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Prefabs/Scenes/location15.unity
     guid: ec3e408a592b91a4e87cf5d901a61486
+  - enabled: 1
+    path: Assets/Resources/Prefabs/Scenes/MainMenu.unity
+    guid: f037cb5bc4c66ae44bc77d8bc5b0d8a8
   m_configObjects: {}
