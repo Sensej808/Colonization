@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OpenMenu : MonoBehaviour
 {
@@ -55,4 +56,8 @@ public class OpenMenu : MonoBehaviour
             Application.Quit();
 
         }
+    public void ExitChangeMenu()
+    {
+        SceneManager.LoadScene("LevelSelection");
+    }
 }
