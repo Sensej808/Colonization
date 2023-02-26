@@ -45,11 +45,6 @@ public class OpenMenu : MonoBehaviour
             else
                 Time.timeScale = 0;
         }
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
-        {
-            gameObject.transform.Find("Win").gameObject.SetActive(true);
-        }
-
     }
         public void ExitGame()
         {

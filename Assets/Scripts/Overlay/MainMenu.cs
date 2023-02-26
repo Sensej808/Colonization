@@ -10,7 +10,12 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
 
     }
-    public void ChangeMenu()
+    public void NewGame()
+    {
+        PlayerPrefs.SetInt("LevelComplete", 0);
+        SceneManager.LoadScene("LevelSelection");
+    }
+    public void LoadGame()
     {
         SceneManager.LoadScene("LevelSelection");
     }

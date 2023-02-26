@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Resources/Prefabs/Scenes/location1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Resources/Prefabs/Scenes/MainMenu.unity
+    guid: f037cb5bc4c66ae44bc77d8bc5b0d8a8
   - enabled: 1
     path: Assets/Resources/Prefabs/Scenes/LevelSelection.unity
     guid: 4d94fef4c585f0a4facf33d8ad887048
+  - enabled: 1
+    path: Assets/Resources/Prefabs/Scenes/location1.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Resources/Prefabs/Scenes/location2.unity
     guid: b4a697379ee50ea43ae89711edb608e6
@@ -53,7 +56,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Prefabs/Scenes/location15.unity
     guid: ec3e408a592b91a4e87cf5d901a61486
-  - enabled: 1
-    path: Assets/Resources/Prefabs/Scenes/MainMenu.unity
-    guid: f037cb5bc4c66ae44bc77d8bc5b0d8a8
   m_configObjects: {}
