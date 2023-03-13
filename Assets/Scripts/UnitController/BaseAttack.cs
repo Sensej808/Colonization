@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 
 //Базовый класс атаки юнитов
 public class BaseAttack : MonoBehaviour
 {
+
     public BaseUnitClass unit;
     public float attackRange;
     public GameObject target;
@@ -24,6 +28,7 @@ public class BaseAttack : MonoBehaviour
     AudioSource audioSource;
     public AudioClip shoot;
     public bool timerRun;
+    public bool isNormalMoving;
     private IEnumerator StartTimer()
     {
         while (realCooldown >= -0.1f)
@@ -45,22 +50,20 @@ public class BaseAttack : MonoBehaviour
         StartCoroutine(StartTimer());
         timerRun = true;
     }
-    public GameObject SetNearestTarget()
+    public GameObject FindNearestTarget()
     {
         float min_dist = float.MaxValue;
         GameObject nearest_unit = null;
-        //GameObject[] arrEnemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
-        List<GameObject> arrEnemyUnits = new List<GameObject>(GameObject.FindObjectsOfType<GameObject>());
-        arrEnemyUnits = arrEnemyUnits.FindAll(x => x.tag != gameObject.tag && x.GetComponent<Health>());
-        foreach (GameObject unit in arrEnemyUnits)
+        Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, GetTargetRange);
+        foreach (Collider2D unit in hitColiders)
         {
-            if (unit != null)
+            if (unit.gameObject != null && unit.gameObject.tag != gameObject.tag && unit.gameObject.GetComponent<Health>() != null)
             {
-                float real_dist = (gameObject.transform.position - unit.transform.position).magnitude;
+                float real_dist = (gameObject.transform.position - unit.gameObject.transform.position).magnitude;
                 if (real_dist < min_dist)
                 {
                     min_dist = real_dist;
-                    nearest_unit = unit;
+                    nearest_unit = unit.gameObject;
                 }
             }
         }
@@ -78,13 +81,6 @@ public class BaseAttack : MonoBehaviour
                 result = hitColider.gameObject;
         }
         return result;
-    }
-    public GameObject SetTargetUnit()
-    {
-        GameObject target = SetFocusTarget();
-        if (target == null)
-            target = SetNearestTarget();
-        return target;
     }
     public void CreateBullet()
     {
@@ -111,70 +107,54 @@ public class BaseAttack : MonoBehaviour
             }
         }
     }
-    public GameObject ConstantSearchEnemy()
-    {
-        GameObject target = SetNearestTarget();
-        if (target != null)
-        {
-            if ((target.transform.position - gameObject.transform.position).magnitude <= GetTargetRange)
-            {
-                unit.state = StateUnit.Aggressive;
-                return target;
-            }
-            else
-                return null;
-        }
-        return null;
-    }
     public void GoAttackAndAttack()
     {
         if ((gameObject.transform.position - target.transform.position).magnitude >= attackRange)
         {
             if (!unit.Moving.isMoving)
-                unit.Moving.MoveTo(target.transform.position);
+            {
+                if (target.GetComponent<Rigidbody2D>().bodyType != RigidbodyType2D.Static)
+                    unit.Moving.MoveTo(target.transform.position);
+                else
+                    unit.Moving.MoveTo(target);
+            }
         }
         else
             CreateBullet();
     }
-    void Update()
+    private void Update()
     {
-        if (unit.state != StateUnit.BuildStruct)
+        if ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive))
+            target = FindNearestTarget();
+        if (target != null)
+            GoAttackAndAttack();
+        if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && unit.state != StateUnit.BuildStruct)
         {
-            if (Input.GetMouseButtonDown(0) && Input.GetKey("a") && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
-            {
-                target = SetFocusTarget();
-                if (target != null)
-                    isFocusAttack = true;
-                unit.state = StateUnit.Aggressive;
-                finalAttackPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                finalAttackPos.z = 0;
-            }
-            if (finalAttackPos != gameObject.transform.position && unit.state == StateUnit.Aggressive && target == null && !unit.Moving.isMoving)
-                unit.Moving.MoveTo(finalAttackPos);
-            if ((!unit.gameObject.GetComponent<Build>() && !isFocusAttack && ((!unit.Moving.isMoving && unit.state == StateUnit.Normal) || (unit.state == StateUnit.Aggressive)) || (gameObject.GetComponent<Build>() && unit.state == StateUnit.Aggressive)))
-            {
-                if (target != ConstantSearchEnemy() && k <= 0)
-                {
-                    target = ConstantSearchEnemy();
-                    unit.Moving.isMoving = false;
-                    k = 50;
-                }
-            }
-            if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected)
-            {
-                unit.state = StateUnit.Normal;
-                target = null;
-                finalAttackPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                finalAttackPos.z = 0;
-            }
-            if (target != null && unit.state == StateUnit.Aggressive)
-                GoAttackAndAttack();
-            if (target == null || target.activeSelf == false)
-                isFocusAttack = false;
-            if (target == null && (transform.position - finalAttackPos).magnitude <= 1f)
-                unit.state = StateUnit.Normal;
+            target = null;
+            unit.state = StateUnit.Normal;
+            isFocusAttack = false;
+            isNormalMoving = true;
         }
-        if (k >= 0)
-           k--;
+        if (unit.Selection.isSelected && Input.GetMouseButtonDown(0) && Input.GetKey("a"))
+        {
+            target = SetFocusTarget();
+            if (target == null)
+            {
+                target = FindNearestTarget();
+                finalAttackPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                finalAttackPos.z = 0;
+                unit.state = StateUnit.Aggressive;
+            }
+            else
+                isFocusAttack = true;
+        }
+        if (finalAttackPos != gameObject.transform.position && unit.state == StateUnit.Aggressive && target == null && !unit.Moving.isMoving)
+            unit.Moving.MoveTo(finalAttackPos);
+        if (target == null && (transform.position - finalAttackPos).magnitude <= 1f)
+            unit.state = StateUnit.Normal;
+        if (target == null)
+            isFocusAttack = false;
+        if ((transform.position - finalAttackPos).magnitude <= 1f)
+            isNormalMoving = false;
     }
 }

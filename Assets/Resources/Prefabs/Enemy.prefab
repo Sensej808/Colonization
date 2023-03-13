@@ -234,6 +234,7 @@ MonoBehaviour:
   finalAttackPos: {x: 0, y: 0, z: 0}
   k: 0
   shoot: {fileID: 8300000, guid: 4d62b080b47c63347ae07b78bf3d2295, type: 3}
+  timerRun: 0
 --- !u!82 &4019348345330496524
 AudioSource:
   m_ObjectHideFlags: 0

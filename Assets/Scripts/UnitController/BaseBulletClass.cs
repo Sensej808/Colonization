@@ -34,10 +34,6 @@ public class BaseBulletClass : MonoBehaviour
     public void OnDestroy()
     {
         if (target != null)
-        {
-            if (transform.position == target.transform.position)
-                Destroy(gameObject);
             target.GetComponent<Health>().GetDamage(damage);
-        }
     }
 }
