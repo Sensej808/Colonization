@@ -235,6 +235,7 @@ MonoBehaviour:
   k: 0
   shoot: {fileID: 8300000, guid: 4d62b080b47c63347ae07b78bf3d2295, type: 3}
   timerRun: 0
+  isNormalMoving: 0
 --- !u!82 &4019348345330496524
 AudioSource:
   m_ObjectHideFlags: 0
@@ -413,7 +414,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &8634215740232820175
 GameObject:
@@ -487,7 +488,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.9811321, g: 0.06849409, b: 0.06849409, a: 1}
   m_FlipX: 0
@@ -497,5 +498,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0

@@ -125,7 +125,6 @@ public class BaseAttack : MonoBehaviour
     public void DoIsMoving()
     {
         isNormalMoving = false;
-        print("pososi");
     }
     private void Update()
     {

@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 667172155302968179, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804784028417512099, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804784028417512099, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011740263268604001, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2027924465777394989, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -95,6 +111,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BarCanvas1
       objectReference: {fileID: 0}
+    - target: {fileID: 4065354232933086989, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7607966971484671349, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
       propertyPath: m_Color.b
       value: 0.6431373
@@ -106,6 +126,14 @@ PrefabInstance:
     - target: {fileID: 7607966971484671349, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
       propertyPath: m_Color.r
       value: 0.050980385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607966971484671349, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607966971484671349, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2526157951800340728, guid: d240c3ae045c97f4a9f9834d56357230, type: 3}

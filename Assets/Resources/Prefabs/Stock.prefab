@@ -103,7 +103,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.9811321, g: 0.04998212, b: 0.04998212, a: 1}
   m_FlipX: 0
@@ -113,7 +113,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &6923257407934658505
 GameObject:
@@ -269,10 +269,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca51deed05182f64aabe36c366745589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realTimeSpawning: 0
+  time: 0
   myStruct: {fileID: 0}
   unit: {fileID: 0}
   structOrder: {fileID: 0}
+  timerRun: 0
 --- !u!114 &1872773163036538174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +292,8 @@ MonoBehaviour:
   SizeX: 2
   SizeY: 2
   structOrder: {fileID: 8300000, guid: e14399a71f363e5489f4020c17afae72, type: 3}
+  HpBar: {fileID: 0}
+  timeBar: {fileID: 0}
 --- !u!1 &7370570722313041432
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +376,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &8714866513537838849
 GameObject:

@@ -106,7 +106,10 @@ public class AllyMoving : MonoBehaviour
         Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset));
         path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
         isMoving = true;
-        return path[path.Count - 1];       
+        if (obj != null)
+            return path[path.Count - 1];
+        else
+            return transform.position;
 
     }
 
