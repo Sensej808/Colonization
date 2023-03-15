@@ -23,6 +23,8 @@ public class AllyMoving : MonoBehaviour
         
         unit = gameObject.GetComponent<BaseUnitClass>();
         audioSource = GetComponent<AudioSource>();
+        if (gameObject.GetComponent<BaseAttack>() != null)
+            onMovingEnd += gameObject.GetComponent<BaseAttack>().DoIsMoving;
     }
     void Update()
     {

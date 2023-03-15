@@ -26,14 +26,17 @@ public class BaseBulletClass : MonoBehaviour
         if (target != null)
         {
             if (transform.position == target.transform.position)
+            {
+                target.GetComponent<Health>().GetDamage(damage);
                 Destroy(gameObject);
+            }
+            else if ((transform.position - target.transform.position).magnitude < 0.1f)
+            {
+                target.GetComponent<Health>().GetDamage(damage);
+                Destroy(gameObject);
+            }
         }
         if (target == null)
             Destroy(gameObject);
-    }
-    public void OnDestroy()
-    {
-        if (target != null)
-            target.GetComponent<Health>().GetDamage(damage);
     }
 }

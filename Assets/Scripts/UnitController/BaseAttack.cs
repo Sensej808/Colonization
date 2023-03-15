@@ -122,6 +122,11 @@ public class BaseAttack : MonoBehaviour
         else
             CreateBullet();
     }
+    public void DoIsMoving()
+    {
+        isNormalMoving = false;
+        print("pososi");
+    }
     private void Update()
     {
         if ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive))
@@ -154,7 +159,5 @@ public class BaseAttack : MonoBehaviour
             unit.state = StateUnit.Normal;
         if (target == null)
             isFocusAttack = false;
-        if ((transform.position - finalAttackPos).magnitude <= 1f)
-            isNormalMoving = false;
     }
 }
