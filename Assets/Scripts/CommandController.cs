@@ -137,6 +137,7 @@ public class CommandController : MonoBehaviour
                 {
                     Debug.Log(hit.collider.gameObject.name);    
                     StartMining(sourse);
+                    print(Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null).Count);
 
                 }
             }

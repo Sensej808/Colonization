@@ -14,8 +14,6 @@ public class BaseStructClass : MonoBehaviour
     public int SizeX = 2;
     public int SizeY = 2;
     public AudioClip structOrder;
-    public GameObject HpBar;
-    public GameObject timeBar;
 
     void Start()
     {
@@ -35,20 +33,11 @@ public class BaseStructClass : MonoBehaviour
                 PathFinding.Instance.grid.GetValue(x + i, y + j).SetWalkable(false);
             }
         }
-        HpBar = Instantiate(Resources.Load<GameObject>("Prefabs/BarCanvas"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 1.7f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
-        HpBar.name = "HpBar";
-        HpBar.transform.parent = gameObject.transform;
-        timeBar = Instantiate(Resources.Load<GameObject>("Prefabs/BarCanvas1"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 2f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
-        timeBar.name = "TimeBar";
-        timeBar.transform.parent = gameObject.transform;
-        timeBar.transform.Find("background").GetComponent<UIBar>().time = Create.time;
-        timeBar.transform.Find("background").GetComponent<UIBar>().realtime = Create.time;
         //GetComponent<AudioSource>().Play();
         //Audio.instance.PlaySound(structOrder);
     }
     private void Update()
     {
-        timeBar.transform.Find("background").GetComponent<UIBar>().realtime = Create.time;
     }
 
     void OnDestroy()

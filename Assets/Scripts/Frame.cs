@@ -9,13 +9,14 @@ public class Frame : MonoBehaviour
     public Health Health;
     public float time;
     public GameObject futureBuilding;
-    public GameObject hpBar;
-    public GameObject timeBar;
+    public GameObject TimeBar;
     private IEnumerator StartTimer()
     {
         while (true)
         {
             time -= Time.deltaTime;
+            TimeBar.GetComponent<Bar>().realValue = time;
+            TimeBar.GetComponent<Bar>().UpdateBar();
             yield return null;
         }
     }
@@ -23,18 +24,15 @@ public class Frame : MonoBehaviour
     {
         Selection = gameObject.AddComponent<SelectionCheck>();
         Health = gameObject.AddComponent<Health>();
-        timeBar = Instantiate(Resources.Load<GameObject>("Prefabs/BarCanvas1"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 1.7f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
-        timeBar.name = "TimeBar";
-        timeBar.transform.parent = gameObject.transform;
-        timeBar.transform.Find("background").GetComponent<UIBar>().time = time;
-        timeBar.transform.Find("background").GetComponent<UIBar>().realtime = time;
-        hpBar = Instantiate(Resources.Load<GameObject>("Prefabs/BarCanvas"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 1.4f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
-        hpBar.name = "HpBar";
-        hpBar.transform.parent = gameObject.transform;
+        TimeBar = Instantiate(Resources.Load<GameObject>("Prefabs/Bar"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 2.2f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
         StartCoroutine(StartTimer());
+        TimeBar.transform.parent = gameObject.transform;
+        TimeBar.GetComponent<Bar>().maxValue = time;
+        TimeBar.GetComponent<Bar>().realValue = time;
+        TimeBar.GetComponent<Bar>().bar.GetComponent<Renderer>().material.color = Color.blue;
+        TimeBar.GetComponent<Bar>().UpdateBar();
     }
     private void Update()
     {
-        timeBar.transform.Find("background").GetComponent<UIBar>().realtime = time;
     }
 }

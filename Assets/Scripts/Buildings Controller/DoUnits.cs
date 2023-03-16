@@ -16,6 +16,7 @@ public class DoUnits : MonoBehaviour
         public GameObject unit;
         public AudioClip structOrder;
         public bool timerRun;
+        public GameObject TimeBar;
         private IEnumerator StartTimer()
         {
             while (time >= -0.1f)
@@ -31,7 +32,13 @@ public class DoUnits : MonoBehaviour
             queueUnits = new Queue<GameObject>();
             StartCoroutine(StartTimer());
             timerRun = true;
-        }
+        TimeBar = Instantiate(Resources.Load<GameObject>("Prefabs/Bar"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 2.2f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
+        TimeBar.transform.parent = gameObject.transform;
+        TimeBar.GetComponent<Bar>().maxValue = 1;
+        TimeBar.GetComponent<Bar>().realValue = 0;
+        TimeBar.GetComponent<Bar>().bar.GetComponent<Renderer>().material.color = Color.blue;
+        TimeBar.GetComponent<Bar>().UpdateBar();
+    }
         public void AddUnit(GameObject unit)
         {
             queueUnits.Enqueue(unit);
@@ -49,11 +56,13 @@ public class DoUnits : MonoBehaviour
             {
                 unit = queueUnits.Peek();
                 time = unit.GetComponent<BaseUnitClass>().ProductionTime;
-                myStruct.timeBar.transform.Find("background").GetComponent<UIBar>().time = time;
+                TimeBar.GetComponent<Bar>().maxValue = time;
             }
             if (unit != null)
             {
-                if (time <= 0)
+            TimeBar.GetComponent<Bar>().realValue = time;
+            TimeBar.GetComponent<Bar>().UpdateBar();
+            if (time <= 0)
                 {
                     Instantiate(unit, gameObject.transform.Find("SpawnUnits").position, transform.rotation);
                     unit = null;

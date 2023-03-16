@@ -10,12 +10,17 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public double CurrentHealth;
-    public double HP = 100;
+    public double HP;
+    public GameObject HpBar;
 
     void Start()
     {
         CurrentHealth = HP;
-
+        HpBar = Instantiate(Resources.Load<GameObject>("Prefabs/Bar"), new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.GetComponent<BoxCollider2D>().size.y / 1.7f * gameObject.transform.localScale.y, 1), gameObject.transform.rotation);
+        HpBar.transform.parent = gameObject.transform;
+        HpBar.GetComponent<Bar>().maxValue = HP;
+        HpBar.GetComponent<Bar>().realValue = CurrentHealth;
+        HpBar.GetComponent<Bar>().bar.GetComponent<Renderer>().material.color = Color.green;
     }
 
     public void GetDamage(double damage)
@@ -24,7 +29,8 @@ public class Health : MonoBehaviour
             CurrentHealth -= damage;
         else 
             CurrentHealth = 0;
-        //myHealthBar.SetValue((float)(CurrentHealth / HP));
+        HpBar.GetComponent<Bar>().realValue = CurrentHealth;
+        HpBar.GetComponent<Bar>().UpdateBar();
     }
 
     public void GetHealth(double health)
@@ -33,6 +39,8 @@ public class Health : MonoBehaviour
             CurrentHealth += health;
         else 
             CurrentHealth = HP;
+        HpBar.GetComponent<Bar>().realValue = CurrentHealth;
+        HpBar.GetComponent<Bar>().UpdateBar();
     }
     public void Death()
     {
@@ -41,6 +49,7 @@ public class Health : MonoBehaviour
     }
     public void Update()
     {
+        //HpBar.GetComponent<Bar>().realValue = CurrentHealth;
         Death();
     }
 }

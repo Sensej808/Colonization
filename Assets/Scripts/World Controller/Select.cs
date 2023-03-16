@@ -92,8 +92,8 @@ public class Select : MonoBehaviour
             go.GetComponent<SelectionCheck>().Demonstrate();
         }
 
-        if (SelectedUnits.Count > 0)
-            Audio.instance.PlaySound(UnitSelected);
+        //if (SelectedUnits.Count > 0)
+        //    Audio.instance.PlaySound(UnitSelected);
     }
 
     
