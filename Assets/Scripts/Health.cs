@@ -10,7 +10,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public double CurrentHealth;
-    public double HP;
+    public double HP = 100;
     public GameObject HpBar;
 
     void Start()
