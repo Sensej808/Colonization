@@ -135,7 +135,7 @@ public class CommandController : MonoBehaviour
                 //Если нажали ПКМ и луч попал в источник ресурсов при нажатии, отправляем рабочих добывать
                 if (sourse.GetComponent<SourseOfRecourses>() != null)
                 {
-                //Debug.Log(hit.collider.gameObject.name);    
+                    Debug.Log(hit.collider.gameObject.name);    
                     StartMining(sourse);
 
                 }

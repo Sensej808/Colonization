@@ -7,11 +7,7 @@ public class CameraMoving : MonoBehaviour
     private Vector3 position;
     private float speed = 15.0f;
     public Grid1 grid;
-    public int offset = 10;
-    void Start()
-    {
-        
-    }
+    public int offset = 10; //растояние от края окна, при котором камера начнет двигаться
     void Update()
     {
             position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
