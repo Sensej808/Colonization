@@ -7,7 +7,6 @@ public class RemoveUnknownSquare: MonoBehaviour
     {
         if (collision.gameObject.name == "UnknownSquare(Clone)")
             Destroy(collision.gameObject);
-        print("pososi");
     }
 }
 
