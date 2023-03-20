@@ -13,8 +13,4 @@ public class BaseEnemyClass : BaseUnitClass
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
         ProductionTime = 100f;
     }
-    void Update()
-    {
-        
-    }
 }

@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 
 //Базовый класс атаки юнитов

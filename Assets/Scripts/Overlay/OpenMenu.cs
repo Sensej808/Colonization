@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OpenMenu : MonoBehaviour
 {
     public CreateSelectionGrid grid;
+    public GameObject reference;
+    public static int lastpos;
     public void Start()
     {
-        Time.timeScale = 0;
+        reference = transform.Find("Menu").Find("Reference").gameObject;
+        Time.timeScale = 1;
+        lastpos = -3;
     }
     public void Update()
     {
@@ -39,11 +45,7 @@ public class OpenMenu : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            gameObject.transform.Find("HelpMenu").gameObject.SetActive(!gameObject.transform.Find("HelpMenu").gameObject.activeSelf);
-            if (Time.timeScale == 0)
-                Time.timeScale = 1;
-            else
-                Time.timeScale = 0;
+            OpenCloseMenu();
         }
     }
         public void ExitGame()
@@ -54,5 +56,47 @@ public class OpenMenu : MonoBehaviour
     public void ExitChangeMenu()
     {
         SceneManager.LoadScene("LevelSelection");
+    }
+    public void OpenCloseReference()
+    {
+        reference.SetActive(!reference.activeSelf);
+    }
+    public void OpenCloseMenu()
+    {
+        gameObject.transform.Find("Menu").gameObject.SetActive(!gameObject.transform.Find("Menu").gameObject.activeSelf);
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            gameObject.transform.Find("Menu").Find("Reference").gameObject.SetActive(false);
+        }
+        else
+            Time.timeScale = 0;
+    }
+    public void NewGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void OpenLoseMenu()
+    {
+        gameObject.transform.Find("Lose").gameObject.SetActive(true);
+    }
+    public void AddMission(Mission mis)
+    {
+        print(lastpos);
+        GameObject m = Instantiate(Resources.Load<GameObject>("Prefabs/Mission"), transform.position, transform.rotation);
+        m.transform.SetParent(gameObject.transform.Find("Missions"));
+        m.GetComponent<RectTransform>().anchoredPosition = new Vector2(47, lastpos);
+        m.GetComponent<RectTransform>().localScale = Vector2.one;
+        m.transform.Find("Text").gameObject.GetComponent<Text>().text = mis.CompletedText;
+        if (mis.FailedText != "")
+        {
+            m.transform.Find("Text").gameObject.GetComponent<Text>().text += "(" + mis.FailedText + ")";
+        }
+        m.name = mis.name;
+        lastpos = lastpos-27;
+    }
+    public void CompleteMission(Mission m)
+    {
+        gameObject.transform.Find("Missions").Find(m.name).Find("Toggle").GetComponent<Toggle>().isOn = true;
     }
 }
