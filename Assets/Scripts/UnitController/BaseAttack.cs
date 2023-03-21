@@ -29,6 +29,7 @@ public class BaseAttack : MonoBehaviour
     public AudioClip shoot;
     public bool timerRun;
     public bool isNormalMoving;
+    public bool isCalled;
     private IEnumerator StartTimer()
     {
         while (realCooldown >= -0.1f)
@@ -49,6 +50,7 @@ public class BaseAttack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(StartTimer());
         timerRun = true;
+        isCalled = false;
     }
     public GameObject FindNearestTarget()
     {
@@ -113,10 +115,15 @@ public class BaseAttack : MonoBehaviour
         {
             if (!unit.Moving.isMoving)
             {
-                if (target.GetComponent<Rigidbody2D>().bodyType != RigidbodyType2D.Static)
-                    unit.Moving.MoveTo(target.transform.position);
-                else
-                    unit.Moving.MoveTo(target);
+                //if (target.GetComponent<Rigidbody2D>() != null)
+                {
+                    if (target.GetComponent<Rigidbody2D>().bodyType != RigidbodyType2D.Static)
+                        unit.Moving.MoveTo(target.transform.position);
+                    else
+                        unit.Moving.MoveTo(target);
+                }
+                //else
+                //    unit.Moving.MoveTo(target);
             }
         }
         else
@@ -126,18 +133,58 @@ public class BaseAttack : MonoBehaviour
     {
         isNormalMoving = false;
     }
+    public void CallToHelp()
+    {
+        Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, GetTargetRange);
+        foreach (Collider2D unit in hitColiders)
+        {
+            if(unit.gameObject.GetComponent<BaseAttack>() != null && unit.gameObject.GetComponent<Build>() == null)
+            {
+                if (unit.gameObject.GetComponent<BaseAttack>().target == null && unit.gameObject.tag == "Enemy")
+                {
+                    if (target.GetComponent<Rigidbody2D>().bodyType != RigidbodyType2D.Static)
+                    {
+                        unit.gameObject.GetComponent<BaseAttack>().finalAttackPos = target.transform.position;
+                        unit.gameObject.GetComponent<BaseUnitClass>().state = StateUnit.Aggressive;
+                    }
+                }
+            }
+        }
+    }
     private void Update()
     {
-        if ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive))
-            target = FindNearestTarget();
         if (target != null)
+        {
+            if ((target.transform.position - gameObject.transform.position).magnitude > attackRange && ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive)))
+            {
+                target = FindNearestTarget();
+            }
+        }
+        else
+        {
+            if ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive))
+            {
+                target = FindNearestTarget();
+            }
+        }
+        if (target != null)
+        {
             GoAttackAndAttack();
+            if (!isCalled)
+            {
+                CallToHelp();
+                isCalled = true;
+            }
+        }
         if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && unit.state != StateUnit.BuildStruct)
         {
             target = null;
             unit.state = StateUnit.Normal;
             isFocusAttack = false;
             isNormalMoving = true;
+            var x = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            x.z = 0;
+            unit.Moving.MoveTo(x);
         }
         if (unit.Selection.isSelected && Input.GetMouseButtonDown(0) && Input.GetKey("a"))
         {
@@ -157,6 +204,9 @@ public class BaseAttack : MonoBehaviour
         if (target == null && (transform.position - finalAttackPos).magnitude <= 1f)
             unit.state = StateUnit.Normal;
         if (target == null)
+        {
             isFocusAttack = false;
+            isCalled = false;
+        }
     }
 }

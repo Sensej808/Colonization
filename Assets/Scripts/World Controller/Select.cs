@@ -28,7 +28,6 @@ public class Select : MonoBehaviour
             {
                 //allyUnit.isSelected = true;
                 SelectedUnits.Add(allyUnit.gameObject);
-                Debug.Log("Selected");
             }
 
         }

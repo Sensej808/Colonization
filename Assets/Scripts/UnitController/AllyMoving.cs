@@ -47,17 +47,17 @@ public class AllyMoving : MonoBehaviour
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         finalPos.z = 0;
         List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
-        if (null == gos.Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
-        {
-            PathFinding.Instance.grid.GetXY(finalPos, out int x, out int y);
-            finalPos.x = x;
-            finalPos.y = y;
-            finalPos.z = 0;
-            //Debug.Log("!Finpose: " + finalPos.x + " " + finalPos.y);
-            path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (onMovingStart != null) onMovingStart.Invoke();
-            isMoving = true;
-        }
+            if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+            {
+                PathFinding.Instance.grid.GetXY(finalPos, out int x, out int y);
+                finalPos.x = x;
+                finalPos.y = y;
+                finalPos.z = 0;
+                //Debug.Log("!Finpose: " + finalPos.x + " " + finalPos.y);
+                path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (onMovingStart != null) onMovingStart.Invoke();
+                isMoving = true;
+            }
     }
     public void Move() //передвигает юнита к finalPos
     {
@@ -77,8 +77,8 @@ public class AllyMoving : MonoBehaviour
     //Отправить юнита в точку Pos
     public void MoveTo(Vector3 position)
     {
-        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(position, 0.01f));
-        if (null == gos.Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
+        if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
             path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
             isMoving = true;
@@ -106,7 +106,7 @@ public class AllyMoving : MonoBehaviour
         Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset));
         path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
         isMoving = true;
-        if (obj != null)
+        if (path != null && path.Count > 0)
             return path[path.Count - 1];
         else
             return transform.position;

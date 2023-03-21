@@ -209,7 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
-  HP: 150
+  HP: 1000
+  HpBar: {fileID: 0}
 --- !u!114 &7070498850038997952
 MonoBehaviour:
   m_ObjectHideFlags: 0

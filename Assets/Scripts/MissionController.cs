@@ -10,22 +10,13 @@ public class MissionController : MonoBehaviour
     public static WinScript Win;
     public static OpenMenu missionMenu;
     public static MissionController Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-            missionList = new List<Mission>();
-            Win = GameObject.Find("WInLoseController").GetComponent<WinScript>();
-            missionMenu = GameObject.Find("Canvas").GetComponent<OpenMenu>();
-            return;
-        }
-        Destroy(this.gameObject);
-    }
     public void Start()
     {
+        missionList = new List<Mission>();
+        Win = GameObject.Find("WInLoseController").GetComponent<WinScript>();
+        missionMenu = GameObject.Find("Canvas").GetComponent<OpenMenu>();
         string scenename = SceneManager.GetActiveScene().name;
+        print(SceneManager.GetActiveScene().name);
         switch (scenename)
         {
             case "location1":

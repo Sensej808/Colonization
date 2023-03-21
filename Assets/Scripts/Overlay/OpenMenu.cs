@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -75,6 +76,7 @@ public class OpenMenu : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
     public void OpenLoseMenu()
     {
@@ -82,7 +84,6 @@ public class OpenMenu : MonoBehaviour
     }
     public void AddMission(Mission mis)
     {
-        print(lastpos);
         GameObject m = Instantiate(Resources.Load<GameObject>("Prefabs/Mission"), transform.position, transform.rotation);
         m.transform.SetParent(gameObject.transform.Find("Missions"));
         m.GetComponent<RectTransform>().anchoredPosition = new Vector2(47, lastpos);
@@ -98,5 +99,6 @@ public class OpenMenu : MonoBehaviour
     public void CompleteMission(Mission m)
     {
         gameObject.transform.Find("Missions").Find(m.name).Find("Toggle").GetComponent<Toggle>().isOn = true;
+        gameObject.transform.Find("Missions").Find(m.name).Find("Text").gameObject.GetComponent<Text>().color = new Color(132 / 255.0f, 129 / 255.0f, 129 / 255.0f);
     }
 }

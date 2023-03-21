@@ -8,9 +8,11 @@ public class RemoveUnknownSquare: MonoBehaviour
         if (collision.gameObject.name == "UnknownSquare(Clone)")
             Destroy(collision.gameObject);
     }
+    
     private void Update()
     {
-        transform.position = transform.parent.position;
+        //transform.position = transform.parent.position;
     }
+    
 }
 
