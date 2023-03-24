@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class CreateSelectionGrid : MonoBehaviour
 {
     public GameObject prefabSelectionGrid; //префаб сетки выделения
+    public GameObject prefabAirSelectionGrid;
     private Vector3 pos1; //позиция мыши НА ЭКРАНЕ, при первом нажатии ЛКМ
     private Vector3 pos2; //позиция мыши НА ЭКРАНЕ, во время расстягивания сетки выделения
     private Vector3 rpos1;//позиция мыши НА КАРТЕ, при первом нажатии ЛКМ
@@ -16,6 +17,7 @@ public class CreateSelectionGrid : MonoBehaviour
     private Vector3 posc; //центр сетки выделения
     private bool selecting = false; //false - если сетки сейчас нет, true - если сетка создана
     public GameObject SelectionGrid; //сетка выделения на экране
+    public GameObject AirSelectionGrid; //сетка выделения на экране
     public CommandController command;
     void Update()
     {
@@ -25,6 +27,7 @@ public class CreateSelectionGrid : MonoBehaviour
             //Debug.Log("START");
             selecting = true;
             SelectionGrid = Instantiate(prefabSelectionGrid, pos1,transform.rotation); //создание сетки
+            AirSelectionGrid = Instantiate(prefabAirSelectionGrid, pos1, transform.rotation); //создание сетки
             rpos1 = Camera.main.ScreenToWorldPoint(pos1); //позиция мыши НА КАРТЕ, при первом нажатии ЛКМ
 
         }
@@ -36,15 +39,22 @@ public class CreateSelectionGrid : MonoBehaviour
             CenterPos(); //Находим центр
             SelectionGrid.transform.position = new Vector3(posc.x, posc.y, pos1.z);//меняем местоположение, из-за всенаправленного растяжения
             SelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
+            AirSelectionGrid.transform.position = new Vector3(posc.x, posc.y, pos1.z);//меняем местоположение, из-за всенаправленного растяжения
+            AirSelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
             //Debug.Log(rpos2 - rpos1);
         }
         else if(Input.GetMouseButtonUp(0) && selecting)
         {
             SelectionGrid.GetComponent<Select>().IsDone = true;//подтверждаем удаление и сохраняем выделение
+            AirSelectionGrid.GetComponent<Select>().IsDone = true;//подтверждаем удаление и сохраняем выделение
             //Debug.Log("FIN");
             selecting = false;
-            
+            foreach (GameObject x in SelectionGrid.GetComponent<Select>().SelectedUnits)
+            {
+                AirSelectionGrid.GetComponent<Select>().SelectedUnits.Add(x);
+            }
             Destroy(SelectionGrid);
+            Destroy(AirSelectionGrid);
         }
 
     }

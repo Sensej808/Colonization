@@ -74,9 +74,13 @@ public class Select : MonoBehaviour
             if (go.gameObject.GetComponent<SelectionCheck>() != null)
             {
                 if (go.gameObject.tag == "Allied")
+                {
                     SelectedUnits.Add(go.gameObject);
+                    break;
+                }
             }
         }
+        //GameObject.Find("")
         //controller.UpdateSelection(SelectedUnits);
         if (SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() != null) && SelectedUnits.Find(x => x.GetComponent<BaseStructClass>() == null))
             SelectedUnits.RemoveAll(x => x.GetComponent<BaseStructClass>() != null);

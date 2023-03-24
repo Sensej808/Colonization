@@ -14,5 +14,6 @@ public class EngineerClass : BaseUnitClass
         Attack.cooldown = 1f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/WhiteCircle");
         ProductionTime = 8f;
+        Attack.GetTargetRange = 7.5f;
     }
 }

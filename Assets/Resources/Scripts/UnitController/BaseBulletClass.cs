@@ -21,7 +21,7 @@ public class BaseBulletClass : MonoBehaviour
         if(target != null)
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
-    public void DestroyBullet()
+    public  void DestroyBullet()
     {
         if (target != null)
         {

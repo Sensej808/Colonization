@@ -43,7 +43,7 @@ public class BaseAttack : MonoBehaviour
     {
         unit = gameObject.GetComponent<BaseUnitClass>();
         realCooldown = 0f;
-        GetTargetRange = 7.5f;
+        //GetTargetRange = 7.5f;
         isFocusAttack = false;
         finalAttackPos = gameObject.transform.position;
         k = 50;

@@ -54,7 +54,17 @@ public class AllyMoving : MonoBehaviour
                 finalPos.y = y;
                 finalPos.z = 0;
                 //Debug.Log("!Finpose: " + finalPos.x + " " + finalPos.y);
-                path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (gameObject.layer != 7)
+                {
+                    path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
+                else
+                {
+                    path = new List<Vector3>();
+                    var v = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    v.z = 0;
+                    path.Add(v);
+                }    
                 if (onMovingStart != null) onMovingStart.Invoke();
                 isMoving = true;
             }
@@ -80,37 +90,45 @@ public class AllyMoving : MonoBehaviour
         List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
         if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
-            path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
-            isMoving = true;
+            if (gameObject.layer != 7)
+            {
+                path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
+                isMoving = true;
+            }
+            else
+            {
+                path = new List<Vector3>();
+                path.Add(position);
+                isMoving = true;
+            }
         }
     }
 
     //Отправить юнита к объекту
     public Vector3 MoveTo(GameObject obj)
     {
-        Vector3 Mypos = GetComponent<Transform>().position;
-        Vector3 ResPos = obj.GetComponent<Transform>().position;
-        Vector3 diff = Mypos - ResPos;
-        Vector3 offset = (obj.GetComponent<BoxCollider2D>().bounds.extents);
-        //TODO: сделать нормальный подход к объектам
-        offset.x = 0;
-        if (diff.x < 0)
-        {
-            offset.x *= -1;
-           
-        }
-        else if (diff.y < 0)
-        {
-            offset.y *= -1;
-        }
-        Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset));
-        path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
-        isMoving = true;
-        if (path != null && path.Count > 0)
-            return path[path.Count - 1];
-        else
-            return transform.position;
+            Vector3 Mypos = GetComponent<Transform>().position;
+            Vector3 ResPos = obj.GetComponent<Transform>().position;
+            Vector3 diff = Mypos - ResPos;
+            Vector3 offset = (obj.GetComponent<BoxCollider2D>().bounds.extents);
+            //TODO: сделать нормальный подход к объектам
+            offset.x = 0;
+            if (diff.x < 0)
+            {
+                offset.x *= -1;
 
+            }
+            else if (diff.y < 0)
+            {
+                offset.y *= -1;
+            }
+            Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset));
+            path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
+            isMoving = true;
+            if (path != null && path.Count > 0)
+                return path[path.Count - 1];
+            else
+                return transform.position;
     }
 
     //Закончить идти
