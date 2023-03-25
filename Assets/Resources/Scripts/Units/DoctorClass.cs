@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DoctorClass : BaseUnitClass
 {
+    public Healing healing;
     public new void Start()
     {
         base.Start();
@@ -12,6 +13,9 @@ public class DoctorClass : BaseUnitClass
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
         ProductionTime = 8f;
         Attack.GetTargetRange = 0f;
-        gameObject.AddComponent<Healing>();
+        healing = gameObject.AddComponent<Healing>();
+        healing.prefabHealingBeam = Resources.Load<GameObject>("Prefabs/HealingBeam");
+        healing.treatment = 2;
+        healing.cooldown = 0.06f;
     }
 }
