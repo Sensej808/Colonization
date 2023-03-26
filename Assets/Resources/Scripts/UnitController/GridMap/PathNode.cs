@@ -12,7 +12,8 @@ public class PathNode
     public int hCost;
     public int fCost;
 
-    public bool is_walkable;
+    public bool is_walkable = true;
+    public bool is_empty = true;
     public void CalcFcost()
     {
         fCost = gCost + hCost;
@@ -44,7 +45,13 @@ public class PathNode
         else
             grid.ChangeColor(x, y, Color.red);
         is_walkable = value;
-              
-        
+    }
+
+    public void SetEmpty(bool value)
+    {
+        if (is_walkable)
+            is_empty = value;
+        else
+            Debug.Log("Trying to SetEmpty on obstacle cell");
     }
 }

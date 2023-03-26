@@ -32,7 +32,7 @@ public class AllyMoving : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
             {
-                SetPosition();
+                SetPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
             }
             if (isMoving)
@@ -41,7 +41,7 @@ public class AllyMoving : MonoBehaviour
         if (Input.GetKey("s")) //если нажимаем на s, юнит останавливается
             StopMoving();
     }
-    public void SetPosition()//устанавливает значение finalPos = 0, меняет IsMoving на true
+    public void SetPosition(Vector3 pos)//устанавливает значение finalPos = 0, меняет IsMoving на true
     {
 
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -77,11 +77,35 @@ public class AllyMoving : MonoBehaviour
             StopMoving();
             return;
         }
+        
         transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
+        Debug.Log(CheckNextCell());
         if (transform.position == path[0])
             path.Remove(path[0]);
         if (!audioSource.isPlaying)
             audioSource.Play();
+    }
+
+    //Проверяем следующую точку в маршруте на препятствия
+    public bool CheckNextCell()
+    {
+        var obs = Physics2D.OverlapBoxAll(new Vector2(path[0].x, path[0].y), new Vector2(PathFinding.Instance.grid.CellSize, PathFinding.Instance.grid.CellSize), 0);
+
+        bool CanMove = true;
+        foreach(var col in obs)
+        {
+            if (!col.isTrigger && col != unit.GetComponent<BoxCollider2D>())
+            {
+                CanMove = false;
+                break;
+            }
+        }
+
+        Debug.Log($"len = { obs.Length}");
+        if (obs.Length == 0)
+            return CanMove;
+        else
+            return CanMove;
     }
 
     //Отправить юнита в точку Pos
@@ -90,7 +114,7 @@ public class AllyMoving : MonoBehaviour
         List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
         if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
-            if (gameObject.layer != 7)
+            if (gameObject.layer != 7) //Если не летающий юнит
             {
                 path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
                 isMoving = true;
@@ -139,5 +163,11 @@ public class AllyMoving : MonoBehaviour
         path = null;
         if(onMovingEnd != null)
             onMovingEnd.Invoke();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(path[0], Vector3.one * PathFinding.Instance.grid.CellSize);
     }
 }

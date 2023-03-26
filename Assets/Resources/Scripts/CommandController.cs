@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CommandController : MonoBehaviour
 {
-    //public List<GameObject> selectedUnits; //лист, содержащий выделенных юнитов
     public bool clickInterface; //переменная отвечающая, какие щас будут выполняться команды: от клавиатуры, или интерфейса
     public Dictionary<string, bool> KeyOnMenu; //массив кнопок интерфейса, говорящий, который ставит value true, если кнопка нажата
     public int k;
@@ -89,6 +88,37 @@ public class CommandController : MonoBehaviour
         if (myStruct != null)
             myStruct.GetComponent<DoUnits>().AddUnit(Resources.Load<GameObject>(NameUnit));
     }
+    //Даём команду двигаться к точке
+    public void MoveUnits(List<GameObject> units, Vector3 pos)
+    {
+        SortedList<double, int> units_dists_to_pos = new SortedList<double, int>();
+        foreach(GameObject unit in units)//Создаём отсортированный по растоянию до конечной позиции список юнитов
+        {
+            double distance = Vector3.Distance(pos, unit.transform.position);
+            units_dists_to_pos.Add(distance, units_dists_to_pos.Count);
+        }
+        Queue<PathNode> poses = new Queue<PathNode>();
+        PathFinding.Instance.grid.GetXY(pos, out int x, out int y);
+        poses.Enqueue(PathFinding.Instance.grid.GetValue(x, y));
+        foreach(var dist_and_num in units_dists_to_pos)
+        {
+            while (true)
+            {
+            var p = poses.Dequeue();
+            var neighs = PathFinding.Instance.OpenNeighbours(p);
+            foreach (var n in neighs)
+                poses.Enqueue(n);
+            if (PathFinding.Instance.grid.GetValue(x, y).is_empty)
+                {
+                    units[dist_and_num.Value].GetComponent<AllyMoving>().MoveTo(PathFinding.Instance.grid.GetWorldPos(p.x, p.y));
+                    break;
+                }
+
+            }
+            
+
+        }
+    }
     public void Start()
     {
         KeyOnMenu = new Dictionary<string, bool>();
@@ -140,6 +170,11 @@ public class CommandController : MonoBehaviour
                     print(Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null).Count);
 
                 }
+
+            }
+            else if(Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0)
+            {
+                MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши

@@ -43,6 +43,7 @@ public class PathFinding
             {
                 res.Add(new Vector3(tray[i].x + grid.start.x + grid.CellSize * 0.5F, tray[i].y + grid.start.y + grid.CellSize * 0.5F, 0)  );
             }
+            
             return res;
         }
         return null;
@@ -116,7 +117,7 @@ public class PathFinding
         return null;
     }
 
-    private List<PathNode> OpenNeighbours(PathNode node)
+    public List<PathNode> OpenNeighbours(PathNode node)
     {
         List<PathNode> Neighs = new List<PathNode>();
 

@@ -71,6 +71,51 @@ public Vector3 start { get; private set; }
 
     }
 
+
+    public PathNode GetLeft(PathNode from)
+    {
+        return map[from.x - 1, from.y];
+    }
+
+    public PathNode GetRight(PathNode from)
+    {
+        return map[from.x + 1, from.y];
+    }
+
+    public PathNode GetUp(PathNode from)
+    {
+        return map[from.x, from.y + 1];
+    }
+
+    public PathNode GetDown(PathNode from)
+    {
+        return map[from.x, from.y - 1];
+    }
+
+    public PathNode GetUpandLeft(PathNode from)
+    {
+        return map[from.x - 1, from.y + 1];
+    }
+
+    public PathNode GetUpandRight(PathNode from)
+    {
+        return map[from.x + 1, from.y + 1];
+    }
+
+    public PathNode GetDownandRight(PathNode from)
+    {
+        return map[from.x + 1, from.y - 1];
+    }
+
+    public PathNode GetDownandLeft(PathNode from)
+    {
+        return map[from.x - 1, from.y - 1];
+    }
+    public Vector3 GetWorldPos(int x, int y)
+    {
+        return new Vector3(x + start.x + CellSize * 0.5F, y + start.y + CellSize * 0.5F, 0);
+    }
+
     public void ChangeColor(int x, int y, Color c)
     {
         if (x >= 0 && y >= 0 && x < width && y < height && debug)
