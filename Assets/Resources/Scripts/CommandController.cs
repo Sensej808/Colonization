@@ -175,6 +175,7 @@ public class CommandController : MonoBehaviour
             else if(Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0)
             {
                 MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                print("??");
             }
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши

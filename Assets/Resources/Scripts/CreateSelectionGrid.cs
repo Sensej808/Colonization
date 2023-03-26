@@ -27,7 +27,7 @@ public class CreateSelectionGrid : MonoBehaviour
             //Debug.Log("START");
             selecting = true;
             SelectionGrid = Instantiate(prefabSelectionGrid, pos1,transform.rotation); //создание сетки
-            //AirSelectionGrid = Instantiate(prefabAirSelectionGrid, pos1, transform.rotation); //создание сетки
+            AirSelectionGrid = Instantiate(prefabAirSelectionGrid, pos1, transform.rotation); //создание сетки
             rpos1 = Camera.main.ScreenToWorldPoint(pos1); //позиция мыши НА КАРТЕ, при первом нажатии ЛКМ
 
         }
@@ -39,19 +39,19 @@ public class CreateSelectionGrid : MonoBehaviour
             CenterPos(); //Находим центр
             SelectionGrid.transform.position = new Vector3(posc.x, posc.y, pos1.z);//меняем местоположение, из-за всенаправленного растяжения
             SelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
-            //AirSelectionGrid.transform.position = new Vector3(posc.x, posc.y, pos1.z);//меняем местоположение, из-за всенаправленного растяжения
-            //AirSelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
-            //Debug.Log(rpos2 - rpos1);
+            AirSelectionGrid.transform.position = new Vector3(posc.x, posc.y, pos1.z);//меняем местоположение, из-за всенаправленного растяжения
+            AirSelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
+            Debug.Log(rpos2 - rpos1);
         }
         else if(Input.GetMouseButtonUp(0) && selecting)
         {
             SelectionGrid.GetComponent<Select>().IsDone = true;//подтверждаем удаление и сохраняем выделение
-            //AirSelectionGrid.GetComponent<Select>().IsDone = true;//подтверждаем удаление и сохраняем выделение
+            AirSelectionGrid.GetComponent<Select>().IsDone = true;//подтверждаем удаление и сохраняем выделение
             //Debug.Log("FIN");
             selecting = false;
             foreach (GameObject x in SelectionGrid.GetComponent<Select>().SelectedUnits)
             {
-                //AirSelectionGrid.GetComponent<Select>().SelectedUnits.Add(x);
+                AirSelectionGrid.GetComponent<Select>().SelectedUnits.Add(x);
             }
             Destroy(SelectionGrid);
             Destroy(AirSelectionGrid);
