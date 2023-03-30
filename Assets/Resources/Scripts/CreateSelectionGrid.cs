@@ -41,7 +41,7 @@ public class CreateSelectionGrid : MonoBehaviour
             SelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
             AirSelectionGrid.transform.position = new Vector3(posc.x, posc.y, pos1.z);//меняем местоположение, из-за всенаправленного растяжения
             AirSelectionGrid.transform.localScale = rpos2 - rpos1;//меняем размер сетки
-            Debug.Log(rpos2 - rpos1);
+            //Debug.Log(rpos2 - rpos1);
         }
         else if(Input.GetMouseButtonUp(0) && selecting)
         {

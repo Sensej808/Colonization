@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &51906135519035094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6995211427282382378}
+  m_Layer: 0
+  m_Name: SpawnUnits
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6995211427282382378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51906135519035094}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.99, y: -0.7, z: 0.82211876}
+  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1741940000041730166}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5647381073192057221
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +185,7 @@ Transform:
   - {fileID: 4186933711697704795}
   - {fileID: 913257079612387246}
   - {fileID: 6660888280361871545}
+  - {fileID: 6995211427282382378}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -257,6 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 0
   HP: 200
+  HpBar: {fileID: 0}
 --- !u!114 &3887054281293560920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +307,7 @@ MonoBehaviour:
   unit: {fileID: 0}
   structOrder: {fileID: 0}
   timerRun: 0
+  TimeBar: {fileID: 0}
 --- !u!114 &1872773163036538174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,14 +320,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30954fd898c9094ea7122704dd2f511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SizeX: 2
+  SizeY: 2
   Selection: {fileID: 0}
   Health: {fileID: 0}
   Create: {fileID: 0}
-  SizeX: 2
-  SizeY: 2
   structOrder: {fileID: 8300000, guid: e14399a71f363e5489f4020c17afae72, type: 3}
-  HpBar: {fileID: 0}
-  timeBar: {fileID: 0}
 --- !u!1 &7370570722313041432
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +398,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: b09f3bf035a05c54fa32b6c8d714e3fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -376,7 +408,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8714866513537838849
 GameObject:

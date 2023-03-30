@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private float time;
     [SerializeField] private Text timerText;
 
-    private float _timeLeft;
+    public float _timeLeft;
 
     private IEnumerator StartTimer()
     {

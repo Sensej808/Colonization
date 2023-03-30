@@ -136,7 +136,7 @@ MonoBehaviour:
   Health: {fileID: 0}
   Attack: {fileID: 0}
   state: 0
-  ProductionTime: 5
+  ProductionTime: 20
 --- !u!114 &5315789506990841817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   shoot: {fileID: 8300000, guid: 4d62b080b47c63347ae07b78bf3d2295, type: 3}
   timerRun: 0
   isNormalMoving: 0
+  isCalled: 0
 --- !u!82 &2406671787921683309
 AudioSource:
   m_ObjectHideFlags: 0

@@ -49,6 +49,7 @@ public class DoUnits : MonoBehaviour
                 StartCoroutine(StartTimer());
                 timerRun = true;
             }
+            //print("юнит заказан");
         }
         public void CreateUnit()
         {

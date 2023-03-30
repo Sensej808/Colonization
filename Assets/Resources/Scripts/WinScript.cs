@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class WinScript : MonoBehaviour
 {
     public int numberScene;
+    /*
     public static WinScript Instance { get; private set; }
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class WinScript : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+    */
     // Update is called once per frame
     void Update()
     {

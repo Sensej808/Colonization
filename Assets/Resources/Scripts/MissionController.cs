@@ -23,7 +23,7 @@ public class MissionController : MonoBehaviour
                 Add(MissionStorage.Mission1);
                 break;
             case "location2":
-
+                Add(MissionStorage.Mission4);
                 break;
             case "location3":
 
@@ -104,11 +104,11 @@ public class MissionController : MonoBehaviour
     }
     public static void Complete(Mission m)
     {
+        missionMenu.CompleteMission(m);
         print("Mission complete");
         if (m.FuncCompleted != null)
         {
             m.FuncCompleted();
-            missionMenu.CompleteMission(m);
         }
     }
 }

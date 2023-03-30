@@ -79,7 +79,7 @@ public class AllyMoving : MonoBehaviour
         }
         
         transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
-        Debug.Log(CheckNextCell());
+        //Debug.Log(CheckNextCell());
         if (transform.position == path[0])
             path.Remove(path[0]);
         if (!audioSource.isPlaying)
@@ -101,7 +101,7 @@ public class AllyMoving : MonoBehaviour
             }
         }
 
-        Debug.Log($"len = { obs.Length}");
+        //Debug.Log($"len = { obs.Length}");
         if (obs.Length == 0)
             return CanMove;
         else
@@ -168,6 +168,6 @@ public class AllyMoving : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(path[0], Vector3.one * PathFinding.Instance.grid.CellSize);
+        //Gizmos.DrawWireCube(path[0], Vector3.one * PathFinding.Instance.grid.CellSize);
     }
 }
