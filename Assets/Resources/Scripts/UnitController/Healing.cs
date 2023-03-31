@@ -47,7 +47,7 @@ public class Healing : MonoBehaviour
             {
                 if (unit.gameObject != null && unit.gameObject.tag == gameObject.tag && unit.gameObject.GetComponent<Health>() != null && unit.gameObject.GetComponent<Rigidbody2D>().bodyType != RigidbodyType2D.Static)
                 {
-                    if (unit.gameObject.GetComponent<Health>().CurrentHealth < unit.gameObject.GetComponent<Health>().HP)
+                    if (unit.gameObject.GetComponent<Health>().CurrentHealth < unit.gameObject.GetComponent<Health>().HP && unit.gameObject != gameObject)
                     {
                         float real_dist = (gameObject.transform.position - unit.gameObject.transform.position).magnitude;
                         if (real_dist < min_dist)

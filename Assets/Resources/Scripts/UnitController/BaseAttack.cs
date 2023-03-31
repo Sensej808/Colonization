@@ -120,7 +120,10 @@ public class BaseAttack : MonoBehaviour
                     if (target.GetComponent<Rigidbody2D>().bodyType != RigidbodyType2D.Static)
                         unit.Moving.MoveTo(target.transform.position);
                     else
-                        unit.Moving.MoveTo(target);
+                    {
+                        //unit.Moving.MoveTo(target);
+                        unit.Moving.MoveTo(target.transform.position - new Vector3(3, 3, 0));
+                    }
                 }
                 //else
                 //    unit.Moving.MoveTo(target);
@@ -170,7 +173,7 @@ public class BaseAttack : MonoBehaviour
         if (target != null)
         {
             GoAttackAndAttack();
-            if (!isCalled)
+            if (!isCalled && gameObject.tag == "Enemy")
             {
                 CallToHelp();
                 isCalled = true;

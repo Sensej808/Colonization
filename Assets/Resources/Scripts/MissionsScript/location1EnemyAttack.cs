@@ -9,6 +9,8 @@ public class location1EnemyAttack : MonoBehaviour
     public int period;
     public float timeOrder;
     public float startTime;
+    public float radius;
+    public int period_time;
     private IEnumerator StartAttack()
     {
         while (true)
@@ -26,7 +28,7 @@ public class location1EnemyAttack : MonoBehaviour
     }
     void Start()
     {
-        period = 120;
+        period = period_time;
     }
 
     // Update is called once per frame
@@ -42,7 +44,7 @@ public class location1EnemyAttack : MonoBehaviour
     }
     public void GiveOrder()
     {
-        Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, 20);
+        Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, radius);
         foreach(Collider2D building in hitColiders)
         {
             if (building.gameObject.GetComponent<DoUnits>() && building.gameObject.tag == "Enemy")
@@ -59,7 +61,7 @@ public class location1EnemyAttack : MonoBehaviour
     }
     public void GoAttack()
     {
-        Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, 20);
+        Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, radius);
         foreach (Collider2D unit in hitColiders)
         {
             if (unit.gameObject.GetComponent<BaseAttack>() && unit.gameObject.tag == "Enemy")
