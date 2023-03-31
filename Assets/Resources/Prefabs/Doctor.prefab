@@ -701,7 +701,7 @@ MonoBehaviour:
   Health: {fileID: 0}
   Attack: {fileID: 0}
   state: 0
-  ProductionTime: 0
+  ProductionTime: 30
   healing: {fileID: 0}
 --- !u!1 &8322666748373695239
 GameObject:
