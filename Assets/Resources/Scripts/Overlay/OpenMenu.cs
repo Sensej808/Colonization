@@ -16,7 +16,7 @@ public class OpenMenu : MonoBehaviour
     {
         reference = transform.Find("Menu").Find("Reference").gameObject;
         Time.timeScale = 1;
-        lastpos = -3;
+        lastpos = 8;
     }
     public void Update()
     {
@@ -94,7 +94,7 @@ public class OpenMenu : MonoBehaviour
             m.transform.Find("Text").gameObject.GetComponent<Text>().text += "(" + mis.FailedText + ")";
         }
         m.name = mis.name;
-        lastpos = lastpos-27;
+        lastpos = lastpos-20;
     }
     public void CompleteMission(Mission m)
     {
