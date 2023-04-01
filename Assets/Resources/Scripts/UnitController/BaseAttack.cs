@@ -212,4 +212,9 @@ public class BaseAttack : MonoBehaviour
             isCalled = false;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+    
+    }
 }
