@@ -11,6 +11,7 @@ public class CheckDestroyEnemyBuilding : MonoBehaviour
     public List<GameObject> removeList;
     public Timer timer;
     public string missionName;
+    public float loseTime;
     void Start()
     {
         buildingList = Physics2D.OverlapCircleAll(gameObject.transform.position, 20).ToList<Collider2D>().ConvertAll(x => x.gameObject);
@@ -41,7 +42,7 @@ public class CheckDestroyEnemyBuilding : MonoBehaviour
             MissionController.missionList.Find(x => x.name == missionName).isCompleted = true;
             MissionController.CheckMission(MissionController.missionList.Find(x => x.name == missionName));
         }
-        if (timer._timeLeft >= 240)
+        if (timer._timeLeft >= loseTime)
         {
             MissionController.missionList.Find(x => x.name == missionName).isFailed = true;
             MissionController.CheckMission(MissionController.missionList.Find(x => x.name == missionName));

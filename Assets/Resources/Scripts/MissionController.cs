@@ -24,6 +24,7 @@ public class MissionController : MonoBehaviour
                 break;
             case "location2":
                 Add(MissionStorage.Mission4);
+                Add(MissionStorage.Mission6);
                 break;
             case "location3":
 

@@ -44,15 +44,15 @@ public class MissionStorage : MonoBehaviour
         GameObject.Find("HelpMission1").SetActive(false);
         GameObject.Find("CheckMissionController").GetComponent<ActiveHelpMission5>().GoAttack();
     }
-    public static void AddMission6()
+    public static void StartAttack()
     {
-        MissionController.Add(Mission6);
+        GameObject.Find("EnemyAttackController").GetComponent<location1EnemyAttack>().StartStartAttack();
     }
     public static Mission Mission1 = new Mission(false, false, "Дойдите до места строительства базы(зелёный кружок)", "Хотя бы 1 рабочий должен выжить", AddMission2, null, "Mission1");
     public static Mission Mission2 = new Mission(false, false, "Постройте здание", "", AddMission3, null, "Mission2");
     public static Mission Mission3 = new Mission(false, false, "Уничтожьте главное здание врага(красный квадратик)", "", null, null, "Mission3");
     public static Mission Mission4 = new Mission(false, false, "Уничтожьте все здания на базе противника", "Это надо сделать до 4 минуты", AddMission5, null, "Mission4");
-    public static Mission Mission5 = new Mission(false, false, "Уничтожьте все здания на базе противника", "Это надо сделать до 8 минуты", AddMission6, null, "Mission5");
+    public static Mission Mission5 = new Mission(false, false, "Уничтожьте все здания на базе противника", "Это надо сделать до 8 минуты", StartAttack, null, "Mission5");
     public static Mission Mission6 = new Mission(false, false, "Защитите своё главное здание на базе до 12 минуты", "", null, null, "Mission6");
 
 }

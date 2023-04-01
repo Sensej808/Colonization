@@ -163,6 +163,8 @@ public class CommandController : MonoBehaviour
         KeyOnMenu.Add("R", false); //добавляем кнопку R в интерфейс
         KeyOnMenu.Add("unitW", false);
         KeyOnMenu.Add("unitF", false);
+        KeyOnMenu.Add("unitD", false);
+        KeyOnMenu.Add("unitE", false);
     }
 
     //Отправляем рабочих добывать ресурсы из источника course
@@ -190,6 +192,10 @@ public class CommandController : MonoBehaviour
                 AddUnit("Prefabs/Cyborg");
             if (Input.GetKeyDown(KeyCode.F))
                 AddUnit("Prefabs/Engineer");
+            if (Input.GetKeyDown(KeyCode.D))
+                AddUnit("Prefabs/Doctor");
+            if (Input.GetKeyDown(KeyCode.E))
+                AddUnit("Prefabs/AirUnit");
 
             //Выпускаем луч из мышки перпендикулярно плоскости игры
 
@@ -242,6 +248,18 @@ public class CommandController : MonoBehaviour
             if (KeyOnMenu["unitF"])
             {
                 AddUnit("Prefabs/Engineer");
+                k = 100;
+                AllButtonFalse();
+            }
+            if (KeyOnMenu["unitD"])
+            {
+                AddUnit("Prefabs/Doctor");
+                k = 100;
+                AllButtonFalse();
+            }
+            if (KeyOnMenu["unitE"])
+            {
+                AddUnit("Prefabs/AirUnit");
                 k = 100;
                 AllButtonFalse();
             }
