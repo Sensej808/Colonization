@@ -32,7 +32,7 @@ public class AllyMoving : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && !EventSystem.current.IsPointerOverGameObject())
             {
-                SetPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                //SetPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
             }
             if (isMoving)
@@ -46,8 +46,8 @@ public class AllyMoving : MonoBehaviour
 
         finalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         finalPos.z = 0;
-        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
-            if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+        //List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
+            //if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
             {
                 PathFinding.Instance.grid.GetXY(finalPos, out int x, out int y);
                 finalPos.x = x;
@@ -111,9 +111,10 @@ public class AllyMoving : MonoBehaviour
     //Отправить юнита в точку Pos
     public void MoveTo(Vector3 position)
     {
-        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
-        if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+        //List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
+        //if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
+            //Debug.Log("MoveTo");
             if (gameObject.layer != 7) //Если не летающий юнит
             {
                 path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
@@ -124,7 +125,10 @@ public class AllyMoving : MonoBehaviour
                 path = new List<Vector3>();
                 path.Add(position);
                 isMoving = true;
+                
             }
+            if (onMovingStart != null)
+                onMovingStart.Invoke();
         }
     }
 
@@ -146,8 +150,8 @@ public class AllyMoving : MonoBehaviour
             {
                 offset.y *= -1;
             }
-            Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset));
-            path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
+            Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset + ( PathFinding.Instance.grid.CellSize * offset)));
+            path = PathFinding.Instance.FindPath(Mypos, ResPos + offset + (PathFinding.Instance.grid.CellSize * offset));
             isMoving = true;
             if (path != null && path.Count > 0)
                 return path[path.Count - 1];
@@ -167,7 +171,9 @@ public class AllyMoving : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireCube(path[0], Vector3.one * PathFinding.Instance.grid.CellSize);
+        if (path != null && path.Count != 0)
+            Gizmos.DrawWireCube(path[path.Count - 1], Vector3.one * PathFinding.Instance.grid.CellSize);
     }
 }

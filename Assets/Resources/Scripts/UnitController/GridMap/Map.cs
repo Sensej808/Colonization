@@ -21,7 +21,7 @@ public Vector3 start { get; private set; }
 
     public Map(int W, int H, float cellSize, Vector3 startPos)
     {
-        debug = false;
+        debug = true;
         RIGHT_BORDER = startPos.x + W;
         LEFT_BORDER = startPos.x;
         UP_BORDER = startPos.y + H;
@@ -114,6 +114,11 @@ public Vector3 start { get; private set; }
     public Vector3 GetWorldPos(int x, int y)
     {
         return new Vector3(x + start.x + CellSize * 0.5F, y + start.y + CellSize * 0.5F, 0);
+    }
+
+    public Vector3 GetWorldPos(PathNode node)
+    {
+        return new Vector3(node.x + start.x + CellSize * 0.5F, node.y + start.y + CellSize * 0.5F, 0);
     }
 
     public void ChangeColor(int x, int y, Color c)

@@ -91,32 +91,68 @@ public class CommandController : MonoBehaviour
     //Даём команду двигаться к точке
     public void MoveUnits(List<GameObject> units, Vector3 pos)
     {
+        
         SortedList<double, int> units_dists_to_pos = new SortedList<double, int>();
         foreach(GameObject unit in units)//Создаём отсортированный по растоянию до конечной позиции список юнитов
         {
             double distance = Vector3.Distance(pos, unit.transform.position);
-            units_dists_to_pos.Add(distance, units_dists_to_pos.Count);
+            if (units_dists_to_pos.ContainsKey(distance))
+                units_dists_to_pos.Add(distance + 0.01f, units_dists_to_pos.Count);
+            else
+                units_dists_to_pos.Add(distance, units_dists_to_pos.Count);
         }
+        Debug.Log(units_dists_to_pos.Count);
         Queue<PathNode> poses = new Queue<PathNode>();
         PathFinding.Instance.grid.GetXY(pos, out int x, out int y);
         poses.Enqueue(PathFinding.Instance.grid.GetValue(x, y));
+
+        List<PathNode> aims = new List<PathNode>();
+
         foreach(var dist_and_num in units_dists_to_pos)
         {
+            
             while (true)
             {
             var p = poses.Dequeue();
             var neighs = PathFinding.Instance.OpenNeighbours(p);
             foreach (var n in neighs)
-                poses.Enqueue(n);
-            if (PathFinding.Instance.grid.GetValue(x, y).is_empty)
                 {
+                    if (n.is_walkable)
+                    {
+                        
+                        poses.Enqueue(n);
+
+                    }
+
+                }
+                Collider2D[] din_obs;
+                bool is_taken = false;
+                if (units[dist_and_num.Value].layer == 9) //Наземные юниты
+                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.tag == "Vision");
+                else
+                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize / 2, 0, LayerMask.GetMask("Air")).All((col) => col.tag == "Vision");
+            if (PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty && is_taken)
+                {
+                    
                     units[dist_and_num.Value].GetComponent<AllyMoving>().MoveTo(PathFinding.Instance.grid.GetWorldPos(p.x, p.y));
+                    aims.Add(p);
+                    p.is_empty = false;
                     break;
                 }
 
             }
-            
+        }
+        foreach (var node in aims)
+        {
+            node.is_empty = true;
+        }
+    }
 
+    public void MoveToObj(List<GameObject> units, GameObject aim)
+    {
+        foreach(var un in units)
+        {
+            un.GetComponent<AllyMoving>().MoveTo(aim);
         }
     }
     public void Start()
@@ -137,8 +173,8 @@ public class CommandController : MonoBehaviour
         List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null);
         foreach (var worker in group)
         {
-            worker.GetComponent<Mining>().source = source.GetComponent<SourseOfRecourses>();
-            worker.GetComponent<Mining>().enabled = true;
+            //worker.GetComponent<Mining>().source = source.GetComponent<SourseOfRecourses>();
+            //worker.GetComponent<Mining>().enabled = true;
         }
     }
 
@@ -165,23 +201,26 @@ public class CommandController : MonoBehaviour
 
             Ray r = new Ray(Input.mousePosition, Input.mousePosition + new Vector3(0, 0, 1));
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (Input.GetMouseButtonDown(1) && hit.collider != null)
+            if (Input.GetMouseButtonDown(1) &&  hit.collider != null && hit.collider.gameObject.tag != "Vision")
             {
+
                 var sourse = hit.collider.gameObject;
+                Debug.Log($"Move to {hit.collider.gameObject.name}");
+                MoveToObj(Storage.selectedUnits, sourse.gameObject);
                 //Если нажали ПКМ и луч попал в источник ресурсов при нажатии, отправляем рабочих добывать
-                if (sourse.GetComponent<SourseOfRecourses>() != null)
+                /*if (sourse.GetComponent<SourseOfRecourses>() != null)
                 {
-                    Debug.Log(hit.collider.gameObject.name);    
+                    Debug.Log(hit.collider.gameObject.name);
                     StartMining(sourse);
                     print(Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null).Count);
 
-                }
+                }*/
 
             }
             else if(Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0)
             {
+                Debug.Log("??");
                 MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                print("??");
             }
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши

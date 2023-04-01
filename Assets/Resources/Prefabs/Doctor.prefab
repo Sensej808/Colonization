@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 8322666748180299330}
   m_Layer: 0
   m_Name: AreaOfVisibility
-  m_TagString: Untagged
+  m_TagString: Vision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
