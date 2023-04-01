@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class Frame : MonoBehaviour
+public class Frame : Obstacle
 {
     public SelectionCheck Selection;
     public Health Health;
