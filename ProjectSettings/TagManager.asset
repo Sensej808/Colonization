@@ -8,6 +8,7 @@ TagManager:
   - IsFreePosition
   - IsNotFreePosition
   - Enemy
+  - Vision
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - fogtest
   - Air
   - Obstacles
-  - 
+  - GroundUnits
   - 
   - 
   - 

@@ -184,7 +184,7 @@ public class BaseAttack : MonoBehaviour
             isNormalMoving = true;
             var x = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             x.z = 0;
-            unit.Moving.MoveTo(x);
+            //unit.Moving.MoveTo(x);
         }
         if (unit.Selection.isSelected && Input.GetMouseButtonDown(0) && Input.GetKey("a"))
         {
