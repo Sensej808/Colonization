@@ -91,7 +91,6 @@ public class Healing : MonoBehaviour
         while (realCooldown >= -0.1f)
         {
             realCooldown -= Time.deltaTime;
-            print("77");
             yield return null;
         }
         timerRun = false;

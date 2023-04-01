@@ -12,6 +12,7 @@ public class OpenMenu : MonoBehaviour
     public CreateSelectionGrid grid;
     public GameObject reference;
     public static int lastpos;
+    public List<GameObject> listImageSelectedUnits;
     public void Start()
     {
         reference = transform.Find("Menu").Find("Reference").gameObject;
@@ -100,5 +101,35 @@ public class OpenMenu : MonoBehaviour
     {
         gameObject.transform.Find("Missions").Find(m.name).Find("Toggle").GetComponent<Toggle>().isOn = true;
         gameObject.transform.Find("Missions").Find(m.name).Find("Text").gameObject.GetComponent<Text>().color = new Color(132 / 255.0f, 129 / 255.0f, 129 / 255.0f);
+    }
+    public void DrawSelectedUnit(List<GameObject> l)
+    {
+        foreach (GameObject go in listImageSelectedUnits)
+            Destroy(go);
+        Vector2 firstPos = new Vector2(-190, 17);
+        int i = 0;
+        int k = 0;
+        foreach(GameObject go in l)
+        {
+            if (i > 29)
+                break;
+            if (k == 10)
+            {
+                firstPos.y -= 23;
+                firstPos.x = -190;
+                k = 0;
+            }
+            GameObject m = Instantiate(go.GetComponent<Health>().icon, transform.position, transform.rotation);
+            m.transform.SetParent(gameObject.transform.Find("PanelSelectedUnit"));
+            m.GetComponent<RectTransform>().anchoredPosition = firstPos;
+            m.GetComponent<RectTransform>().localScale = Vector2.one;
+            firstPos.x += 23;
+            listImageSelectedUnits.Add(m);
+            m.GetComponent<Icon>().health = go.GetComponent<Health>();
+            go.GetComponent<Health>().onGetDamage += m.GetComponent<Icon>().ChangeColor;
+            go.GetComponent<Health>().onGetHealth += m.GetComponent<Icon>().ChangeColor;
+            i++;
+            k++;
+        }
     }
 }

@@ -1,10 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-//TODO: Написать общий скрипт здоровья: Юнитов, зданий и объектов окружения c методами:
-//GetDamage(double damage)
-//GetHealth(double health)
 
 //Общий класс здоровья
 public class Health : MonoBehaviour
@@ -12,6 +11,9 @@ public class Health : MonoBehaviour
     public double CurrentHealth;
     public double HP = 100;
     public GameObject HpBar;
+    public GameObject icon;
+    public Action onGetDamage;
+    public Action onGetHealth;
 
     void Start()
     {
@@ -31,6 +33,8 @@ public class Health : MonoBehaviour
             CurrentHealth = 0;
         HpBar.GetComponent<Bar>().realValue = CurrentHealth;
         HpBar.GetComponent<Bar>().UpdateBar();
+        if(onGetDamage != null)
+            onGetDamage.Invoke();
     }
 
     public void GetHealth(double health)
@@ -41,11 +45,15 @@ public class Health : MonoBehaviour
             CurrentHealth = HP;
         HpBar.GetComponent<Bar>().realValue = CurrentHealth;
         HpBar.GetComponent<Bar>().UpdateBar();
+        if (onGetHealth != null)
+            onGetHealth.Invoke();
     }
     public void Death()
     {
         if (CurrentHealth <= 0)
+        {
             Destroy(gameObject);
+        }
     }
     public void Update()
     {

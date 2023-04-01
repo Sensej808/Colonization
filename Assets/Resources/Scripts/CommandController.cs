@@ -206,7 +206,7 @@ public class CommandController : MonoBehaviour
 
                 var sourse = hit.collider.gameObject;
                 Debug.Log($"Move to {hit.collider.gameObject.name}");
-                MoveToObj(Storage.selectedUnits, sourse.gameObject);
+                //MoveToObj(Storage.selectedUnits, sourse.gameObject);
                 //Если нажали ПКМ и луч попал в источник ресурсов при нажатии, отправляем рабочих добывать
                 /*if (sourse.GetComponent<SourseOfRecourses>() != null)
                 {

@@ -24,9 +24,6 @@ public class Storage : MonoBehaviour
         //selectedUnits.Clear();
         selectedUnits = ArrSelectComponent.ConvertAll(x => x.gameObject);
         //print(selectedUnits.Count);
-    }
-    public void Update()
-    {
-        GetSelectedUnits();
+        //GameObject.Find("Canvas").GetComponent<OpenMenu>().DrawSelectedUnit(selectedUnits);
     }
 }
