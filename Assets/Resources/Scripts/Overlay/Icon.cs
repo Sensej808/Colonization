@@ -27,5 +27,6 @@ public class Icon : MonoBehaviour
     public void OnDestroy()
     {
         health.onGetDamage -= ChangeColor;
+        health.onGetHealth -= ChangeColor;
     }
 }
