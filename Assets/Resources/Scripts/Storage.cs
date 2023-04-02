@@ -7,7 +7,8 @@ public class Storage : MonoBehaviour
     public static List<GameObject> selectedUnits;
     public static int amountResources;
     public static MaterialsText text;
-    public static Storage Instance { get; private set; }
+    //public static Storage Instance { get; private set; }
+    /*
     private void Awake()
     {
         if (Instance == null)
@@ -19,9 +20,12 @@ public class Storage : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+    */
     public void Start()
     {
         text = GameObject.Find("Canvas").transform.Find("Recourses").gameObject.GetComponent<MaterialsText>();
+        selectedUnits = new List<GameObject>();
+        amountResources = 0;
     }
     public static void GetSelectedUnits()
     {

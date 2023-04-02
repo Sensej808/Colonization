@@ -12,7 +12,8 @@ public class MaterialsText : MonoBehaviour
         //{
         //    TextUpdate();
         //};
-        TextUpdate();
+        GetComponent<TextMeshProUGUI>().text = "Металл: 0";
+        //TextUpdate();
     }
     public void TextUpdate()
     {
