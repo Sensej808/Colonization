@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
-  HP: 1000
+  HP: 500
   HpBar: {fileID: 0}
   icon: {fileID: 5621415186456220468, guid: be48e3925e4af7f4c978e0f4f373c899, type: 3}
 --- !u!114 &611424143717892030

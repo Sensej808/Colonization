@@ -212,7 +212,7 @@ MonoBehaviour:
   SizeY: 0
   Selection: {fileID: 0}
   Health: {fileID: 0}
-  time: 5
+  time: 30
   futureBuilding: {fileID: 8442009387088496294, guid: 33f3688d6d46dd542ab9bc5d10c7cd12, type: 3}
   TimeBar: {fileID: 0}
   price: 500

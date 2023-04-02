@@ -8,7 +8,7 @@ public class TankBullet : BaseBulletClass
     void Start()
     {
         speed = 10f;
-        damage = 100;
+        damage = 70;
         additionalDamage = damage/4*3;
     }
     new void Update()

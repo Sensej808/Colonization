@@ -214,6 +214,7 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 30
+  price: 0
 --- !u!114 &9210590795645531046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
-  HP: 1000
+  HP: 500
   HpBar: {fileID: 0}
   icon: {fileID: 0}
 --- !u!114 &7070498850038997952
