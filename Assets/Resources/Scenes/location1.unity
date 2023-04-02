@@ -1927,8 +1927,28 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CheatingWin
       objectReference: {fileID: 0}
+    - target: {fileID: 3742758197617674578, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742758197617674578, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3742758197649046246, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742758197813326068, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742758197813326068, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742758197813326068, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3742758197952069719, guid: 55bca6feac210eb4abdc410d92f8329f, type: 3}
