@@ -125,12 +125,11 @@ public class CommandController : MonoBehaviour
                     }
 
                 }
-                Collider2D[] din_obs;
                 bool is_taken = false;
                 if (units[dist_and_num.Value].layer == 9) //Наземные юниты
-                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.tag == "Vision");
+                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.isTrigger);
                 else
-                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize / 2, 0, LayerMask.GetMask("Air")).All((col) => col.tag == "Vision");
+                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("Air")).All((col) => col.isTrigger);
             if (PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty && is_taken)
                 {
                     
@@ -201,7 +200,7 @@ public class CommandController : MonoBehaviour
 
             Ray r = new Ray(Input.mousePosition, Input.mousePosition + new Vector3(0, 0, 1));
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (Input.GetMouseButtonDown(1) &&  hit.collider != null && hit.collider.gameObject.tag != "Vision")
+            if (Input.GetMouseButtonDown(1) &&  hit.collider != null && hit.collider.gameObject.tag != "Vision" && !hit.collider.isTrigger)
             {
 
                 var sourse = hit.collider.gameObject;
