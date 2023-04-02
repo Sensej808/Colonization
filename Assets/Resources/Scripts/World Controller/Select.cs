@@ -95,8 +95,8 @@ public class Select : MonoBehaviour
             go.GetComponent<SelectionCheck>().Demonstrate();
         }
         //GameObject.Find("Canvas").GetComponent<OpenMenu>().DrawSelectedUnit(Storage.selectedUnits);
-        //if (SelectedUnits.Count > 0)
-        //    Audio.instance.PlaySound(UnitSelected);
+        if (SelectedUnits.Count > 0)
+            Audio.instance.PlaySound(UnitSelected);
         Storage.GetSelectedUnits();
         GameObject.Find("Canvas").GetComponent<OpenMenu>().DrawSelectedUnit(Storage.selectedUnits);
     }
