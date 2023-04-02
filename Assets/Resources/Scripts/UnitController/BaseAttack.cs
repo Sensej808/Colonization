@@ -9,11 +9,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 //using static UnityEditor.PlayerSettings;
 
-
 //Базовый класс атаки юнитов
 public class BaseAttack : MonoBehaviour
 {
-
+    [SerializeReference]
+    List<GameObject> targets; //Потенциальные цели в зоне видимости
+    CircleCollider2D AttackRange;
     public BaseUnitClass unit;
     public float attackRange;
     public GameObject target;
@@ -30,6 +31,8 @@ public class BaseAttack : MonoBehaviour
     public bool timerRun;
     public bool isNormalMoving;
     public bool isCalled;
+
+    //Обычный таймер ставит timerRun = false по окончании
     private IEnumerator StartTimer()
     {
         while (realCooldown >= -0.1f)
@@ -45,13 +48,15 @@ public class BaseAttack : MonoBehaviour
         realCooldown = 0f;
         //GetTargetRange = 7.5f;
         isFocusAttack = false;
-        finalAttackPos = gameObject.transform.position;
+        finalAttackPos = gameObject.transform.position; //Точка, откуда ведется атака
         k = 50;
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(StartTimer());
         timerRun = true;
         isCalled = false;
     }
+
+    //Находит ближайшую цель в радиусе GetTargetRange, возвращает найденную цель
     public GameObject FindNearestTarget()
     {
         float min_dist = float.MaxValue;
@@ -71,6 +76,8 @@ public class BaseAttack : MonoBehaviour
         }
         return nearest_unit;
     }
+
+    //Возвращает потенциальную цель(target) по позиции мышки. Null, если целей нет. Что?
     public GameObject SetFocusTarget()
     {
         GameObject result = null;
@@ -84,6 +91,8 @@ public class BaseAttack : MonoBehaviour
         }
         return result;
     }
+
+    //Выстрел!
     public void CreateBullet()
     {
         if (target != null)
@@ -109,6 +118,51 @@ public class BaseAttack : MonoBehaviour
             }
         }
     }
+
+    //Передвигает юнита к цели, на растояние AttackRange
+    public void MoveToTarget()
+    {
+
+        Debug.Log("GoToBOrd");
+        Queue<PathNode> FinalPoses = new Queue<PathNode>();
+        PathFinding.Instance.grid.GetXY(target.transform.position - (target.transform.position - transform.position).normalized * (attackRange - PathFinding.Instance.grid.CellSize), out int x, out int y);
+        FinalPoses.Enqueue(PathFinding.Instance.grid.GetValue(x, y));
+
+        List<PathNode> aims = new List<PathNode>();
+
+        while (FinalPoses.Count != 0)
+        {
+            var p = FinalPoses.Dequeue();
+            var neighs = PathFinding.Instance.OpenNeighbours(p);
+            foreach (var n in neighs)
+            {
+                if (n.is_walkable && (PathFinding.Instance.grid.GetWorldPos(n) - target.transform.position).magnitude < attackRange - PathFinding.Instance.grid.CellSize)
+                {
+                    FinalPoses.Enqueue(n);
+
+                }
+
+            }
+            bool is_taken = false;
+            if (unit.gameObject.layer == 9) //Наземные юниты
+                is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.isTrigger);
+            else
+                is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("Air")).All((col) => col.isTrigger);
+            if (PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty && is_taken)
+            {
+                unit.GetComponent<AllyMoving>().MoveTo(PathFinding.Instance.grid.GetWorldPos(p.x, p.y));
+                aims.Add(p);
+                p.is_empty = false;
+                break;
+            }
+        }
+        foreach (var node in aims)
+        {
+            node.is_empty = true;
+        }
+    }
+
+    //Поведение при атаке
     public void GoAttackAndAttack()
     {
         if ((gameObject.transform.position - target.transform.position).magnitude >= attackRange)
@@ -122,7 +176,7 @@ public class BaseAttack : MonoBehaviour
                     else
                     {
                         //unit.Moving.MoveTo(target);
-                        unit.Moving.MoveTo(target.transform.position - new Vector3(3, 3, 0));
+                        //unit.Moving.MoveTo(target.transform.position - new Vector3(3, 3, 0));
                     }
                 }
                 //else
@@ -132,10 +186,14 @@ public class BaseAttack : MonoBehaviour
         else
             CreateBullet();
     }
+
+    //Это что?
     public void DoIsMoving()
     {
         isNormalMoving = false;
     }
+
+    //Позвать союзных юнитов в радиусе GetTargetRange на помощь
     public void CallToHelp()
     {
         Collider2D[] hitColiders = Physics2D.OverlapCircleAll(gameObject.transform.position, GetTargetRange);
@@ -156,28 +214,49 @@ public class BaseAttack : MonoBehaviour
     }
     private void Update()
     {
-        if (target != null)
+        if(target == null && targets.Count != 0 && !unit.Moving.isMoving)
+        {
+            target = targets.First();
+           
+        }
+       if(target != null)
+       {
+            if (!isCalled && gameObject.tag == "Enemy")
+            {
+                CallToHelp();
+                isCalled = true;
+            }
+            if (!unit.Moving.isMoving)
+            {
+                Debug.Log($"{(target.transform.position - transform.position).magnitude} - {attackRange - PathFinding.Instance.grid.CellSize}");
+                if ((target.transform.position - transform.position).magnitude > attackRange - PathFinding.Instance.grid.CellSize)
+                    MoveToTarget();
+                else
+                    CreateBullet();
+
+            }
+
+       }
+
+        /*if (target != null)
         {
             if ((target.transform.position - gameObject.transform.position).magnitude > attackRange && ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive)))
             {
-                target = FindNearestTarget();
+                //target = FindNearestTarget();
             }
         }
         else
         {
             if ((!unit.gameObject.GetComponent<Build>() && isNormalMoving == false && unit.state == StateUnit.Normal && isFocusAttack == false) || (unit.state == StateUnit.Aggressive))
             {
-                target = FindNearestTarget();
+                //target = FindNearestTarget();
             }
         }
         if (target != null)
         {
+            
             GoAttackAndAttack();
-            if (!isCalled && gameObject.tag == "Enemy")
-            {
-                CallToHelp();
-                isCalled = true;
-            }
+           
         }
         if (Input.GetMouseButtonDown(1) && unit.Selection.isSelected && unit.state != StateUnit.BuildStruct)
         {
@@ -210,11 +289,25 @@ public class BaseAttack : MonoBehaviour
         {
             isFocusAttack = false;
             isCalled = false;
-        }
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-    
+        if(collision.tag != gameObject.tag && !collision.isTrigger && collision.gameObject.GetComponent<SourseOfRecourses>() == null)
+        {
+            targets.Add(collision.gameObject);            
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag != gameObject.tag && !collision.isTrigger && collision.gameObject.GetComponent<SourseOfRecourses>() == null)
+        {
+            targets.Remove(collision.gameObject);
+            if (target == collision.gameObject) //Если текущая цель вышла из зоны видимости
+                target = null;
+
+        }
     }
 }

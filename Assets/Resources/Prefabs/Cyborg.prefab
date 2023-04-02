@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 18228176593557696}
   - component: {fileID: 18228176593557699}
   - component: {fileID: 18228176593557698}
-  - component: {fileID: 18228176593557725}
   - component: {fileID: 18228176593557697}
   - component: {fileID: 5315789506990841817}
   - component: {fileID: 453157537331571034}
   - component: {fileID: 5089913842765768806}
   - component: {fileID: 611424143717892030}
   - component: {fileID: 2406671787921683309}
+  - component: {fileID: 1987221256971823980}
   m_Layer: 9
   m_Name: Cyborg
   m_TagString: Allied
@@ -92,32 +92,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 2, y: 7}
-  m_EdgeRadius: 0
---- !u!61 &18228176593557725
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18228176593557727}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.65, y: 14.1}
   m_EdgeRadius: 0
 --- !u!114 &18228176593557697
 MonoBehaviour:
@@ -197,8 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d7da93c23a7d0448a3c4e3b094b5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targets: []
   unit: {fileID: 0}
-  attackRange: 0
+  attackRange: 10
   target: {fileID: 0}
   bullet: {fileID: 0}
   cooldown: 0
@@ -308,6 +283,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &1987221256971823980
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18228176593557727}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 50
 --- !u!1 &18228177971621672
 GameObject:
   m_ObjectHideFlags: 0
