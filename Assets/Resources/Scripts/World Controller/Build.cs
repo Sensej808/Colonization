@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 //using static UnityEditor.ObjectChangeEventStream;
 //using static UnityEditor.PlayerSettings;
@@ -103,17 +104,29 @@ public class Build : MonoBehaviour
     //устанавливаем значение зданию, которое будем строить, и координаты, где будем строить
     public void SetStructPos(GameObject myBuilding, Vector3 myPos)
     {
-        building = myBuilding;
-        pos = myPos;
+        if (myBuilding.GetComponent<Frame>().price <= Storage.amountResources)
+        {
+            Storage.TakeResources(myBuilding.GetComponent<Frame>().price);
+            building = myBuilding;
+            pos = myPos;
+        }
     }
     //прекращаем строительство
     public void StopBuild()
     {
+        if (buildingUnderConstruction != null)
+        {
+            if (buildingUnderConstruction.GetComponent<Frame>().time > 0)
+            {
+                Storage.AddResources(buildingUnderConstruction.GetComponent<Frame>().price);
+            }
+            Destroy(buildingUnderConstruction);
+        }
+        else if (building != null)
+            Storage.AddResources(building.GetComponent<Frame>().price);
         unit.Moving.isMoving = false;
         building = null;
         unit.state = StateUnit.Normal;
-        if (buildingUnderConstruction != null)
-            Destroy(buildingUnderConstruction);
     }
     public void Start()
     {

@@ -8,15 +8,17 @@ public class MaterialsText : MonoBehaviour
 {
     private void Start()
     {
-        RecourceManager.OnRecourcesChanged += TextUpdate;
-        {
-            TextUpdate();
-        };
+        //RecourceManager.OnRecourcesChanged += TextUpdate;
+        //{
+        //    TextUpdate();
+        //};
+        GetComponent<TextMeshProUGUI>().text = "Металл: 0";
+        //TextUpdate();
     }
     public void TextUpdate()
     {
         Debug.Log("TextChanged");
 
-        GetComponent<TextMeshProUGUI>().text = "Металл: " + RecourceManager.Instance.GetMetal();
+        GetComponent<TextMeshProUGUI>().text = "Металл: " + Storage.GetResources();
     }
 }

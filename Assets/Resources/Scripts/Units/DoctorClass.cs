@@ -15,7 +15,7 @@ public class DoctorClass : BaseUnitClass
         Attack.GetTargetRange = 0f;
         healing = gameObject.AddComponent<Healing>();
         healing.prefabHealingBeam = Resources.Load<GameObject>("Prefabs/HealingBeam");
-        healing.treatment = 2;
+        healing.treatment = 6;
         healing.cooldown = 0.06f;
     }
 }

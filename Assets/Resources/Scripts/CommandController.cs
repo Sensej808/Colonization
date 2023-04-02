@@ -130,6 +130,7 @@ public class CommandController : MonoBehaviour
                     is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.isTrigger);
                 else
                     is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("Air")).All((col) => col.isTrigger);
+
             if (PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty && is_taken)
                 {
                     

@@ -560,9 +560,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
-  HP: 1000
+  HP: 300
   HpBar: {fileID: 0}
-  icon: {fileID: 4685139925270652856, guid: fd14814256247d34f9492ad7c5caac2d, type: 3}
+  icon: {fileID: 3209955365715723399, guid: b688a1b50d17d364194dbc147bb00aac, type: 3}
 --- !u!114 &8322666748373329554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,7 +603,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d5abeb8d8b32dac4ebb073b9e1c7e6fa, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -705,6 +705,7 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 30
+  price: 150
   healing: {fileID: 0}
 --- !u!58 &3776310549046602983
 CircleCollider2D:

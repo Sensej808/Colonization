@@ -111,6 +111,7 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 20
+  price: 50
 --- !u!114 &5315789506990841817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,9 +156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealth: 0
-  HP: 1000
+  HP: 500
   HpBar: {fileID: 0}
-  icon: {fileID: 4685139925270652856, guid: fd14814256247d34f9492ad7c5caac2d, type: 3}
+  icon: {fileID: 5621415186456220468, guid: be48e3925e4af7f4c978e0f4f373c899, type: 3}
 --- !u!114 &611424143717892030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d5abeb8d8b32dac4ebb073b9e1c7e6fa, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
