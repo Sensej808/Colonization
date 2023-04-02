@@ -24,6 +24,7 @@ public class BaseUnitClass : MonoBehaviour
     public BaseAttack Attack;
     public StateUnit state;
     public float ProductionTime;
+    public int price;
     public virtual void Start()
     {
         Moving = gameObject.GetComponent<AllyMoving>();

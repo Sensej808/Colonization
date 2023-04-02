@@ -956,3 +956,4 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 30
+  price: 100

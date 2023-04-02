@@ -391,6 +391,7 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 0
+  price: 300
 --- !u!1 &3513676124884593965
 GameObject:
   m_ObjectHideFlags: 0

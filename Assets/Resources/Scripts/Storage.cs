@@ -5,6 +5,8 @@ using UnityEngine;
 public class Storage : MonoBehaviour
 {
     public static List<GameObject> selectedUnits;
+    public static int amountResources;
+    public static MaterialsText text;
     public static Storage Instance { get; private set; }
     private void Awake()
     {
@@ -17,6 +19,10 @@ public class Storage : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+    public void Start()
+    {
+        text = GameObject.Find("Canvas").transform.Find("Recourses").gameObject.GetComponent<MaterialsText>();
+    }
     public static void GetSelectedUnits()
     {
         List<SelectionCheck> ArrSelectComponent = new List<SelectionCheck>(GameObject.FindObjectsOfType<SelectionCheck>());
@@ -25,5 +31,20 @@ public class Storage : MonoBehaviour
         selectedUnits = ArrSelectComponent.ConvertAll(x => x.gameObject);
         //print(selectedUnits.Count);
         //GameObject.Find("Canvas").GetComponent<OpenMenu>().DrawSelectedUnit(selectedUnits);
+    }
+    public static void AddResources(int amount)
+    {
+        amountResources += amount;
+        //print(amountResources);
+        text.TextUpdate();
+    }
+    public static int GetResources()
+    {
+        return amountResources;
+    }
+    public static void TakeResources(int amount)
+    {
+        amountResources -= amount;
+        text.TextUpdate();
     }
 }

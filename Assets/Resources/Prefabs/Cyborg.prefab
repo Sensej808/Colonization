@@ -137,6 +137,7 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 20
+  price: 50
 --- !u!114 &5315789506990841817
 MonoBehaviour:
   m_ObjectHideFlags: 0

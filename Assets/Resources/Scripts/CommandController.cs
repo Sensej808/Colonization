@@ -128,9 +128,9 @@ public class CommandController : MonoBehaviour
                 Collider2D[] din_obs;
                 bool is_taken = false;
                 if (units[dist_and_num.Value].layer == 9) //Наземные юниты
-                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.tag == "Vision");
+                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.isTrigger);
                 else
-                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize / 2, 0, LayerMask.GetMask("Air")).All((col) => col.tag == "Vision");
+                    is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize / 2, 0, LayerMask.GetMask("Air")).All((col) => col.isTrigger);
             if (PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty && is_taken)
                 {
                     

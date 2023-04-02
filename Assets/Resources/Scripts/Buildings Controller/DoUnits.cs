@@ -38,16 +38,20 @@ public class DoUnits : MonoBehaviour
         TimeBar.GetComponent<Bar>().realValue = 0;
         TimeBar.GetComponent<Bar>().bar.GetComponent<Renderer>().material.color = Color.blue;
         TimeBar.GetComponent<Bar>().UpdateBar();
-    }
+        }
         public void AddUnit(GameObject unit)
         {
-            queueUnits.Enqueue(unit);
-            Audio.instance.PlaySound(structOrder);
-            if (!timerRun)
+            if (unit.GetComponent<BaseUnitClass>().price <= Storage.amountResources)
             {
-                time = 0;
-                StartCoroutine(StartTimer());
-                timerRun = true;
+                Storage.TakeResources(unit.GetComponent<BaseUnitClass>().price);
+                queueUnits.Enqueue(unit);
+                Audio.instance.PlaySound(structOrder);
+                if (!timerRun)
+                {
+                    time = 0;
+                    StartCoroutine(StartTimer());
+                    timerRun = true;
+                }
             }
             //print("юнит заказан");
         }
@@ -75,4 +79,13 @@ public class DoUnits : MonoBehaviour
         {
             CreateUnit();
         }
+    public void OnDestroy()
+    {
+        //if (unit != null)
+        //    Storage.AddResources(unit.GetComponent<BaseUnitClass>().price);
+        foreach(var x in queueUnits)
+        {
+            Storage.AddResources(x.GetComponent<BaseUnitClass>().price);
+        }
+    }
 }

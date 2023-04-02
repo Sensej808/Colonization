@@ -10,6 +10,7 @@ public class Frame : Obstacle
     public float time;
     public GameObject futureBuilding;
     public GameObject TimeBar;
+    public int price;
     private IEnumerator StartTimer()
     {
         while (true)

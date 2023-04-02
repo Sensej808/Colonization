@@ -584,6 +584,7 @@ MonoBehaviour:
   Attack: {fileID: 0}
   state: 0
   ProductionTime: 20
+  price: 50
   Builder: {fileID: 0}
 --- !u!114 &8481907938815561630
 MonoBehaviour:
