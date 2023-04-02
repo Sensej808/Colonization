@@ -260,6 +260,7 @@ MonoBehaviour:
   CurrentHealth: 0
   HP: 1000
   HpBar: {fileID: 0}
+  icon: {fileID: 0}
 --- !u!114 &7070498850038997952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +300,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d5abeb8d8b32dac4ebb073b9e1c7e6fa, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
