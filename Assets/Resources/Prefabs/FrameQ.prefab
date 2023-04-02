@@ -215,7 +215,7 @@ MonoBehaviour:
   time: 30
   futureBuilding: {fileID: 8442009387088496294, guid: 33f3688d6d46dd542ab9bc5d10c7cd12, type: 3}
   TimeBar: {fileID: 0}
-  price: 500
+  price: 400
 --- !u!1 &1793472331298589889
 GameObject:
   m_ObjectHideFlags: 0
