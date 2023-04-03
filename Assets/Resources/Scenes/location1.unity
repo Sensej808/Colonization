@@ -6322,6 +6322,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cyborg (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 611424143717892030, guid: a1d2c6b666b1c5144bcaa9a8d61931b3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315789506990841817, guid: a1d2c6b666b1c5144bcaa9a8d61931b3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1d2c6b666b1c5144bcaa9a8d61931b3, type: 3}
 --- !u!1001 &1693195233

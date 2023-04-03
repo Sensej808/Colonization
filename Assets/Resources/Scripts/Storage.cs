@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
+    
     public static List<GameObject> selectedUnits;
+    public static List<GameObject> AllStructions = new List<GameObject>();
     public static int amountResources;
     public static MaterialsText text;
     //public static Storage Instance { get; private set; }

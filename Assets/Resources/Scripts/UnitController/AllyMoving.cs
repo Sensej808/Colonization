@@ -135,28 +135,32 @@ public class AllyMoving : MonoBehaviour
     //Отправить юнита к объекту
     public Vector3 MoveTo(GameObject obj)
     {
-            Vector3 Mypos = GetComponent<Transform>().position;
-            Vector3 ResPos = obj.GetComponent<Transform>().position;
-            Vector3 diff = Mypos - ResPos;
-            Vector3 offset = (obj.GetComponent<BoxCollider2D>().bounds.extents);
+         Vector3 Mypos = GetComponent<Transform>().position;
+         Vector3 ResPos = obj.GetComponent<Transform>().position;
+         Vector3 diff = Mypos - ResPos;
+         Vector3 offset = new Vector3(0,0,0);
             //TODO: сделать нормальный подход к объектам
-            offset.x = 0;
-            if (diff.x < 0)
-            {
-                offset.x *= -1;
+        
+        if(Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
+        {
+            offset.x += obj.transform.localScale.x * Mathf.Sign(diff.x) ;
+        }
+        else
+        {
+            offset.y += obj.transform.localScale.y * Mathf.Sign(diff.y);
+        }
 
-            }
-            else if (diff.y < 0)
-            {
-                offset.y *= -1;
-            }
-            Debug.Log($"Moving to " + obj.name + " Coords: " + (ResPos + offset + ( PathFinding.Instance.grid.CellSize * offset)));
-            path = PathFinding.Instance.FindPath(Mypos, ResPos + offset + (PathFinding.Instance.grid.CellSize * offset));
-            isMoving = true;
-            if (path != null && path.Count > 0)
+        Debug.Log($"offset - {offset}");
+        Debug.Log($"Moving to " + obj.name + $" Coords: {ResPos + offset}");
+        
+        path = PathFinding.Instance.FindPath(Mypos, ResPos + offset);
+        isMoving = true;
+        if (path != null && path.Count > 0)
                 return path[path.Count - 1];
             else
                 return transform.position;
+
+           return Vector3.zero;
     }
 
     //Закончить идти

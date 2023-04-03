@@ -19,6 +19,7 @@ public class BaseStructClass : Obstacle
         Selection = gameObject.GetComponent<SelectionCheck>();
         Health = gameObject.GetComponent<Health>();
         Create = gameObject.GetComponent<DoUnits>();
+        Storage.AllStructions.Add(gameObject);
 
         //Debug.Log($"pf = null: {PathFinding.Instance == null}");
         TakePlase();
@@ -41,6 +42,7 @@ public class BaseStructClass : Obstacle
                 PathFinding.Instance.grid.GetValue(x + i, y + j).SetWalkable(true);
             }
         }
+        Storage.AllStructions.Remove(gameObject);
     }
    
 }

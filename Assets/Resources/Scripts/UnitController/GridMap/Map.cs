@@ -21,7 +21,7 @@ public Vector3 start { get; private set; }
 
     public Map(int W, int H, float cellSize, Vector3 startPos)
     {
-        debug = false;
+        debug = true;
         RIGHT_BORDER = startPos.x + W;
         LEFT_BORDER = startPos.x;
         UP_BORDER = startPos.y + H;

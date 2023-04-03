@@ -171,10 +171,48 @@ public class CommandController : MonoBehaviour
     public void StartMining(GameObject source)
     {
         List<GameObject> group = Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null);
+        //Debug.Log($"units - {Storage.selectedUnits.Count}");
+
+        BaseStructClass storage = Storage.AllStructions.First().GetComponent<BaseStructClass>();
+        double dist = Mathf.Infinity;
+        foreach(var bs in Storage.AllStructions){
+            if(Vector3.Distance(bs.transform.position, source.transform.position) < dist)
+            {
+                dist = Vector3.Distance(bs.transform.position, source.transform.position);
+                storage = bs.GetComponent<BaseStructClass>();
+            }
+        }
+
         foreach (var worker in group)
         {
-            //worker.GetComponent<Mining>().source = source.GetComponent<SourseOfRecourses>();
-            //worker.GetComponent<Mining>().enabled = true;
+            //Debug.Log("Here");
+            Vector3 ResPos = source.GetComponent<Transform>().position;
+            Vector3 diff = worker.transform.position - ResPos;
+            Vector3 offset = new Vector3(0, 0, 0);
+            //TODO: сделать нормальный подход к объектам
+
+            if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
+            {
+                offset.x += 1 * Mathf.Sign(diff.x);
+            }
+            else
+            {
+                offset.y += 1 * Mathf.Sign(diff.y);
+            }
+
+            Debug.Log($"offset - {offset}");
+            Debug.Log($"Moving to " + source.name + $" Coords: {ResPos + offset}");
+            worker.GetComponent<AllyMoving>().MoveTo(ResPos + offset);
+            worker.GetComponent<Mining>().source = source.GetComponent<SourseOfRecourses>();
+            worker.GetComponent<Mining>().storage = storage;
+            if (worker.GetComponent<Mining>().storage != null)
+            {
+                worker.GetComponent<Mining>().enabled = true;
+
+            }
+
+
+            
         }
     }
 
@@ -200,27 +238,44 @@ public class CommandController : MonoBehaviour
             //Выпускаем луч из мышки перпендикулярно плоскости игры
 
             Ray r = new Ray(Input.mousePosition, Input.mousePosition + new Vector3(0, 0, 1));
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (Input.GetMouseButtonDown(1) &&  hit.collider != null && hit.collider.gameObject.tag != "Vision" && !hit.collider.isTrigger)
+            RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            //Debug.Log(hits.Length);
+            var Lhits = hits.ToList();
+            int i = 0;
+            foreach (var hit in Lhits)
             {
-
-                var sourse = hit.collider.gameObject;
-                Debug.Log($"Move to {hit.collider.gameObject.name}");
-                //MoveToObj(Storage.selectedUnits, sourse.gameObject);
-                //Если нажали ПКМ и луч попал в источник ресурсов при нажатии, отправляем рабочих добывать
-                /*if (sourse.GetComponent<SourseOfRecourses>() != null)
+                if (Input.GetMouseButtonDown(1))
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                    StartMining(sourse);
-                    print(Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null).Count);
 
-                }*/
+                    Debug.Log(hit.collider != null);
+                    Debug.Log(!hit.collider.isTrigger);
+                    Debug.Log($"AAA {hit.collider.gameObject.name == "Metal_sourse"}");
 
-            }
-            else if(Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0)
-            {
-                Debug.Log("??");
-                MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
+
+                if (Input.GetMouseButtonDown(1) && Lhits.Find((hit) => (hit.collider.gameObject.GetComponent<SourseOfRecourses>() != null)) == true)
+                {
+
+                    //var sourse = hit.collider.gameObject;
+                    //Debug.Log($"Move to {Lhits.Find((hit) => (hit.collider.gameObject.GetComponent<SourseOfRecourses>() != null)).collider.gameObject.name}");
+                    //Debug.Log($"Move to {Lhits.Find((hit) => (hit.collider.gameObject.GetComponent<SourseOfRecourses>() != null)).collider.gameObject.transform.position}");
+
+                    StartMining(Lhits.Find((hit) => (hit.collider.gameObject.GetComponent<SourseOfRecourses>() != null)).collider.gameObject);
+                    break;
+                    //MoveToObj(Storage.selectedUnits, sourse.gameObject);
+                    //Если нажали ПКМ и луч попал в источник ресурсов при нажатии, отправляем рабочих добывать
+                    /*if (sourse.GetComponent<SourseOfRecourses>() != null)
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+                        print(Storage.selectedUnits.FindAll(x => x.GetComponent<Mining>() != null).Count);
+
+                    }*/
+                }
+                else if(Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0)
+                {
+                    Debug.Log("??");
+                    MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
             }
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши

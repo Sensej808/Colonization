@@ -21,6 +21,11 @@ public class Mining : MonoBehaviour
 
     }
 
+    private void OnDisable()
+    {
+        RecoursesInInventory = 0;
+    }
+
     // Update is called once per frame
     public void Update()
     {
@@ -87,7 +92,7 @@ public class Mining : MonoBehaviour
     private void BringRes()
     {
         miningState = MiningState.IDLE;
-        RecourceManager.Instance.AddMetal(RecoursesInInventory);
+        Storage.AddResources(RecoursesInInventory);
         RecoursesInInventory = 0;
     }
 }
