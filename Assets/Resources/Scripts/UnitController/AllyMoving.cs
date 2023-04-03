@@ -111,8 +111,8 @@ public class AllyMoving : MonoBehaviour
     //Отправить юнита в точку Pos
     public void MoveTo(Vector3 position)
     {
-        //List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
-        //if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
+        List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
+        if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
             //Debug.Log("MoveTo");
             if (gameObject.layer != 7) //Если не летающий юнит

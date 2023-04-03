@@ -12,7 +12,6 @@ public class Icon : MonoBehaviour
     }
     public void ChangeColor()
     {
-        print("цвет изменён");
         if (health.CurrentHealth > health.HP / 4 * 3)
             gameObject.GetComponent<Image>().color = Color.green;
         else if (health.CurrentHealth < health.HP /4*3 && health.CurrentHealth > health.HP /4  * 2)

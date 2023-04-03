@@ -14,6 +14,6 @@ public class CyborgClass : BaseUnitClass
         Attack.cooldown = 0.3f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
         ProductionTime = 8f;
-        Attack.GetTargetRange = 4.5f;
+        Attack.GetTargetRange = 7.5f/2f;
     }
 }

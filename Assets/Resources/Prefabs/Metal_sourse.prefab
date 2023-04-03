@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 1
   SizeY: 1
-  RecoursesInBeginning: 100
+  RecoursesInBeginning: 1000
   RecourseRemain: 0
   IsActive: 1
 --- !u!50 &-4156439837738736858

@@ -11,13 +11,13 @@ public class OpenMenu : MonoBehaviour
 {
     public CreateSelectionGrid grid;
     public GameObject reference;
-    public static int lastpos;
+    public int lastpos;
     public List<GameObject> listImageSelectedUnits;
     public void Start()
     {
         reference = transform.Find("Menu").Find("Reference").gameObject;
         Time.timeScale = 1;
-        lastpos = 8;
+        //lastpos = 0;
     }
     public void Update()
     {
@@ -95,7 +95,8 @@ public class OpenMenu : MonoBehaviour
             m.transform.Find("Text").gameObject.GetComponent<Text>().text += "(" + mis.FailedText + ")";
         }
         m.name = mis.name;
-        lastpos = lastpos-20;
+        print(lastpos - (int)m.transform.Find("Text").GetComponent<RectTransform>().rect.height);
+        lastpos -=(int)m.transform.Find("Text").GetComponent<RectTransform>().rect.height;
     }
     public void CompleteMission(Mission m)
     {

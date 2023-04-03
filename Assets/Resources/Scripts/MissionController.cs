@@ -15,6 +15,7 @@ public class MissionController : MonoBehaviour
         missionList = new List<Mission>();
         Win = GameObject.Find("WInLoseController").GetComponent<WinScript>();
         missionMenu = GameObject.Find("Canvas").GetComponent<OpenMenu>();
+        missionMenu.lastpos = 8;
         string scenename = SceneManager.GetActiveScene().name;
         print(SceneManager.GetActiveScene().name);
         switch (scenename)
