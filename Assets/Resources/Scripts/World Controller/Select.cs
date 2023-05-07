@@ -99,6 +99,7 @@ public class Select : MonoBehaviour
             Audio.instance.PlaySound(UnitSelected);
         Storage.GetSelectedUnits();
         GameObject.Find("Canvas").GetComponent<OpenMenu>().DrawSelectedUnit(Storage.selectedUnits);
+
     }
 
     
