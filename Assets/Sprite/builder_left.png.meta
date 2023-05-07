@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprite/cristall_main.png.meta
+guid: 337bb907a5e912c4d85aa9cb6d1415bc
+========
 guid: 123ce7879437c0744abc00e70551dc9d
+>>>>>>>> 1baddb94e89efc9844e9bb43c1c9c98a91f01e7f:Assets/Sprite/builder_left.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

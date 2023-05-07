@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprite/iron.png.meta
+guid: 7e174cc8b926c9b4883cab3b05656e18
+========
 guid: 675173102c658814c89a46d2f07f4e26
+>>>>>>>> 1baddb94e89efc9844e9bb43c1c9c98a91f01e7f:Assets/Sprite/builder_right.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

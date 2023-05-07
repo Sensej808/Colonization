@@ -18,9 +18,10 @@ public class AllyMoving : MonoBehaviour
     public  Action onMovingEnd; //Событие окончания пути
     public Action onMovingStart; //Событие окончания пути
     AudioSource audioSource;
+    Animator animator;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
         unit = gameObject.GetComponent<BaseUnitClass>();
         audioSource = GetComponent<AudioSource>();
         if (gameObject.GetComponent<BaseAttack>() != null)
@@ -79,6 +80,9 @@ public class AllyMoving : MonoBehaviour
         }
         
         transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
+        var dest = transform.position - path[0];
+        animator.SetFloat("X",dest.x);
+        animator.SetFloat("Y",dest.y);
         //Debug.Log(CheckNextCell());
         if (transform.position == path[0])
             path.Remove(path[0]);
@@ -131,12 +135,11 @@ public class AllyMoving : MonoBehaviour
                 path = new List<Vector3>();
                 path.Add(position);
                 isMoving = true;
-                
+                animator.SetBool("isMoving", true);
                 
             }
             PathFinding.Instance.grid.GetValue(gameObject.transform.position).is_empty = true;
             PathFinding.Instance.grid.GetValue(position).is_empty = false;
-            Debug.Log($"Get cell: " + PathFinding.Instance.grid.GetValue(position).is_empty);
             if (onMovingStart != null)
             {
                 onMovingStart.Invoke();
@@ -180,7 +183,8 @@ public class AllyMoving : MonoBehaviour
         //MoveTo(GetComponent<Transform>().position);
         isMoving = false;
         path = null;
-        if(onMovingEnd != null)
+        animator.SetBool("isMoving", false);
+        if (onMovingEnd != null)
             onMovingEnd.Invoke();
     }
 
