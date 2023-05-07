@@ -126,11 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30954fd898c9094ea7122704dd2f511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SizeX: 2
+  SizeY: 2
   Selection: {fileID: 0}
   Health: {fileID: 0}
   Create: {fileID: 0}
-  SizeX: 2
-  SizeY: 2
+  structOrder: {fileID: 0}
 --- !u!114 &3974573924460873245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 0
   HP: 100
+  HpBar: {fileID: 0}
+  icon: {fileID: 0}
 --- !u!114 &1647728849279963904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,9 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca51deed05182f64aabe36c366745589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realTimeSpawning: 0
+  time: 0
   myStruct: {fileID: 0}
   unit: {fileID: 0}
+  structOrder: {fileID: 0}
+  timerRun: 0
+  TimeBar: {fileID: 0}
 --- !u!1 &2091302957822976777
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,8 @@ public class Health : MonoBehaviour
         HpBar.GetComponent<Bar>().maxValue = HP;
         HpBar.GetComponent<Bar>().realValue = CurrentHealth;
         HpBar.GetComponent<Bar>().bar.GetComponent<Renderer>().material.color = Color.green;
+        HpBar.GetComponent<Bar>().constColor = false;
+        HpBar.transform.localScale = new Vector3(HpBar.transform.localScale.x*0.7f, HpBar.transform.localScale.y*0.6f, HpBar.transform.localScale.z);
     }
 
     public void GetDamage(double damage)

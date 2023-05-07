@@ -5338,6 +5338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   reference: {fileID: 0}
+  lastpos: 0
   listImageSelectedUnits: []
 --- !u!1 &3742758198710034131
 GameObject:
