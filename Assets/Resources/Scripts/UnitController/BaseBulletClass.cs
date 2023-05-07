@@ -10,6 +10,7 @@ public class BaseBulletClass : MonoBehaviour
     public double damage;
     void Start()
     {
+        
     }
     public virtual void Update()
     {
@@ -37,6 +38,8 @@ public class BaseBulletClass : MonoBehaviour
             }
         }
         if (target == null)
+        {
             Destroy(gameObject);
+        }
     }
 }
