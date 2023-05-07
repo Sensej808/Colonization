@@ -12,13 +12,13 @@ public class MaterialsText : MonoBehaviour
         //{
         //    TextUpdate();
         //};
-        GetComponent<TextMeshProUGUI>().text = "Металл: 0";
+        GetComponent<TextMeshProUGUI>().text = "0";
         //TextUpdate();
     }
     public void TextUpdate()
     {
         Debug.Log("TextChanged");
 
-        GetComponent<TextMeshProUGUI>().text = "Металл: " + Storage.GetResources();
+        GetComponent<TextMeshProUGUI>().text = "" + Storage.GetResources();
     }
 }
