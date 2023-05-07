@@ -5628,6 +5628,9 @@ MonoBehaviour:
   reference: {fileID: 0}
   lastpos: 0
   listImageSelectedUnits: []
+  SelectedBuilding: {fileID: 0}
+  LastOrderedUnit: 0
+  listorderedUnit: []
 --- !u!1 &3742758198710034131
 GameObject:
   m_ObjectHideFlags: 0
@@ -6802,7 +6805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35.7, y: -139}
+  m_AnchoredPosition: {x: 35.7, y: -122}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5715810930754560395
