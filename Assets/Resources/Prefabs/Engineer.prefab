@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 4107971769025043652}
   - component: {fileID: 5361658471906820635}
   - component: {fileID: 2861959083928202617}
+  - component: {fileID: 3524189667449772258}
   m_Layer: 9
   m_Name: Engineer
   m_TagString: Allied
@@ -750,3 +751,23 @@ MonoBehaviour:
   StartMining: 0
   EndMining: 0
   MiningPos: {x: 0, y: 0, z: 0}
+--- !u!95 &3524189667449772258
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215668904106289117}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0658a148f45c5484783fdddf065c2170, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -1,19 +1,7 @@
 fileFormatVersion: 2
-guid: 240abe0198932d147b2284b4f1bd1622
+guid: 675173102c658814c89a46d2f07f4e26
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -507272024330551847
-    second: FFIcons_0
-  - first:
-      213: -5873380414209502262
-    second: FFIcons_1
-  - first:
-      213: 5749111110603926230
-    second: FFIcons_2
-  - first:
-      213: 8265331818110956994
-    second: FFIcons_3
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -45,12 +33,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -59,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,22 +63,10 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -102,7 +78,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -129,85 +105,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FFIcons_0
+      name: builder_right_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
+        x: 2
+        y: 14
+        width: 15
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ddb84118cec5f8f0800000000000000
-      internalID: -507272024330551847
+      spriteID: ccae9538c29ecd949806de9f4d8f4fd4
+      internalID: -1505449807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FFIcons_1
+      name: builder_right_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
+        x: 19
+        y: 14
+        width: 23
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac35e4cb1af8d7ea0800000000000000
-      internalID: -5873380414209502262
+      spriteID: a8677a9b2bcd67c4f9aae491813ebf90
+      internalID: -47008453
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FFIcons_2
+      name: builder_right_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
+        x: 45
+        y: 14
+        width: 15
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6da6cc15812f8cf40800000000000000
-      internalID: 5749111110603926230
+      spriteID: 3bba8506d067b4747b1a4798ce8e38eb
+      internalID: 710920525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FFIcons_3
+      name: builder_right_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
+        x: 62
+        y: 14
+        width: 21
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c5bc393f7b54b270800000000000000
-      internalID: 8265331818110956994
+      spriteID: c93f2beca1b0fe148bda9c6e80d57876
+      internalID: 1407923462
       vertices: []
       indices: 
       edges: []
@@ -223,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FFIcons_0: -507272024330551847
-      FFIcons_2: 5749111110603926230
-      FFIcons_3: 8265331818110956994
-      FFIcons_1: -5873380414209502262
+      builder_right_2: 710920525
+      builder_right_1: -47008453
+      builder_right_3: 1407923462
+      builder_right_0: -1505449807
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
