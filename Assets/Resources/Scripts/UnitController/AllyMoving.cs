@@ -81,9 +81,27 @@ public class AllyMoving : MonoBehaviour
         
         transform.position = Vector3.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
         var dest = transform.position - path[0];
-        animator.SetFloat("X",dest.x);
-        animator.SetFloat("Y",dest.y);
-        //Debug.Log(CheckNextCell());
+        if (animator != null)
+        {
+            if(dest.x > 0)
+            {
+                animator.SetFloat("X", -1);
+
+            }
+            else if(dest.x < 0)
+            {
+                animator.SetFloat("X", 1);
+            }
+            else if (dest.y > 0)
+            {
+                animator.SetFloat("Y", -1);
+            }
+            else if (dest.y < 0)
+            {
+                animator.SetFloat("Y", 1);
+            }
+        }
+            //Debug.Log(CheckNextCell());
         if (transform.position == path[0])
             path.Remove(path[0]);
         if (!audioSource.isPlaying)
@@ -135,8 +153,11 @@ public class AllyMoving : MonoBehaviour
                 path = new List<Vector3>();
                 path.Add(position);
                 isMoving = true;
-                animator.SetBool("isMoving", true);
                 
+            }
+            if (animator != null)
+            {
+                animator.SetBool("is_moving", true);
             }
             PathFinding.Instance.grid.GetValue(gameObject.transform.position).is_empty = true;
             PathFinding.Instance.grid.GetValue(position).is_empty = false;
@@ -183,7 +204,12 @@ public class AllyMoving : MonoBehaviour
         //MoveTo(GetComponent<Transform>().position);
         isMoving = false;
         path = null;
-        animator.SetBool("isMoving", false);
+        if (animator != null)
+        {
+            animator.SetBool("is_moving", false);
+            animator.SetFloat("X", 0);
+            animator.SetFloat("Y", 0);
+        }
         if (onMovingEnd != null)
             onMovingEnd.Invoke();
     }
