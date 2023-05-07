@@ -12,6 +12,6 @@ public class BaseEnemyClass : BaseUnitClass
         Attack.cooldown = 0.3f;
         Attack.bulletPattern = Resources.Load<GameObject>("Prefabs/Circle");
         ProductionTime = 100f;
-        Attack.GetTargetRange = 4.5f;
+        Attack.GetTargetRange = 6f;
     }
 }
