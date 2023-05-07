@@ -68,6 +68,7 @@ public class Select : MonoBehaviour
     }
     private void OnDestroy()
     {
+        GameObject.Find("Canvas").GetComponent<OpenMenu>().CloseOrderedUnitPanel();
         Collider2D[] gos = Physics2D.OverlapBoxAll(transform.position, new Vector3(0.001f, 0.001f, 0.001f), 0);
         foreach (Collider2D go in gos)
         {
@@ -99,7 +100,15 @@ public class Select : MonoBehaviour
             Audio.instance.PlaySound(UnitSelected);
         Storage.GetSelectedUnits();
         GameObject.Find("Canvas").GetComponent<OpenMenu>().DrawSelectedUnit(Storage.selectedUnits);
-
+        if (Storage.selectedUnits.Count == 1)
+        {
+            if (Storage.selectedUnits[0].GetComponent<DoUnits>())
+                GameObject.Find("Canvas").GetComponent<OpenMenu>().OpenOrderedUnitPanel();
+            else
+                GameObject.Find("Canvas").GetComponent<OpenMenu>().CloseOrderedUnitPanel();
+        }
+        else
+            GameObject.Find("Canvas").GetComponent<OpenMenu>().CloseOrderedUnitPanel();
     }
 
     

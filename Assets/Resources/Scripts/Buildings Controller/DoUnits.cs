@@ -45,6 +45,11 @@ public class DoUnits : MonoBehaviour
             {
                 Storage.TakeResources(unit.GetComponent<BaseUnitClass>().price);
                 queueUnits.Enqueue(unit);
+                if (Storage.selectedUnits.Count == 1)
+                {
+                    if (Storage.selectedUnits[0] == gameObject)
+                        GameObject.Find("Canvas").GetComponent<OpenMenu>().AddUnit(unit);
+                }
                 Audio.instance.PlaySound(structOrder);
                 if (!timerRun)
                 {
@@ -72,7 +77,12 @@ public class DoUnits : MonoBehaviour
                     Instantiate(unit, gameObject.transform.Find("SpawnUnits").position, transform.rotation);
                     unit = null;
                     queueUnits.Dequeue();
-                }
+                    if (Storage.selectedUnits.Count == 1)
+                    {
+                        if (Storage.selectedUnits[0] == gameObject)
+                            GameObject.Find("Canvas").GetComponent<OpenMenu>().RemoveUnit();
+                    }
+            }
             }
         }
         public void Update()
@@ -87,5 +97,6 @@ public class DoUnits : MonoBehaviour
         {
             Storage.AddResources(x.GetComponent<BaseUnitClass>().price);
         }
+        GameObject.Find("Canvas").GetComponent<OpenMenu>().CloseOrderedUnitPanel();
     }
 }
