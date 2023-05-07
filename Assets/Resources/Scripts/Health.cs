@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
     public GameObject icon;
     public Action onGetDamage;
     public Action onGetHealth;
+    public Image OrderIcon;
 
     void Start()
     {

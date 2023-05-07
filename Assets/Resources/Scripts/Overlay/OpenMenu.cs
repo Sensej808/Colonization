@@ -13,6 +13,9 @@ public class OpenMenu : MonoBehaviour
     public GameObject reference;
     public int lastpos;
     public List<GameObject> listImageSelectedUnits;
+    public GameObject SelectedBuilding;
+    public int LastOrderedUnit;
+    public List<GameObject> listorderedUnit;
     public void Start()
     {
         reference = transform.Find("Menu").Find("Reference").gameObject;
@@ -132,5 +135,36 @@ public class OpenMenu : MonoBehaviour
             i++;
             k++;
         }
+    }
+    public void OpenOrderedUnitPanel()
+    {
+        gameObject.transform.Find("PanelOrderedUnits").gameObject.SetActive(true);
+        SelectedBuilding = Storage.selectedUnits[0];
+        LastOrderedUnit = 0;
+        foreach(var x in SelectedBuilding.GetComponent<DoUnits>().queueUnits)
+            AddUnit(x);
+    }
+    public void CloseOrderedUnitPanel()
+    {
+        foreach (var x in listorderedUnit)
+            Destroy(x);
+        listorderedUnit.Clear();
+        gameObject.transform.Find("PanelOrderedUnits").gameObject.SetActive(false);
+        SelectedBuilding = null;
+        LastOrderedUnit = 0;
+    }
+    public void AddUnit(GameObject unit)
+    {
+        LastOrderedUnit++;
+        GameObject x = Instantiate(unit.GetComponent<Health>().OrderIcon, transform.Find("PanelOrderedUnits").Find(LastOrderedUnit.ToString())).gameObject;
+        listorderedUnit.Add(x);
+    }   
+    public void RemoveUnit()
+    {
+        LastOrderedUnit = 0;
+        foreach (var x in listorderedUnit)
+            Destroy(x);
+        foreach (var x in SelectedBuilding.GetComponent<DoUnits>().queueUnits)
+            AddUnit(x);
     }
 }

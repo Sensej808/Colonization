@@ -730,6 +730,7 @@ MonoBehaviour:
   HP: 500
   HpBar: {fileID: 0}
   icon: {fileID: 8286212848280283202, guid: 3f947c41ed43f704c8eb356a891b3bc0, type: 3}
+  OrderIcon: {fileID: 3557250973426820316, guid: e6458431955c19641ac1f709f759d1e2, type: 3}
 --- !u!114 &8232590608814454378
 MonoBehaviour:
   m_ObjectHideFlags: 0

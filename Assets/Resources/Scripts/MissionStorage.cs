@@ -53,6 +53,6 @@ public class MissionStorage : MonoBehaviour
     public static Mission Mission3 = new Mission(false, false, "Уничтожьте главное здание врага(красный квадратик)", "", null, null, "Mission3");
     public static Mission Mission4 = new Mission(false, false, "Уничтожьте все здания на базе противника", "Это надо сделать до 4 минуты", AddMission5, null, "Mission4");
     public static Mission Mission5 = new Mission(false, false, "Уничтожьте все здания на базе противника", "Это надо сделать до 8 минуты", StartAttack, null, "Mission5");
-    public static Mission Mission6 = new Mission(false, false, "Защитите своё главное здание на базе до 12 минуты(фиолетовое)", "", null, null, "Mission6");
+    public static Mission Mission6 = new Mission(false, false, "Защитите своё главное здание на базе до 12 минуты(золотое)", "", null, null, "Mission6");
 
 }

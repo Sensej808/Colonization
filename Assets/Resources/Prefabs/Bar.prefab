@@ -133,6 +133,7 @@ MonoBehaviour:
   realValue: 0
   bar: {fileID: 1496973907303335723}
   background: {fileID: 6069477787774901032}
+  constColor: 1
 --- !u!1 &6069477787774901032
 GameObject:
   m_ObjectHideFlags: 0
