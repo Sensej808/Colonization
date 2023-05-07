@@ -38,6 +38,7 @@ public class Health : MonoBehaviour
         HpBar.GetComponent<Bar>().UpdateBar();
         if(onGetDamage != null)
             onGetDamage.Invoke();
+        Instantiate(Resources.Load<GameObject>("Prefabs/BOOM"), transform.position, transform.rotation);
     }
 
     public void GetHealth(double health)

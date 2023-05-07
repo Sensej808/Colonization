@@ -102,6 +102,7 @@ public class BaseAttack : MonoBehaviour
                 if (realCooldown <= 0f)
                 {
                     bullet = Instantiate(bulletPattern, transform.position, transform.rotation);
+                    //Instantiate(Resources.Load<GameObject>("Prefabs/BOOM2"), transform.position+new Vector3(0.1f, 0.1f, 0), transform.rotation);
                     realCooldown = cooldown;
                     BaseBulletClass bbc = bullet.GetComponent<BaseBulletClass>();
                     bbc.target = target;
