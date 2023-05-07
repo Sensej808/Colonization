@@ -41,7 +41,7 @@ public class DoUnits : MonoBehaviour
         }
         public void AddUnit(GameObject unit)
         {
-            if (unit.GetComponent<BaseUnitClass>().price <= Storage.amountResources)
+            if (unit.GetComponent<BaseUnitClass>().price <= Storage.amountResources && queueUnits.Count <= 4)
             {
                 Storage.TakeResources(unit.GetComponent<BaseUnitClass>().price);
                 queueUnits.Enqueue(unit);
