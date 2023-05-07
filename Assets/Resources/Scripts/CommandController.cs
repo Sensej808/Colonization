@@ -100,7 +100,7 @@ public class CommandController : MonoBehaviour
             {
                 double distance = Vector3.Distance(pos, unit.transform.position);
                 if (units_dists_to_pos.ContainsKey(distance))
-                    units_dists_to_pos.Add(distance + 0.01f, units_dists_to_pos.Count);
+                    units_dists_to_pos.Add(distance + Random.Range(0,0.01f), units_dists_to_pos.Count);
                 else
                     units_dists_to_pos.Add(distance, units_dists_to_pos.Count);
             }

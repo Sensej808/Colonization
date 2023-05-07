@@ -110,6 +110,7 @@ public class BaseAttack : MonoBehaviour
                     //Debug.Log($"Played sound: {shoot}, {shoot.loadState}");
                 }
                 unit.Moving.isMoving = false;
+
                 if (unit.Moving.animator != null)
                 {
 
