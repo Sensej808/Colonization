@@ -18,7 +18,7 @@ public class AllyMoving : MonoBehaviour
     public  Action onMovingEnd; //Событие окончания пути
     public Action onMovingStart; //Событие окончания пути
     AudioSource audioSource;
-    Animator animator;
+    public Animator animator;
     void Start()
     {
         animator = GetComponent<Animator>();

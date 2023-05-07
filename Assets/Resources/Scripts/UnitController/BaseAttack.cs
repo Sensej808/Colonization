@@ -110,6 +110,14 @@ public class BaseAttack : MonoBehaviour
                     //Debug.Log($"Played sound: {shoot}, {shoot.loadState}");
                 }
                 unit.Moving.isMoving = false;
+                if (unit.Moving.animator != null)
+                {
+
+                    unit.Moving.animator.SetFloat("X", 0);
+                    unit.Moving.animator.SetBool("is_moving", false);
+                    unit.Moving.animator.SetFloat("Y", 0);
+
+                }
             }
         }
     }
@@ -207,7 +215,11 @@ public class BaseAttack : MonoBehaviour
                 isFocusAttack = true;
         }
         if (finalAttackPos != gameObject.transform.position && unit.state == StateUnit.Aggressive && target == null && !unit.Moving.isMoving)
-            unit.Moving.MoveTo(finalAttackPos);
+        {  
+            var temp = new List<GameObject>();
+            temp.Add(gameObject);
+            GameObject.Find("UnitCommandController").GetComponent<CommandController>().MoveUnits(temp, finalAttackPos);
+        }
         if (target == null && (transform.position - finalAttackPos).magnitude <= 1f)
             unit.state = StateUnit.Normal;
         if (target == null)

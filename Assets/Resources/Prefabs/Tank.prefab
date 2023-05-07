@@ -250,6 +250,7 @@ MonoBehaviour:
   HP: 1000
   HpBar: {fileID: 0}
   icon: {fileID: 4685139925270652856, guid: fd14814256247d34f9492ad7c5caac2d, type: 3}
+  OrderIcon: {fileID: 0}
 --- !u!114 &3513676124770731726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +749,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6002a23ae3b749148a546629c9eba8e6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 413d33709f4e1904ea247dc3f9112248, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
