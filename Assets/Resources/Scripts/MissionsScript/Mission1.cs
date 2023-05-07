@@ -8,6 +8,7 @@ public class Mission1 : MonoBehaviour
     {
         if (collision.gameObject.tag == "Allied")
         {
+            MissionController.missionList.Find(x => x.name == "Mission1").isFailed = false;
             if (GameObject.FindObjectsOfType<Build>().Length > 0)
                 MissionController.missionList.Find(x => x.name == "Mission1").isCompleted = true;
             else
