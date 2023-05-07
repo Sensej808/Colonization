@@ -111,24 +111,36 @@ public class AllyMoving : MonoBehaviour
     //Отправить юнита в точку Pos
     public void MoveTo(Vector3 position)
     {
+
         List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(finalPos, 0.01f));
         if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
             //Debug.Log("MoveTo");
             if (gameObject.layer != 7) //Если не летающий юнит
             {
+                if (path != null && path.Count > 0)
+                {
+                    PathFinding.Instance.grid.GetValue(path[path.Count - 1]).is_empty = true; 
+                }
                 path = PathFinding.Instance.FindPath(GetComponent<Transform>().position, position);
                 isMoving = true;
             }
             else
             {
+
                 path = new List<Vector3>();
                 path.Add(position);
                 isMoving = true;
                 
+                
             }
+            PathFinding.Instance.grid.GetValue(gameObject.transform.position).is_empty = true;
+            PathFinding.Instance.grid.GetValue(position).is_empty = false;
+            Debug.Log($"Get cell: " + PathFinding.Instance.grid.GetValue(position).is_empty);
             if (onMovingStart != null)
+            {
                 onMovingStart.Invoke();
+            }
         }
     }
 
@@ -159,13 +171,12 @@ public class AllyMoving : MonoBehaviour
                 return path[path.Count - 1];
             else
                 return transform.position;
-
-           return Vector3.zero;
     }
 
     //Закончить идти
     public void StopMoving()
     {
+        
         //MoveTo(GetComponent<Transform>().position);
         isMoving = false;
         path = null;
@@ -179,5 +190,13 @@ public class AllyMoving : MonoBehaviour
         Gizmos.color = Color.red;
         if (path != null && path.Count != 0)
             Gizmos.DrawWireCube(path[path.Count - 1], Vector3.one * PathFinding.Instance.grid.CellSize);
+    }
+
+    private void OnDestroy()
+    {
+        if (path != null && path.Count > 0)
+        {
+            PathFinding.Instance.grid.GetValue(path[path.Count - 1]).is_empty = true;
+        }
     }
 }

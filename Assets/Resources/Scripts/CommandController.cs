@@ -91,6 +91,7 @@ public class CommandController : MonoBehaviour
     //Даём команду двигаться к точке
     public void MoveUnits(List<GameObject> units, Vector3 pos)
     {
+        Debug.Log(units.Count);
         List<Collider2D> gos = new List<Collider2D>(Physics2D.OverlapCircleAll(pos, 0.01f));
         if (null == gos.FindAll(x => x.gameObject.GetComponent<Rigidbody2D>() != null).Find(x => x.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static))
         {
@@ -103,7 +104,6 @@ public class CommandController : MonoBehaviour
                 else
                     units_dists_to_pos.Add(distance, units_dists_to_pos.Count);
             }
-            Debug.Log(units_dists_to_pos.Count);
             Queue<PathNode> poses = new Queue<PathNode>();
             PathFinding.Instance.grid.GetXY(pos, out int x, out int y);
             poses.Enqueue(PathFinding.Instance.grid.GetValue(x, y));
@@ -112,7 +112,6 @@ public class CommandController : MonoBehaviour
 
             foreach (var dist_and_num in units_dists_to_pos)
             {
-
                 while (true)
                 {
                     var p = poses.Dequeue();
@@ -129,27 +128,27 @@ public class CommandController : MonoBehaviour
                     }
                     bool is_taken = false;
                     if (units[dist_and_num.Value].layer == 9) //Наземные юниты
-                        is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.isTrigger);
+                        is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), 
+                            Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("GroundUnits")).All((col) => col.isTrigger);
                     else
-                        is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("Air")).All((col) => col.isTrigger);
-
+                        is_taken = Physics2D.OverlapBoxAll(PathFinding.Instance.grid.GetWorldPos(p), 
+                            Vector2.one * p.grid.CellSize, 0, LayerMask.GetMask("Air")).All((col) => col.isTrigger);
+                    Debug.Log($"position - {p.x} {p.y}: " + PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty + $" and is_taken: {is_taken}");
                     if (PathFinding.Instance.grid.GetValue(p.x, p.y).is_empty && is_taken)
                     {
 
                         units[dist_and_num.Value].GetComponent<AllyMoving>().MoveTo(PathFinding.Instance.grid.GetWorldPos(p.x, p.y));
                         aims.Add(p);
-                        p.is_empty = false;
+                        //p.is_empty = false;
                         break;
                     }
 
                 }
             }
-            foreach (var node in aims)
-            {
-                node.is_empty = true;
-            }
+            
         }
     }
+
     public void MoveToObj(List<GameObject> units, GameObject aim)
     {
         foreach(var un in units)
@@ -243,17 +242,9 @@ public class CommandController : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             //Debug.Log(hits.Length);
             var Lhits = hits.ToList();
-            int i = 0;
             foreach (var hit in Lhits)
             {
-                if (Input.GetMouseButtonDown(1))
-                {
-
-                    Debug.Log(hit.collider != null);
-                    Debug.Log(!hit.collider.isTrigger);
-                    Debug.Log($"AAA {hit.collider.gameObject.name == "Metal_sourse"}");
-
-                }
+               
 
                 if (Input.GetMouseButtonDown(1) && Lhits.Find((hit) => (hit.collider.gameObject.GetComponent<SourseOfRecourses>() != null)) == true)
                 {
@@ -275,14 +266,14 @@ public class CommandController : MonoBehaviour
                 }
                 else if(Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0)
                 {
-                    Debug.Log("??");
                     MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    break;
                 }
             }
-            if (Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0 && Lhits.Count == 0)
-            {
-                    MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            }
+            //if (Input.GetMouseButtonDown(1) && Storage.selectedUnits.Count != 0 && Lhits.Count == 0)
+            //{
+            //        MoveUnits(Storage.selectedUnits, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            //}
         }
         //если нажата кнопка в интрерфейсе, то выполняем команды по клику мыши
         if (clickInterface)

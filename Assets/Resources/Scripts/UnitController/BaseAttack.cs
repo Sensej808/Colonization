@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 //using static UnityEditor.PlayerSettings;
@@ -30,6 +31,8 @@ public class BaseAttack : MonoBehaviour
     public bool timerRun;
     public bool isNormalMoving;
     public bool isCalled;
+
+    List<GameObject> Targets;
     private IEnumerator StartTimer()
     {
         while (realCooldown >= -0.1f)
@@ -213,4 +216,19 @@ public class BaseAttack : MonoBehaviour
         }
     }
 
+    //void OnTriggerExit2D(Collider2D col)
+    //{
+    //    if (Targets.Contains(col.gameObject))
+    //    {
+    //        Targets.Remove(col.gameObject);
+    //    }
+    //}
+
+    //void OnTriggerEnter2D(Collider2D col)
+    //{
+    //    if(col.tag == "Enemy")
+    //    {
+    //        Targets.Add(col.gameObject);
+    //    }
+    //}
 }
