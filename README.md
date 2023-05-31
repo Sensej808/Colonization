@@ -6,5 +6,10 @@
 + text in green
 ! text in orange
 # text in gray
+$ text
+% text
+^ text
+& text
+* text
 @@ text in purple (and bold)@@
 ```
