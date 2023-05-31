@@ -8,3 +8,11 @@
 	<font color="red" size="4">Красный шрифт большего размера</font>
 </body>
 </html>
+<html>
+<body>
+	<p style="color:#0000FF">Синий цвет текста</p>
+	
+	<div style="color:#00FF00">Зеленый цвет текста</div>
+	
+</body>
+</html>
