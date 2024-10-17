@@ -34,7 +34,12 @@
 
 ---
 
-### 🎨 **Концепт-арт**
+### 🎨 **Скрины**
+![image](https://github.com/user-attachments/assets/0d4e6089-63ec-4e01-9672-87e82251dc16)
+![image](https://github.com/user-attachments/assets/4e86a5c7-fac2-497a-9820-531a83867e38)
+![image](https://github.com/user-attachments/assets/30f8dea2-efd6-4987-92c2-2a54bc94bdc0)
+![image](https://github.com/user-attachments/assets/560ab63c-72b7-40d2-999d-cf1dab05f1bb)
+![image](https://github.com/user-attachments/assets/e4e05449-39bf-463b-94ad-1980bb2a3678)
 
 
 ---
